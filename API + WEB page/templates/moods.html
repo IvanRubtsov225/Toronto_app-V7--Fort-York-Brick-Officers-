@@ -1,0 +1,465 @@
+{% extends "base.html" %}
+
+{% block title %}Explore by Mood - Toronto Hidden Gems{% endblock %}
+
+{% block content %}
+<!-- Hero Section -->
+<section class="hero">
+    <div class="container">
+        <div class="hero-content">
+            <h1 class="hero-title">💝 Find Your Vibe</h1>
+            <p class="hero-subtitle">Discover Toronto's hidden gems that match your mood and style</p>
+        </div>
+    </div>
+</section>
+
+<!-- Mood Categories Grid -->
+<section class="py-5">
+    <div class="container">
+        <h2 class="mb-4 fw-bold text-center">
+            <i class="bi bi-palette"></i> Choose Your Mood
+        </h2>
+        
+        <div class="row g-4">
+            <!-- Romantic -->
+            <div class="col-lg-3 col-md-6">
+                <div class="mood-category-card" data-mood="romantic">
+                    <div class="mood-icon">
+                        <i class="bi bi-heart-fill"></i>
+                    </div>
+                    <h4>Romantic</h4>
+                    <p>Perfect for date nights and special occasions</p>
+                    <div class="mood-count">{{ mood_gems.romantic|length }} places</div>
+                    <button class="btn btn-light w-100" onclick="showMoodGems('romantic')">
+                        Explore Romantic Spots
+                    </button>
+                </div>
+            </div>
+            
+            <!-- Foodie -->
+            <div class="col-lg-3 col-md-6">
+                <div class="mood-category-card" data-mood="foodie">
+                    <div class="mood-icon">
+                        <i class="bi bi-cup-hot"></i>
+                    </div>
+                    <h4>Foodie</h4>
+                    <p>Culinary adventures and gourmet experiences</p>
+                    <div class="mood-count">{{ mood_gems.foodie|length }} places</div>
+                    <button class="btn btn-light w-100" onclick="showMoodGems('foodie')">
+                        Discover Food Gems
+                    </button>
+                </div>
+            </div>
+            
+            <!-- Budget-Friendly -->
+            <div class="col-lg-3 col-md-6">
+                <div class="mood-category-card" data-mood="budget">
+                    <div class="mood-icon">
+                        <i class="bi bi-piggy-bank"></i>
+                    </div>
+                    <h4>Budget-Friendly</h4>
+                    <p>Great value and affordable dining options</p>
+                    <div class="mood-count">{{ mood_gems.budget|length }} places</div>
+                    <button class="btn btn-light w-100" onclick="showMoodGems('budget')">
+                        Find Budget Gems
+                    </button>
+                </div>
+            </div>
+            
+            <!-- Nightlife -->
+            <div class="col-lg-3 col-md-6">
+                <div class="mood-category-card" data-mood="nightlife">
+                    <div class="mood-icon">
+                        <i class="bi bi-moon-stars"></i>
+                    </div>
+                    <h4>Nightlife</h4>
+                    <p>After-hours fun and evening entertainment</p>
+                    <div class="mood-count">{{ mood_gems.nightlife|length }} places</div>
+                    <button class="btn btn-light w-100" onclick="showMoodGems('nightlife')">
+                        Explore Nightlife
+                    </button>
+                </div>
+            </div>
+            
+            <!-- Family -->
+            <div class="col-lg-3 col-md-6">
+                <div class="mood-category-card" data-mood="family">
+                    <div class="mood-icon">
+                        <i class="bi bi-people"></i>
+                    </div>
+                    <h4>Family-Friendly</h4>
+                    <p>Perfect spots for families with kids</p>
+                    <div class="mood-count">{{ mood_gems.family|length }} places</div>
+                    <button class="btn btn-light w-100" onclick="showMoodGems('family')">
+                        Find Family Spots
+                    </button>
+                </div>
+            </div>
+            
+            <!-- Cultural -->
+            <div class="col-lg-3 col-md-6">
+                <div class="mood-category-card" data-mood="cultural">
+                    <div class="mood-icon">
+                        <i class="bi bi-building"></i>
+                    </div>
+                    <h4>Cultural</h4>
+                    <p>Authentic and traditional experiences</p>
+                    <div class="mood-count">{{ mood_gems.cultural|length }} places</div>
+                    <button class="btn btn-light w-100" onclick="showMoodGems('cultural')">
+                        Explore Culture
+                    </button>
+                </div>
+            </div>
+            
+            <!-- Relaxing -->
+            <div class="col-lg-3 col-md-6">
+                <div class="mood-category-card" data-mood="relaxing">
+                    <div class="mood-icon">
+                        <i class="bi bi-sun"></i>
+                    </div>
+                    <h4>Relaxing</h4>
+                    <p>Chill and peaceful environments</p>
+                    <div class="mood-count">{{ mood_gems.relaxing|length }} places</div>
+                    <button class="btn btn-light w-100" onclick="showMoodGems('relaxing')">
+                        Find Chill Spots
+                    </button>
+                </div>
+            </div>
+            
+            <!-- Adventure -->
+            <div class="col-lg-3 col-md-6">
+                <div class="mood-category-card" data-mood="adventure">
+                    <div class="mood-icon">
+                        <i class="bi bi-compass"></i>
+                    </div>
+                    <h4>Adventure</h4>
+                    <p>Unique and off-the-beaten-path discoveries</p>
+                    <div class="mood-count">{{ mood_gems.adventure|length }} places</div>
+                    <button class="btn btn-light w-100" onclick="showMoodGems('adventure')">
+                        Start Adventure
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- Mood-Specific Gems Display -->
+{% for mood, gems in mood_gems.items() %}
+{% if gems %}
+<section class="py-5 mood-gems-section d-none" id="mood-{{ mood }}">
+    <div class="container">
+        <div class="text-center mb-5">
+            <h2 class="fw-bold">
+                {% if mood == 'romantic' %}
+                    <i class="bi bi-heart-fill text-danger"></i> Romantic Spots
+                {% elif mood == 'foodie' %}
+                    <i class="bi bi-cup-hot text-warning"></i> Foodie Paradise
+                {% elif mood == 'budget' %}
+                    <i class="bi bi-piggy-bank text-success"></i> Budget-Friendly
+                {% elif mood == 'nightlife' %}
+                    <i class="bi bi-moon-stars text-info"></i> Nightlife Scene
+                {% elif mood == 'family' %}
+                    <i class="bi bi-people text-primary"></i> Family-Friendly
+                {% elif mood == 'cultural' %}
+                    <i class="bi bi-building text-secondary"></i> Cultural Experiences
+                {% elif mood == 'relaxing' %}
+                    <i class="bi bi-sun text-warning"></i> Relaxing Vibes
+                {% elif mood == 'adventure' %}
+                    <i class="bi bi-compass text-info"></i> Adventure Awaits
+                {% endif %}
+            </h2>
+            <p class="lead">{{ gems|length }} amazing places to explore</p>
+        </div>
+        
+        <div class="row g-4">
+            {% for gem in gems %}
+            <div class="col-lg-4 col-md-6">
+                <div class="card gem-card h-100">
+                    <div class="card-body">
+                        <div class="d-flex justify-content-between align-items-start mb-3">
+                            <h5 class="card-title fw-bold text-primary mb-0">{{ gem.name }}</h5>
+                            <span class="gem-score">{{ "%.1f"|format(gem.hidden_gem_score) }}</span>
+                        </div>
+                        
+                        <p class="text-muted mb-2">
+                            <i class="bi bi-geo-alt"></i> {{ gem.address }}
+                        </p>
+                        
+                        <div class="mb-3">
+                            <span class="gem-type">{{ gem.type }}</span>
+                        </div>
+                        
+                        {% if gem.mood_tags %}
+                        <div class="mb-3">
+                            {% for tag in gem.mood_tags.split(', ') %}
+                            <span class="mood-tag">{{ tag }}</span>
+                            {% endfor %}
+                        </div>
+                        {% endif %}
+                        
+                        <div class="row text-center">
+                            <div class="col-4">
+                                <small class="text-muted d-block">DineSafe</small>
+                                <strong class="text-success">{{ "%.0f"|format(gem.dinesafe_score) }}%</strong>
+                            </div>
+                            <div class="col-4">
+                                <small class="text-muted d-block">Mentions</small>
+                                <strong class="text-info">{{ gem.mention_count }}</strong>
+                            </div>
+                            <div class="col-4">
+                                <small class="text-muted d-block">Sentiment</small>
+                                <strong class="text-warning">{{ "%.2f"|format(gem.avg_sentiment) }}</strong>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            {% endfor %}
+        </div>
+        
+        <div class="text-center mt-5">
+            <button class="btn btn-outline-secondary" onclick="hideAllMoodGems()">
+                <i class="bi bi-arrow-left"></i> Back to Moods
+            </button>
+            <a href="/gems" class="btn btn-primary ms-3">
+                <i class="bi bi-gem"></i> Explore All Gems
+            </a>
+        </div>
+    </div>
+</section>
+{% endif %}
+{% endfor %}
+
+<!-- Popular Mood Combinations -->
+<section class="py-5 bg-light">
+    <div class="container">
+        <h2 class="mb-4 fw-bold text-center">
+            <i class="bi bi-stars"></i> Popular Mood Combinations
+        </h2>
+        
+        <div class="row g-4">
+            <div class="col-md-6">
+                <div class="card">
+                    <div class="card-body text-center">
+                        <div class="mb-3">
+                            <i class="bi bi-heart-fill text-danger" style="font-size: 2rem;"></i>
+                            <i class="bi bi-cup-hot text-warning mx-2" style="font-size: 2rem;"></i>
+                        </div>
+                        <h5>Romantic + Foodie</h5>
+                        <p class="text-muted">Perfect date night spots with exceptional cuisine</p>
+                        <button class="btn btn-outline-primary" onclick="showCombinedMood(['romantic', 'foodie'])">
+                            Find Perfect Date Spots
+                        </button>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="col-md-6">
+                <div class="card">
+                    <div class="card-body text-center">
+                        <div class="mb-3">
+                            <i class="bi bi-people text-primary" style="font-size: 2rem;"></i>
+                            <i class="bi bi-piggy-bank text-success mx-2" style="font-size: 2rem;"></i>
+                        </div>
+                        <h5>Family + Budget</h5>
+                        <p class="text-muted">Family-friendly places that won't break the bank</p>
+                        <button class="btn btn-outline-primary" onclick="showCombinedMood(['family', 'budget'])">
+                            Find Family Value
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- Call to Action -->
+<section class="py-5">
+    <div class="container text-center">
+        <div class="row justify-content-center">
+            <div class="col-lg-8">
+                <h2 class="mb-3">Ready to Explore?</h2>
+                <p class="lead mb-4">Start your culinary adventure in Toronto today!</p>
+                <div class="d-flex gap-3 justify-content-center flex-wrap">
+                    <a href="/gems" class="btn btn-primary">
+                        <i class="bi bi-gem"></i> Browse All Gems
+                    </a>
+                    <a href="/analytics" class="btn btn-secondary">
+                        <i class="bi bi-graph-up"></i> View Analytics
+                    </a>
+                    <a href="/documentation" class="btn btn-outline-primary">
+                        <i class="bi bi-code-slash"></i> Use Our API
+                    </a>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+{% endblock %}
+
+{% block extra_css %}
+<style>
+    .mood-category-card {
+        background: linear-gradient(135deg, rgba(255, 255, 255, 0.9), rgba(255, 255, 255, 0.7));
+        backdrop-filter: blur(10px);
+        border-radius: 20px;
+        padding: 2rem 1.5rem;
+        text-align: center;
+        border: 1px solid rgba(255, 255, 255, 0.2);
+        transition: all 0.3s ease;
+        box-shadow: 0 4px 20px rgba(0, 0, 0, 0.08);
+        cursor: pointer;
+        height: 100%;
+        display: flex;
+        flex-direction: column;
+        justify-content: space-between;
+    }
+    
+    .mood-category-card:hover {
+        transform: translateY(-8px);
+        box-shadow: 0 12px 40px rgba(0, 0, 0, 0.15);
+    }
+    
+    .mood-category-card[data-mood="romantic"] {
+        background: linear-gradient(135deg, #ffe8ee, #ffcdd6);
+    }
+    
+    .mood-category-card[data-mood="foodie"] {
+        background: linear-gradient(135deg, #fff4e6, #ffe0b3);
+    }
+    
+    .mood-category-card[data-mood="budget"] {
+        background: linear-gradient(135deg, #e8f5e8, #c8e6c9);
+    }
+    
+    .mood-category-card[data-mood="nightlife"] {
+        background: linear-gradient(135deg, #e3f2fd, #b3d9ff);
+    }
+    
+    .mood-category-card[data-mood="family"] {
+        background: linear-gradient(135deg, #f3e5f5, #e1bee7);
+    }
+    
+    .mood-category-card[data-mood="cultural"] {
+        background: linear-gradient(135deg, #f5f5f5, #e0e0e0);
+    }
+    
+    .mood-category-card[data-mood="relaxing"] {
+        background: linear-gradient(135deg, #fffde7, #fff176);
+    }
+    
+    .mood-category-card[data-mood="adventure"] {
+        background: linear-gradient(135deg, #e0f2f1, #b2dfdb);
+    }
+    
+    .mood-icon {
+        font-size: 3rem;
+        margin-bottom: 1rem;
+        color: var(--primary-color);
+    }
+    
+    .mood-category-card h4 {
+        color: var(--dark-text);
+        font-weight: 600;
+        margin-bottom: 0.5rem;
+    }
+    
+    .mood-category-card p {
+        color: var(--medium-text);
+        font-size: 0.9rem;
+        flex-grow: 1;
+        margin-bottom: 1rem;
+    }
+    
+    .mood-count {
+        background: rgba(0, 76, 159, 0.1);
+        color: var(--primary-color);
+        padding: 0.5rem 1rem;
+        border-radius: 20px;
+        font-weight: 600;
+        font-size: 0.9rem;
+        margin-bottom: 1rem;
+        display: inline-block;
+    }
+    
+    .gem-card {
+        transition: all 0.3s ease;
+    }
+    
+    .gem-card:hover {
+        transform: translateY(-4px);
+        box-shadow: 0 8px 30px rgba(0, 0, 0, 0.15);
+    }
+    
+    .gem-score {
+        background: linear-gradient(135deg, var(--success-color), #28a745);
+        color: white;
+        padding: 0.5rem 1rem;
+        border-radius: 20px;
+        font-weight: 600;
+        font-size: 0.9rem;
+        display: inline-block;
+    }
+    
+    .gem-type {
+        background: var(--light-bg);
+        color: var(--medium-text);
+        padding: 0.25rem 0.75rem;
+        border-radius: 12px;
+        font-size: 0.8rem;
+        font-weight: 500;
+    }
+    
+    .mood-tag {
+        background: linear-gradient(135deg, var(--secondary-color), var(--primary-color));
+        color: white;
+        padding: 0.25rem 0.75rem;
+        border-radius: 12px;
+        font-size: 0.8rem;
+        font-weight: 500;
+        margin: 0.25rem 0.25rem 0 0;
+        display: inline-block;
+    }
+</style>
+{% endblock %}
+
+{% block extra_js %}
+<script>
+    function showMoodGems(mood) {
+        // Hide all mood sections
+        hideAllMoodGems();
+        
+        // Show the selected mood section
+        const moodSection = document.getElementById('mood-' + mood);
+        if (moodSection) {
+            moodSection.classList.remove('d-none');
+            moodSection.scrollIntoView({ behavior: 'smooth', block: 'start' });
+        }
+    }
+    
+    function hideAllMoodGems() {
+        const moodSections = document.querySelectorAll('.mood-gems-section');
+        moodSections.forEach(section => {
+            section.classList.add('d-none');
+        });
+    }
+    
+    function showCombinedMood(moods) {
+        // This would require additional backend logic to filter by multiple moods
+        // For now, redirect to gems page with mood filter
+        window.location.href = '/gems';
+    }
+    
+    // Add click handlers to mood cards
+    document.addEventListener('DOMContentLoaded', function() {
+        const moodCards = document.querySelectorAll('.mood-category-card');
+        moodCards.forEach(card => {
+            card.addEventListener('click', function() {
+                const mood = this.dataset.mood;
+                showMoodGems(mood);
+            });
+        });
+    });
+</script>
+{% endblock %} 

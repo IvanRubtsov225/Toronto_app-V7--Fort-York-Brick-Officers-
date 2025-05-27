@@ -1,0 +1,346 @@
+{% extends "base.html" %}
+
+{% block title %}Analytics Dashboard - Toronto Hidden Gems{% endblock %}
+
+{% block content %}
+<!-- Hero Section -->
+<section class="hero">
+    <div class="container">
+        <div class="hero-content">
+            <h1 class="hero-title">📊 Analytics Dashboard</h1>
+            <p class="hero-subtitle">Deep insights into Toronto's hidden gems data</p>
+        </div>
+    </div>
+</section>
+
+<!-- Overview Statistics -->
+<section class="py-5">
+    <div class="container">
+        <h2 class="mb-4 fw-bold text-center">
+            <i class="bi bi-bar-chart"></i> Overview Statistics
+        </h2>
+        
+        <div class="row g-4">
+            <div class="col-md-3 col-sm-6">
+                <div class="stat-card">
+                    <span class="stat-number">{{ data.stats.total_gems or 0 }}</span>
+                    <div class="stat-label">Total Hidden Gems</div>
+                </div>
+            </div>
+            <div class="col-md-3 col-sm-6">
+                <div class="stat-card">
+                    <span class="stat-number">{{ "%.1f"|format(data.stats.average_score or 0) }}</span>
+                    <div class="stat-label">Average Quality Score</div>
+                </div>
+            </div>
+            <div class="col-md-3 col-sm-6">
+                <div class="stat-card">
+                    <span class="stat-number">{{ "%.2f"|format(data.stats.average_sentiment or 0) }}</span>
+                    <div class="stat-label">Average Sentiment</div>
+                </div>
+            </div>
+            <div class="col-md-3 col-sm-6">
+                <div class="stat-card">
+                    <span class="stat-number">{{ data.stats.top_establishment_type or 'N/A' }}</span>
+                    <div class="stat-label">Top Category</div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- Score Distribution -->
+<section class="py-5 bg-light">
+    <div class="container">
+        <h2 class="mb-4 fw-bold text-center">
+            <i class="bi bi-trophy"></i> Quality Score Distribution
+        </h2>
+        
+        <div class="row g-4">
+            <div class="col-md-4">
+                <div class="card h-100">
+                    <div class="card-header bg-success text-white">
+                        <h5 class="mb-0"><i class="bi bi-star-fill"></i> Excellent (80+)</h5>
+                    </div>
+                    <div class="card-body">
+                        <div class="text-center mb-3">
+                            <span class="stat-number text-success">{{ data.gems_by_score_range.excellent|length }}</span>
+                            <p class="text-muted">establishments</p>
+                        </div>
+                        {% if data.gems_by_score_range.excellent %}
+                        <div class="list-group list-group-flush">
+                            {% for gem in data.gems_by_score_range.excellent[:5] %}
+                            <div class="list-group-item border-0 px-0">
+                                <div class="d-flex justify-content-between align-items-center">
+                                    <div>
+                                        <h6 class="mb-1">{{ gem.name }}</h6>
+                                        <small class="text-muted">{{ gem.type }}</small>
+                                    </div>
+                                    <span class="badge bg-success">{{ "%.1f"|format(gem.hidden_gem_score) }}</span>
+                                </div>
+                            </div>
+                            {% endfor %}
+                        </div>
+                        {% endif %}
+                    </div>
+                </div>
+            </div>
+            
+            <div class="col-md-4">
+                <div class="card h-100">
+                    <div class="card-header bg-warning text-white">
+                        <h5 class="mb-0"><i class="bi bi-star-half"></i> Good (70-79)</h5>
+                    </div>
+                    <div class="card-body">
+                        <div class="text-center mb-3">
+                            <span class="stat-number text-warning">{{ data.gems_by_score_range.good|length }}</span>
+                            <p class="text-muted">establishments</p>
+                        </div>
+                        {% if data.gems_by_score_range.good %}
+                        <div class="list-group list-group-flush">
+                            {% for gem in data.gems_by_score_range.good[:5] %}
+                            <div class="list-group-item border-0 px-0">
+                                <div class="d-flex justify-content-between align-items-center">
+                                    <div>
+                                        <h6 class="mb-1">{{ gem.name }}</h6>
+                                        <small class="text-muted">{{ gem.type }}</small>
+                                    </div>
+                                    <span class="badge bg-warning">{{ "%.1f"|format(gem.hidden_gem_score) }}</span>
+                                </div>
+                            </div>
+                            {% endfor %}
+                        </div>
+                        {% endif %}
+                    </div>
+                </div>
+            </div>
+            
+            <div class="col-md-4">
+                <div class="card h-100">
+                    <div class="card-header bg-info text-white">
+                        <h5 class="mb-0"><i class="bi bi-star"></i> Fair (Under 70)</h5>
+                    </div>
+                    <div class="card-body">
+                        <div class="text-center mb-3">
+                            <span class="stat-number text-info">{{ data.gems_by_score_range.fair|length }}</span>
+                            <p class="text-muted">establishments</p>
+                        </div>
+                        {% if data.gems_by_score_range.fair %}
+                        <div class="list-group list-group-flush">
+                            {% for gem in data.gems_by_score_range.fair[:5] %}
+                            <div class="list-group-item border-0 px-0">
+                                <div class="d-flex justify-content-between align-items-center">
+                                    <div>
+                                        <h6 class="mb-1">{{ gem.name }}</h6>
+                                        <small class="text-muted">{{ gem.type }}</small>
+                                    </div>
+                                    <span class="badge bg-info">{{ "%.1f"|format(gem.hidden_gem_score) }}</span>
+                                </div>
+                            </div>
+                            {% endfor %}
+                        </div>
+                        {% endif %}
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- Top Performers -->
+<section class="py-5">
+    <div class="container">
+        <h2 class="mb-4 fw-bold text-center">
+            <i class="bi bi-award"></i> Top Performers
+        </h2>
+        
+        <div class="row g-4">
+            <div class="col-md-4">
+                <div class="card">
+                    <div class="card-header">
+                        <h5 class="mb-0"><i class="bi bi-trophy-fill text-warning"></i> Highest Rated</h5>
+                    </div>
+                    <div class="card-body">
+                        {% for gem in data.top_establishments %}
+                        <div class="d-flex align-items-center mb-3">
+                            <div class="badge bg-primary me-3">{{ loop.index }}</div>
+                            <div class="flex-grow-1">
+                                <h6 class="mb-1">{{ gem.name }}</h6>
+                                <small class="text-muted">{{ gem.address }}</small>
+                                <div>
+                                    <span class="badge bg-success">{{ "%.1f"|format(gem.hidden_gem_score) }}</span>
+                                    <span class="gem-type ms-2">{{ gem.type }}</span>
+                                </div>
+                            </div>
+                        </div>
+                        {% endfor %}
+                    </div>
+                </div>
+            </div>
+            
+            <div class="col-md-4">
+                <div class="card">
+                    <div class="card-header">
+                        <h5 class="mb-0"><i class="bi bi-chat-dots-fill text-info"></i> Most Mentioned</h5>
+                    </div>
+                    <div class="card-body">
+                        {% for gem in data.most_mentioned %}
+                        <div class="d-flex align-items-center mb-3">
+                            <div class="badge bg-primary me-3">{{ loop.index }}</div>
+                            <div class="flex-grow-1">
+                                <h6 class="mb-1">{{ gem.name }}</h6>
+                                <small class="text-muted">{{ gem.address }}</small>
+                                <div>
+                                    <span class="badge bg-info">{{ gem.mention_count }} mentions</span>
+                                    <span class="gem-type ms-2">{{ gem.type }}</span>
+                                </div>
+                            </div>
+                        </div>
+                        {% endfor %}
+                    </div>
+                </div>
+            </div>
+            
+            <div class="col-md-4">
+                <div class="card">
+                    <div class="card-header">
+                        <h5 class="mb-0"><i class="bi bi-emoji-smile-fill text-success"></i> Best Sentiment</h5>
+                    </div>
+                    <div class="card-body">
+                        {% for gem in data.best_sentiment %}
+                        <div class="d-flex align-items-center mb-3">
+                            <div class="badge bg-primary me-3">{{ loop.index }}</div>
+                            <div class="flex-grow-1">
+                                <h6 class="mb-1">{{ gem.name }}</h6>
+                                <small class="text-muted">{{ gem.address }}</small>
+                                <div>
+                                    <span class="badge bg-success">{{ "%.2f"|format(gem.avg_sentiment) }}</span>
+                                    <span class="gem-type ms-2">{{ gem.type }}</span>
+                                </div>
+                            </div>
+                        </div>
+                        {% endfor %}
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- Mood Distribution -->
+{% if data.stats.mood_distribution %}
+<section class="py-5 bg-light">
+    <div class="container">
+        <h2 class="mb-4 fw-bold text-center">
+            <i class="bi bi-palette"></i> Mood Distribution
+        </h2>
+        
+        <div class="row justify-content-center">
+            <div class="col-lg-8">
+                <div class="card">
+                    <div class="card-body">
+                        <div class="row g-3">
+                            {% for mood, count in data.stats.mood_distribution.items() %}
+                            <div class="col-md-3 col-sm-6">
+                                <div class="text-center p-3 rounded" style="background: linear-gradient(135deg, var(--secondary-color), var(--primary-color)); color: white;">
+                                    <div class="mb-2">
+                                        {% if 'romantic' in mood.lower() %}
+                                            <i class="bi bi-heart" style="font-size: 2rem;"></i>
+                                        {% elif 'foodie' in mood.lower() %}
+                                            <i class="bi bi-cup-hot" style="font-size: 2rem;"></i>
+                                        {% elif 'budget' in mood.lower() %}
+                                            <i class="bi bi-piggy-bank" style="font-size: 2rem;"></i>
+                                        {% elif 'nightlife' in mood.lower() %}
+                                            <i class="bi bi-moon-stars" style="font-size: 2rem;"></i>
+                                        {% elif 'family' in mood.lower() %}
+                                            <i class="bi bi-people" style="font-size: 2rem;"></i>
+                                        {% elif 'cultural' in mood.lower() %}
+                                            <i class="bi bi-building" style="font-size: 2rem;"></i>
+                                        {% elif 'relaxing' in mood.lower() %}
+                                            <i class="bi bi-sun" style="font-size: 2rem;"></i>
+                                        {% else %}
+                                            <i class="bi bi-star" style="font-size: 2rem;"></i>
+                                        {% endif %}
+                                    </div>
+                                    <h4 class="mb-1">{{ count }}</h4>
+                                    <small>{{ mood }}</small>
+                                </div>
+                            </div>
+                            {% endfor %}
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+{% endif %}
+
+<!-- Call to Action -->
+<section class="py-5">
+    <div class="container text-center">
+        <div class="row justify-content-center">
+            <div class="col-lg-8">
+                <h2 class="mb-3">Explore More</h2>
+                <p class="lead mb-4">Ready to discover your next favorite spot in Toronto?</p>
+                <div class="d-flex gap-3 justify-content-center flex-wrap">
+                    <a href="/gems" class="btn btn-primary">
+                        <i class="bi bi-gem"></i> Browse All Gems
+                    </a>
+                    <a href="/moods" class="btn btn-secondary">
+                        <i class="bi bi-heart"></i> Find by Mood
+                    </a>
+                    <a href="/documentation" class="btn btn-outline-primary">
+                        <i class="bi bi-code-slash"></i> Use Our API
+                    </a>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+{% endblock %}
+
+{% block extra_css %}
+<style>
+    .stat-card {
+        background: rgba(255, 255, 255, 0.9);
+        backdrop-filter: blur(10px);
+        border-radius: 16px;
+        padding: 2rem 1.5rem;
+        text-align: center;
+        border: 1px solid rgba(255, 255, 255, 0.2);
+        transition: all 0.3s ease;
+        box-shadow: 0 4px 20px rgba(0, 0, 0, 0.08);
+    }
+    
+    .stat-card:hover {
+        transform: translateY(-4px);
+        box-shadow: 0 8px 30px rgba(0, 0, 0, 0.12);
+    }
+    
+    .stat-number {
+        display: block;
+        font-size: 3rem;
+        font-weight: 700;
+        color: var(--primary-color);
+        line-height: 1;
+        margin-bottom: 0.5rem;
+    }
+    
+    .stat-label {
+        font-weight: 600;
+        color: var(--medium-text);
+        font-size: 0.9rem;
+        text-transform: uppercase;
+        letter-spacing: 0.5px;
+    }
+    
+    .list-group-item {
+        transition: background-color 0.2s ease;
+    }
+    
+    .list-group-item:hover {
+        background-color: var(--light-bg);
+    }
+</style>
+{% endblock %} 
