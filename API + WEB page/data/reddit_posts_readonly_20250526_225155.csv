@@ -1,0 +1,911 @@
+post_id,subreddit,title,text,score,num_comments,created_utc,url,locations_mentioned,sentiment_score,is_hidden_gem,upvote_ratio
+1ksxizb,toronto,"""We Might Have to Close!"" signs popping up on Bathurst","Walking north from Bloor today I spotted about 20 signs, especially as I got closer to Dupont. They were on business doors and windows, implying that the RapidTO project on Bathurst would force them to close. 
+
+Everything from Summerhill Market, plus sized clothing store, a pub, a tattoo parlor, and coffee shops.
+
+Interesting how much support the local businesses are providing against the project.  I work in the area and I would avoid driving here at all costs. Traffic is terrible. I don't understand why they want to promote such an inefficient mode of transport when a bus lane would bring them more customers, more frequently.",1929,595,2025-05-22 14:05:10,https://i.redd.it/dkgqfg2fid2f1.jpeg,"['the RapidTO project', 'Traffic']",0.08888888888888888,False,0.91
+1krypa7,toronto,I LOVE Toronto,"I moved to Toronto about a year ago from London, UK. My partner is from Madrid, and most of our friends are from major cities across Europe, and we have lived all over the world, including the USA. The general consensus is the same, Toronto is a bit colder than we like(especially as I write this), but aside from that, it's INCREDIBLE! 
+
+While it doesn't carry the clout and relevance that NYC or London do, it is a world-class city in every right, and Torontonians need to start taking more pride in that! It has literally everything: beaches, islands, ravines, a stunning skyline, art galleries, international enclaves, breweries, nice people, markets, diverse nightlife opportunities, vintage shopping, great festivals, family-friendly events, and endless live music gigs. It's the perfect blend of American and European lifestyle! 
+
+Don't even get me started on the food scene here! Have you all been keeping Toronto's food scene a secret all this time? 
+
+I could go on and on. 
+
+Did I miss anything? What else do you find incredible about TO?",1513,277,2025-05-21 10:06:31,https://www.reddit.com/r/toronto/comments/1krypa7/i_love_toronto/,"['My partner', 'The general consensus', 'Toronto']",0.338661995898838,False,0.93
+1krdvsm,toronto,Worldwide known “lunch lady” has passed away after arriving at Toronto airport,"Nguyễn Thị Thanh, known worldwide as The Lunch Lady, passed away suddenly after arriving at Toronto Pearson Airport.  
+
+Her Vancouver restaurant will close on Wednesday, May 21 so staff can mourn. She had planned to launch a Toronto location on June 3, where she was set to spend the month.
+
+Famed for her Saigon street stall featured on Anthony Bourdain’s No Reservations, Ms. Thanh built a culinary legacy through her dedication to authentic Vietnamese food. Vigils will be held in both Vancouver and Toronto, with details to come.",1408,60,2025-05-20 15:31:03,https://www.blogto.com/eat_drink/2025/05/founder-vietnamese-restaurant-passes-away-toronto/,"['Her Vancouver', 'will close on Wednesday']",0.16666666666666666,True,0.97
+1kw79kw,askTO,Yin Yoga Classes,"Hey all! I’m having a bit of a time trying to find what I’m looking for. I really enjoy yin yoga and usually practice at home with the occasional studio class. The challenge I’ve run into is that most yin classes tend to be more restorative with shorter holds and a lot of instructor talking.
+
+What I’m actually looking for is something more progressive like a yin yoga class or program that increases hold times over time and focuses more on finding and working with the edge rather than a purely restorative approach.
+
+Maybe that’s not what most yin yoga is meant to be, or maybe what I’m seeking doesn’t exist yet but I thought I’d ask in case anyone knows of a class, teacher or program that aligns more with that style. Would love any recommendations!",6,6,2025-05-26 18:19:32,https://www.reddit.com/r/askTO/comments/1kw79kw/yin_yoga_classes/,"['s not what most yin yoga', 'm actually looking for', 've run into', 'increases hold times over time and focuses more']",0.3324404761904762,False,0.87
+1kwaix7,askTO,Danforth parking,"Is there any prepaid close parking lots at danforth? We’re heading up from New York next week for a show and are nervous about trying to find a close (within 10 min walk) lot? We are not staying at a hotel or taking any public transportation. Just looking to park, see the show, leave ",3,11,2025-05-26 20:56:48,https://www.reddit.com/r/askTO/comments/1kwaix7/danforth_parking/,"['Danforth parking', 'We are not staying at a hotel or taking any']",0.04545454545454545,False,1.0
+1kw32we,askTO,Good places to live apartment life in Toronto? Specifically the city,"I'm moving to Toronto very soon for a new job and learning about all the areas. I would love some help or any insight on recommendations or places you'd avoid for an apartment. There's so much research I could do but thought why not just ask people who've lived there
+
+**Some loosely-important notes on what I'm looking for**
+
+* **A must**: Need to be somewhat of **a walk/TTC streetcar away from the Subway/1 line** (gotta go to North York sometimes). Don't mind a bit of a commute, but def can't do like Leslieville or Highpark.
+* I work in the creative field, and I stay inspired but exploring art galleries, restaurants, music, cool niche stores etc
+* I looked into Yorkville/Annex and as nice as it is, cost of living is quite high even if were to land on a well priced unit, if that makes sense (unless I'm wrong)
+* I cook a lot, and would love to be in the vicinity of non-corporate owned markets/grocery stores lol
+* Bookstores, parks and cafes are my refuge
+* Not too big into night life but I don't mind a little noise if it means it's a cool area
+* **Rent**: trying to stay between 2200-2400/mth
+
+Please do share any locations you think I should avoid too! Any insight is valuable
+
+Edit: ideal rent-cost",6,10,2025-05-26 15:23:36,https://www.reddit.com/r/askTO/comments/1kw32we/good_places_to_live_apartment_life_in_toronto/,"['Annex and as nice as it', 'parks and', 'Any insight', 'if that', 'cost of living']",0.31957219251336905,False,0.71
+1koioy4,askTO,Why do we tip so much when our restaurant workers are paid a fair wage?,"Just thought it’s weird to try and match the US. I see 18% as the min now on every tablet, including in coffee shops and Taco Bells.",1810,392,2025-05-16 22:43:47,https://www.reddit.com/r/askTO/comments/1koioy4/why_do_we_tip_so_much_when_our_restaurant_workers/,"['workers are paid a fair wage', 'Why do we tip so much when our']",0.1333333333333333,False,0.92
+1kt78an,askTO,Why are all pubs and bars table service only? I feel like it kills the vibe.,"I’m from the UK and really miss having just normal pubs where you go up order and drink and find yourself a seat or potter around. I feel like most places here are table service only which is super frustrating, especially if you just want a quick drink, I find it also removes any chance of socializing with other people because everyone’s in their own little bubble. Then if I want to leave I need to wait 10-15 minutes until I can catch the sever to pay, and then I need to pay 18% for the privilege of the inconvenience.
+
+I was in the US recently and even their bars feel more like the UK, it seems like a particularly Canadian thing to have to get table service everywhere. 
+
+Am I being unreasonable? Does anyone else see if this way or am I weird?",479,184,2025-05-22 21:12:40,https://www.reddit.com/r/askTO/comments/1kt78an/why_are_all_pubs_and_bars_table_service_only_i/,"['Why are all', 'I was in the US recently and even their', 'm from the UK and really miss having just normal', 's and']",0.09817708333333333,False,0.94
+1kuo0jy,askTO,"My boyfriend wants to eat ""white people Chinese food"". Any suggestions?","My boyfriend is Canadian, I'm not. Last weekend we did ""white people taco night"" with Old El Paso taco kit. 
+
+He grew up in Aurora and says the inauthentic Chinese food they had there was some of the best, and yes craving it. 
+
+Any suggestions for restaurants in downtown Toronto? Willing to travel to the beaches or Trinity Bellwoods :) ",416,479,2025-05-24 18:49:51,https://www.reddit.com/r/askTO/comments/1kuo0jy/my_boyfriend_wants_to_eat_white_people_chinese/,"['My boyfriend', 'Any suggestions for']",0.205,True,0.87
+1kssllp,askTO,Uber driver asking for cash?,"Called for an uber to the airport yesterday at 4am in the morning.
+
+I sit in the back and driver turns around and asks how much is Uber charging you for this ride? 
+
+I tell him the truth, 50$, and he says well I’m only getting 20$. He then asks me if I’m traveling for business or personal. I say it’s personal. Then he says since it’s personal, can I cancel the ride and give him 50$ cash instead to drop me at the airport. I say no thanks, I want the ride to be tracked. He says okay.
+
+I’m assuming since it was personal he thought I wouldn’t need a receipt. Obviously I wasn’t comfortable paying a random person cash to drop me off at the airport at 5am in the morning. 
+
+Is this common? Should I do something to report this? Feels like a violation. ",351,203,2025-05-22 10:48:04,https://www.reddit.com/r/askTO/comments/1kssllp/uber_driver_asking_for_cash/,['the airport'],0.015384615384615385,False,0.92
+1kqyqmp,askTO,Is there anything else I can do after an armed robbery during a Facebook Marketplace meetup?,"Hi everyone, I wanted to ask for advice after a really unsettling experience. About two weeks ago, I arranged to sell a laptop via Facebook Marketplace and agreed to meet the buyer at a residential address around 8:40 PM. Unfortunately, during the exchange, the buyer pulled a firearm on me and took the item.
+
+I was able to get away without being physically harmed and I called local authorities and spoke with them afterwards. However, as of now, there doesn’t seem to have been any follow-up. What's even more disturbing is that the same person re-listed my laptop on Marketplace right after it happened.
+
+I’m wondering has anyone here dealt with something similar, and is there anything else I can do to push for further action or recover the item? I’ve learned that meeting in a police station parking lot is best, but I wish I had known earlier.
+
+Thanks in advance, and stay safe out there.
+
+",280,135,2025-05-20 03:12:31,https://www.reddit.com/r/askTO/comments/1kqyqmp/is_there_anything_else_i_can_do_after_an_armed/,"[""What's even more disturbing"", 'the same person re-listed my laptop', 'm wondering', 'meeting']",0.09910714285714285,False,0.95
+1koaxth,askTO,How to report middle aged man sexually harassing under age girls in public? (Forest Hill Village),"Been frequenting Forest Hill village along Spadina Rd. There's an overweight middle aged man that hangs out along Spadina Road and asks the underage private high school female students to come over to his place, etc. He will not leave them alone. And he is **a lot** more explicit to of age woman, asks them to come over to his place for a good time, etc. 
+
+Literally saw him do this to a woman in broad daylight in front of me as I was walking up Spadina Road. Any way to report this?",262,62,2025-05-16 16:26:40,https://www.reddit.com/r/askTO/comments/1koaxth/how_to_report_middle_aged_man_sexually_harassing/,['And he'],0.14354166666666668,False,0.97
+1khd5t3,TorontoEvents,"Reddit Toronto May Meetup: Sat. May 17 @ Queen & Broadview, 7:00 p.m. start","Come drink, eat, and hang out with fellow Toronto Redditors looking to make friends and connect on Saturday, May 17, at the Toronto Reddit May meetup - The Long Weekend May 2-4 Edition! It's free to attend and there is no official RSVP, however our reservation requires each person to order something, even if it's just a glass of soda.
+
+We're changing our venue this time to [Duke's Refresher Riverside](https://dukesrefresher.ca/riverside/food/) at 709 Queen Street East (Queen and Broadview), as our regular venue The Artful Dodger closes their upstairs area over the summer.
+
+If you've never been to a Reddit meetup, everyone is very welcoming and conversations always extend beyond the Reddit platform itself, with no questions about your username. If you are returning, you'll likely recognize some faces, but there are always new folx to meet.
+
+**FAQ:**
+
+* **How do I find the group?:** We'll be on the second level of Duke's Refresher.
+* **Am I welcome?:** Everyone is welcome, from visitors to newcomers to people looking to make new friends.
+* **Will people my age be there?:** Based on my experiences over the years, the average age of attendees is 20-40.
+* **Will women be there?:** Yes! I'm a woman, so you won't be the only woman there.
+* **Will I make new friends/connections?:** Everyone who attends is looking for a different experience, but the commonality is getting out, meeting new people and having a good time. I have been attending since 2018 & hosting since 2022. I've made friends I've traveled with and attended some weddings and I still keep in touch with a few out-of-towners. You can make these connections from attending a single (1) meetup (I've seen it happen a lot), so if you're thinking it will be a waste of time to come just once, it's not - anything is possible.
+* **How often do you have these events?:** I aim to host one event a month. These have typically been Saturdays starting between 7-8 p.m. I aim to post my events with reasonable notice, including reminders.
+* **Does it cost money to attend?:** Though there is no cost to attend the event itself, we ask that you purchase a drink and/or food to support the venue, as they have to turn away other paying customers to fill our reservation. If you do not wish to eat or drink anything, you could tip $5-10 to the staff as a courtesy.
+* **What are the food/drink options like?:** There are vegetarian, vegan and non-alcoholic options available, and they are allergy-friendly. [Menu link](https://dukesrefresher.ca/riverside/food/)
+* **Is the venue accessible?** Unfortunately, the venue has stairs and is not fully accessible.
+
+If you have any questions, feel free to leave a comment publicly or message me privately. I keep an eye on my account leading up to and during the event, and though I try to respond to messages as soon as possible, I may not be able to reply right away during the event.
+
+If you read all of that, kudos! If not, see TL;DR below.
+
+your hosts, u/imop44 and u/nervousTO.
+
+**TL;DR:** This unofficial Reddit meetup is Saturday, May 17, at 709 Queen Street East (Queen & Broadview). Starts at 7:00 p.m., ends when the last people leave or the bar closes. Everyone is welcome and there is no RSVP, but attendees are required to make a purchase at the venue as part of our reservation's conditions. I'll be keeping an eye on post comments and my messages between now and Saturday the 17th, so please connect with me if you have any questions.",3,2,2025-05-07 20:33:39,https://www.reddit.com/r/Torontoevents/comments/1khd5t3/reddit_toronto_may_meetup_sat_may_17_queen/,"['everyone', 'This unofficial Reddit meetup', 'but the commonality', 'Everyone', ""it's not - anything"", ""It's free to attend and there"", 'Everyone who attends', 'Though there', 'the average age of attendees', 'the venue has stairs and', 'closes', 'Everyone is welcome and there', 'feel free to leave a comment', 'ends when the last people leave or the']",0.14831950456950455,False,0.8
+1kwakdi,TorontoEvents,I'm throwing a party next to Dundas Square!,"Heyy everyone, I've been lurking this sub for a while now to find events (as we all are) and I'm organizing an open bar rooftop party on the 31st and I thought this would be a perfect place to talk about it (hopefully self promo is allowed here, not sure).
+
+Anyways, my name is Trae, I run these events called Block Party in Montreal and Toronto based on the mentality of throwing house parties at club attendance and amenities. Moving here for university, I found the nightlife scene wasn't the same as my hometown, Toronto seems to be very business oriented versus creating the most enjoyable event for people and I'd like to change that (with my minimal budget and a lot of friends from university). I'm throwing an event called NO FLYERS on the 31st and hopefully people here enjoy the concept of a Toronto event where we're all enjoying ourselves at the same price point, with good music and vibes. Starts at 7, will put the link below and feel free to dm me with any questions/suggestions!
+
+https://www.ticketgateway.com/event/view/block -party-open-bar
+
+ Hope to see you all there!",1,0,2025-05-26 20:58:57,https://www.reddit.com/r/Torontoevents/comments/1kwakdi/im_throwing_a_party_next_to_dundas_square/,"['hopefully self promo', ""and I'm organizing an open"", 'my name', 'rooftop party on the', 'Hope to see you all there']",0.2910714285714286,False,0.57
+1ktvs46,TorontoEvents,June 17 - Wychwood Barns Park Tree Tour and Shrub Giveaway. Free,https://www.yourleaf.org/node/2722,3,0,2025-05-23 17:58:25,https://www.reddit.com/r/Torontoevents/comments/1ktvs46/june_17_wychwood_barns_park_tree_tour_and_shrub/,['Wychwood'],0.4,False,1.0
+1kt3ln9,TorontoEvents,Pro Stand-Up Comedy Recording - Friday @ 8:30 PM - Comedy Records Live!,"Friday @ 8:30 PM! Comedy Records Live is back in the cabaret space at the iconic Comedy Bar for Bria Hiebert's album recording. 
+
+We have a wonderful lineup of comics from Don't Tell, New York Comedy Festival & Just for Laughs to open the show and then I'll be doing an extended set. 
+
+Bria's comedy has been featured on CBC's LOL, at Just for Laughs Toronto and the Edinburgh Fringe Festival, and her debut album Two Girls Live can regularly be heard on SiriusXM. 
+
+[TICKETS HERE](https://comedybar.ca/shows/comedy-records-live?ev=2025-05-23T20%3A30%3A00&fbclid=IwY2xjawKcgMtleHRuA2FlbQIxMABicmlkETFLcUNiSjQ0T1Zwc2RvNFd2AR4kL3o7KyaepNUhC8mM3MxV3n93Xf2Qcfs_dJy8gyPh_-eNpxEanhuvOZn7Kg_aem_1KuVIF4VDNUNbfPmz7SFLw)",0,0,2025-05-22 18:14:51,https://www.reddit.com/r/Torontoevents/comments/1kt3ln9/pro_standup_comedy_recording_friday_830_pm_comedy/,"[""for Bria Hiebert's album recording"", 'Comedy Records Live', ""Bria's comedy""]",0.2922159090909091,False,0.5
+1ksu8ba,TorontoEvents,"THIS WEEKEND! Comedy Bar After Dark ft. comedians seen on Just For Laughs, Comedy Central, Kevin Hart’s LOL, CBC & more!","THIS WEEKEND! 🎉
+
+Comedy Bar: After Dark is back with another top tier lineup of comics gracing the stage at Comedy Bar Bloor to give you an unforgettable night of comedy! Come see Toronto's best late night comedy showcase featuring a rotating cast of stand-up comics who have amassed millions of views on social media and appeared on Just For Laughs, CBC, Comedy Central UK, CTV and much much more! 
+
+FEATURING 
+
+FRIDAY
+
+Tamara Shevon
+Sam Burns 
+Jessie Olsen
+Liz Fulton
+Yaw Attuah
+
+SATURDAY
+
+Kari Johnson
+Alex Wood
+Sam Burns 
+JayKay Kenny 
+Lily Langen 
+Carlos From Scarborough 
+
+TICKETS HERE: 
+
+https://comedybar.ca/shows/comedy-bar-after-dark
+
+Spend your weekend laughing for a cheap price! Limited tickets available! 
+
+#COMEHANG 
+#AFTERDARK
+
+
+",1,0,2025-05-22 11:54:27,https://www.reddit.com/r/Torontoevents/comments/1ksu8ba/this_weekend_comedy_bar_after_dark_ft_comedians/,"['After Dark', 'After Dark ft', 'Comedy']",0.31675967261904764,False,0.67
+1ksffax,TorontoEvents,Celebrating Asian Voice in Literature with Toronto Authors at Youthful Vengence Cafe - May 22 2025,"Come chat, get drinks, and meet local Toronto authors as part of a special AAPI Heritage Month gathering celebrating Asian voices in literature.
+
+Stop by Youthful Vengence Cafe at 7pm for a cozy evening of storytelling, connection, and meaningful conversation with five local Toronto authors: Shalini Abeysekara, Farah Heron, Lily Chu, Jackie Lau, and Roselle Lim
+
+You can get tickets at the door or at [https://www.eventbrite.com/e/booked-rooted-centering-asian-stories-tickets-1353542555219](https://www.eventbrite.com/e/booked-rooted-centering-asian-stories-tickets-1353542555219) ",6,0,2025-05-21 22:02:56,https://www.reddit.com/r/Torontoevents/comments/1ksffax/celebrating_asian_voice_in_literature_with/,"['Stop by Youthful Vengence', 'the door or']",0.09387755102040816,True,1.0
+1ksfnep,TorontoEvents,"Canada's Comedy All Stars - Comedy Bar (Bloor) @ 7:00pm - Sunday, May 25 - $25 ($30 at the door)","\*\*\*Tickets available on the Comedy Bar website. 
+
+
+
+**Watch 3 of the BEST in 1 night! From Juno Award winners and TV personalities to comedy festival superstars!**
+
+**Jess Salomon** was this year’s **Juno Award nominee** for Best Comedy Album and has appeared on **The Tonight Show with Jimmy Fallon.**
+
+She’s written for the award-winning sketch comedy show **“Baroness Von Sketch”** (IFC/CBC), CTV’s **“The Beaverton”**, and the BBC World Service podcast and radio show “Comedians vs The News” which she also co-hosted for three seasons.
+
+**Allie Pearse** is a **Canadian Screen Award** nominated standup comedian and writer on the award-winning TV shows **Letterkenny** and **Shoresy**.
+
+She has performed at the Just For Laughs Festival as a co-headliner, on the Russell Peter Gala, on the ‘New Faces’ show and is the **winner of the 2021 JFL Standup & Pitch competition.** Allie has recorded tapings at the **Winnipeg Comedy Festival**, JFL’s New Wave of Comedy, **CBC’s The Debaters and CBC’s LOL network**. Allie was a staff writer at the JFL Galas where she wrote for Chelsea Handler, Jo Koy, Patton Oswalt and Russell Peters and a staff writer/performer on Roast Battle Canada Season 3 & 4.
+
+**Dom Paré** has been described as ""one of the best stand-ups around"" by NOW Magazine. He was selected for the **Kevin Hart LOL** taping at the Just For Laughs Festival, has reached the **finals of SiriusXM Canada’s Top Comic competition** and was runner-up for Toronto's Best Male Stand-Up.
+
+Dom has written for **The Debaters**, is featured regularly on SiriusXM Radio, and has worked with comedians such as Howie Mandel, Andrew Schulz, Tim Meadows, Anthony Jeselnik, Hannibal Buress, Eddie Griffin, Todd Glass and Tig Notaro.
+
+Hosted by **Vinny Vinelli**
+
+Produced by **Greenlight Comedy Productions**
+
+Doors open at 6pm",0,0,2025-05-21 22:14:28,https://www.reddit.com/r/Torontoevents/comments/1ksfnep/canadas_comedy_all_stars_comedy_bar_bloor_700pm/,"['for Best Comedy Album and', 'show and', 'Allie', 'website', ""Canada's Comedy All Stars - Comedy"", 'Tickets available on the Comedy']",0.46818181818181814,False,0.5
+1kqes2u,TorontoEvents,May 22nd Liberty Village - Dungeons and Dragons Drop In Night - New Players Welcome!,"Come play Dungeons and Dragons at Something in the Water Brewery! Make new friends, slay monsters and loot treasure! New Players Welcome! We love teaching this game.
+
+Our focus is safe, inclusive and fun gaming! Join us every two weeks on Thursday night for awesome adventure!
+
+Where: Something in the Water Brewery 151 E Liberty St, Toronto, ON M6K 3G3
+
+This Week: Thursday 22nd at 630 pm
+
+Next Game Night: Thursday June 5th at 630 pm
+
+Game Masters will provide characters and supplies, you don't need to bring anything.
+
+What is Dungeons and Dragons? Dungeons and Dragons is a cooperative, social and storytelling game where 4-6 players take on the persona of heroes in a fantasy world seeking adventure, righting wrongs and triumph over evil. Players describe their actions, roll dice to determine the outcome, and the Game Master describes the results of those actions on the game world.
+
+How much does it cost? A sitting fee of $10 per player will be added to your Brewery bill. This fee goes towards paying your Game Master for their prep-work and running the game.
+
+Do I need to know how to play? No! We love teaching this game to new players.
+
+Follow me for all my brewery events at: [https://www.instagram.com/daddyofdragonsdm/](https://www.instagram.com/daddyofdragonsdm/)",3,0,2025-05-19 11:36:47,https://www.reddit.com/r/Torontoevents/comments/1kqes2u/may_22nd_liberty_village_dungeons_and_dragons/,"['Something', 'Our focus', 'Dungeons and Dragons', 'What']",0.009515151515151494,False,1.0
+1kcafnk,TorontoEvents,SHRIMP DADDY COMEDY,"Get ready for a one night memorable event with Canada's funniest headliners and featuring special guests. You miss this, you’ve missed out!
+
+Tickets: https://comedybar.ca/shows/shrimp-daddy
+
+Featuring:
+
+FARAZ NIAFATTAH
+
+Faraz Niafattah is a Toronto-based standup comedian whose deadpan delivery and colorful choice of words leaves audiences wanting more, he is often described as a crowd favorite for his relatable humor. Faraz can be seen regularly at many Toronto Clubs including Absolute Comedy, The Corner Comedy Club and Yuk Yuk’s. He’s performed at Just for Laugh Toronto, Don’t Tell Comedy, as well as The Haymaker Comedy Festival. In 2024, he was featured at the VAIL Comedy Festival in Denver, Colorado, The Limestone Comedy Festival in Indiana, and on CBC’s Laugh Out Loud network. In January 2025, he performed at Sketchfest in San Francisco and Hubcap festival in Moncton, NB. 
+
+@gypsytears69
+
+CAMERON PHOENIX
+
+Before becoming a staple of the Toronto comedy scene, Cameron Phoenix spent time honing his craft in Montreal and the UK, winning the prestigious King Gong Competition at the Comedy Store. He has done the Edinburgh Fringe multiple years in a row as well as Just For Laughs (Both Montreal and JFL 42 in Toronto). He currently produces The Gong Show at the Comedy Bar and is one half of the successful Twitch stream Little Dinky News.  Cameron was a finalist in the JFL Stand-Up and Pitch program.  He has opened for Colin Mochrie numerous times, and his JFL Originals recording releases on January 15th across all streaming platforms.
+
+@cam.phoenix
+
+TODD GRAHAM
+
+For over three decades Todd Graham has been one of Canada’s top comedic artists. His 1987 pre-internet mash-up, Apocalypse Pooh has been celebrated by Film Threat, Complex, CineAction, The Believer and The Whitney Museum of Art. The short film was featured by CBC Toronto and since going online has gained over two million views. As a stand-up comedian Todd’s performed at the Just For Laughs Festival as well as at multiple Galas at the Winnipeg Comedy Festival, JFL 42, Kitchener-Waterloo Festival and NXNE. His comedy has been showcased on national television with CBC, CTV Comedy Channel and iChannel and his debut album, Bustin’ Loose! can regularly be heard on SiriusXM
+
+@idiotgallant
+
+GREG PALONE
+
+Greg Palone is a Canadian comedian from Oakville, Ontario, who balances life as an aspiring accountant by day and a stand-up comic by night. Known for his charismatically bold comedy style, Greg thrives on reading the room and delivering the lines no one else dares to say. With over 100 million video views online, appearances on CBS, and performances at the Dark Comedy Festival, Greg has captivated audiences across Ontario. He’s also had the honour of opening for the late Canadian comedy icon Mike Bullard, solidifying his place as one of the youngest stars in comedy.
+
+@gregpalone
+
+ALISTAIR OGDEN
+
+One of Canada’s rising comedic talents, he first appeared in the national spotlight when he won CBC’s Next Up Competition in 2019. Since then, he's taped televised stand up sets for the Halifax Comedy Festival, CBC’s New Wave of Stand Up, been featured on a Just For Laughs Originals comedy album, and released his debut half-hour special “Alistair Ogden Does His Best”. His videos have garnered over 10 million views across Instagram, TikTok, and YouTube and he's been repeatedly featured as part of the Just For Laughs festivals in Vancouver and Toronto. You can now catch him regularly at Don’t Tell Comedy shows and comedy clubs across North America.
+
+@alistairogden
+
+AND SPECIAL GUESTS!
+",7,1,2025-05-01 10:43:05,https://www.reddit.com/r/Torontoevents/comments/1kcafnk/shrimp_daddy_comedy/,"['His comedy', 'the VAIL Comedy Festival', 'FARAZ NIAFATTAH\n\nFaraz Niafattah', 'He currently produces The Gong Show at the Comedy', 'Sketchfest', 'Apocalypse Pooh', 'idiotgallant\n\nGREG PALONE\n\nGreg Palone', 'the Just For Laughs Festival as well as', 'Greg']",0.18767631940708862,False,0.89
+1ksffax,TorontoEvents,Celebrating Asian Voice in Literature with Toronto Authors at Youthful Vengence Cafe - May 22 2025,"Come chat, get drinks, and meet local Toronto authors as part of a special AAPI Heritage Month gathering celebrating Asian voices in literature.
+
+Stop by Youthful Vengence Cafe at 7pm for a cozy evening of storytelling, connection, and meaningful conversation with five local Toronto authors: Shalini Abeysekara, Farah Heron, Lily Chu, Jackie Lau, and Roselle Lim
+
+You can get tickets at the door or at [https://www.eventbrite.com/e/booked-rooted-centering-asian-stories-tickets-1353542555219](https://www.eventbrite.com/e/booked-rooted-centering-asian-stories-tickets-1353542555219) ",4,0,2025-05-21 22:02:56,https://www.reddit.com/r/Torontoevents/comments/1ksffax/celebrating_asian_voice_in_literature_with/,"['Stop by Youthful Vengence', 'the door or']",0.09387755102040816,True,0.84
+1khyoe8,TorontoEvents,May 18 - Toronto Kickball season opener @ Alexandra Park. Free to play. Beginners welcome. As seen on TV,"As seen on TV
+
+[https://www.youtube.com/watch?v=66nYV8WKHa8&ab\_channel=CityNews](https://www.youtube.com/watch?v=66nYV8WKHa8&ab_channel=CityNews)
+
+Remember all the fun you had back in grade school playing [kickball](https://youtu.be/6NvpThCF8IE?si=nA-NLYNnUSgrjcHm)? Or maybe you're totally new to the sport and wanna learn it in a fun, supportive environment? This is your chance to start Spring in a ball-filled way. Come join the friendly bunch from [Toronto Kickball ](https://www.facebook.com/TorontoKickball/?_rdr)for the season opener .
+
+Beginners are always welcome. We'll teach you the basics of the game
+
+Free hot dogs too , while supplies last
+
+You're welcome to bring your dog too but they'll have to remain on a leash.
+
+NOTE - event is subject to weather. Snow is great but pouring rain no. Keep an eye out for any updates/changes.
+
+**Cost**: Zero, zilch, nada.  Unlike most other leagues in Toronto, this one is totally free
+
+**What to bring :** soccer or football cleats are useful for better traction if you have a pair.
+
+**Location:** Alexandra Park
+
+**Date:** Sunday May 18
+
+**Time:** 4PM
+
+**How to find us:** Look for the big Toronto Kickball banner",5,0,2025-05-08 15:19:55,https://www.reddit.com/r/Torontoevents/comments/1khyoe8/may_18_toronto_kickball_season_opener_alexandra/,"['this one', 'Snow', 'NOTE - event', 'This']",0.31225895316804403,False,1.0
+1kh0g1x,TorontoEvents,"125 Birthday Party AGO May 15, 2025 | 8-11 pm",AGO just made a mistake and sent emails to all members talking about this event instead of the people who bought the ticket. I didnt know this event was happening only when they sent out these emails. If anyone cant make it and has 2 tickets left let me know,5,1,2025-05-07 11:38:20,https://www.reddit.com/r/Torontoevents/comments/1kh0g1x/125_birthday_party_ago_may_15_2025_811_pm/,['If anyone cant make it and'],0.0,False,1.0
+1kgk0l1,TorontoEvents,[May 13] Comedy Game Showdown Ep. 46 - Call of the Wild! - 8pm at SoCap Comedy,"Featured at FanExpo, Toronto ComiCon, and the Montreal Fringe Festival, Comedy Game Showdown is Toronto's longest-running live comedy panel show!
+
+Each episode, two teams of Toronto's finest comedians face off in a series of quizzes, games, and debates to see who will win the game, and with it...the people's ovation and fame forever!
+
+**May 13: Call of the Wild**
+
+From Bear Grylls to porcupine quills and Jacques Cousteau to the last dodo, anything and everything in the Wild Wild World of nature and survival might come up as our two teams of comics face off to see who can answer nature's call!
+
+The Yellowjackets: Nikki Ashworth, Evan Klim, Sebastian D. Chow
+
+The Cocaine Bears: George Rivard, Joey Crewe, Kari Johnson
+
+Hosted by Dan Donnelly
+
+May 13 - 8:00pm - [SoCap Comedy](https://socap.ca)  
+154 Danforth Ave, Toronto  
+[Tickets $20](https://www.eventbrite.ca/e/comedy-game-showdown-tickets-601097477737?aff=website)
+
+More info and previous episodes: [andascotchegg.com](http://andascotchegg.com)",3,0,2025-05-06 20:16:51,https://www.reddit.com/r/Torontoevents/comments/1kgk0l1/may_13_comedy_game_showdown_ep_46_call_of_the/,"['SoCap Comedy Featured', 'Comedy Game Showdown']",-0.02278554778554779,False,0.81
+1k8nwj9,TorontoEvents,"TONIGHT! COMEDY BAR AFTER DARK FT. COMICS AS SEEN ON JUST FOR LAUGHS, SIRIUSXM, CBC, OUT TV & MORE!","YES YES Y’ALL! 
+
+Last night was so nice we gotta do it twice! Comedy Bar: After Dark is back tonight with another killer lineup of pro comics giving you the late night comedy fix you need! Whether you’re keeping the party going after the Leafs game (LEAFS IN 4!) or want to get some laughs in after raging and moshing at the Metallica concert, we’ve got you covered with a STACKED show you can watch for cheap! COME HANG, BABY! 🎉
+
+TICKETS HERE: 
+
+https://comedybar.ca/shows/comedy-bar-after-dark?ev=2025-04-26T23%3A30%3A00
+
+#AFTERDARK",4,0,2025-04-26 17:37:25,https://www.reddit.com/r/Torontoevents/comments/1k8nwj9/tonight_comedy_bar_after_dark_ft_comics_as_seen/,"['After Dark', 'COMEDY', 'AFTER DARK FT', 'Comedy']",0.10902777777777779,False,0.7
+1ktvs46,TorontoEvents,June 17 - Wychwood Barns Park Tree Tour and Shrub Giveaway. Free,https://www.yourleaf.org/node/2722,3,0,2025-05-23 17:58:25,https://www.reddit.com/r/Torontoevents/comments/1ktvs46/june_17_wychwood_barns_park_tree_tour_and_shrub/,['Wychwood'],0.4,False,1.0
+1kqes2u,TorontoEvents,May 22nd Liberty Village - Dungeons and Dragons Drop In Night - New Players Welcome!,"Come play Dungeons and Dragons at Something in the Water Brewery! Make new friends, slay monsters and loot treasure! New Players Welcome! We love teaching this game.
+
+Our focus is safe, inclusive and fun gaming! Join us every two weeks on Thursday night for awesome adventure!
+
+Where: Something in the Water Brewery 151 E Liberty St, Toronto, ON M6K 3G3
+
+This Week: Thursday 22nd at 630 pm
+
+Next Game Night: Thursday June 5th at 630 pm
+
+Game Masters will provide characters and supplies, you don't need to bring anything.
+
+What is Dungeons and Dragons? Dungeons and Dragons is a cooperative, social and storytelling game where 4-6 players take on the persona of heroes in a fantasy world seeking adventure, righting wrongs and triumph over evil. Players describe their actions, roll dice to determine the outcome, and the Game Master describes the results of those actions on the game world.
+
+How much does it cost? A sitting fee of $10 per player will be added to your Brewery bill. This fee goes towards paying your Game Master for their prep-work and running the game.
+
+Do I need to know how to play? No! We love teaching this game to new players.
+
+Follow me for all my brewery events at: [https://www.instagram.com/daddyofdragonsdm/](https://www.instagram.com/daddyofdragonsdm/)",3,0,2025-05-19 11:36:47,https://www.reddit.com/r/Torontoevents/comments/1kqes2u/may_22nd_liberty_village_dungeons_and_dragons/,"['Something', 'Our focus', 'Dungeons and Dragons', 'What']",0.009515151515151494,False,1.0
+1kncl1m,TorontoEvents,"May 17th | Laugh It Off - Comedy Show with a REAL Therapist Weighing in! by Andrew Packer (Kill Tony, Man News, JFL)","A therapist dad and his comedian son take on your problems🤣 along with a rotating line up of top comedians…let’s Laugh It Off
+
+tickets: [https://comedybar.ca/shows/laugh-it-off-with-andrew-packer?ev=2025-04-18T23%3A00%3A00](https://comedybar.ca/shows/laugh-it-off-with-andrew-packer?ev=2025-04-18T23%3A00%3A00)
+
+Showtime: 11pm
+
+Comedy Bar BLOOR - 945 Bloor Street W, Toronto
+
+Stand-up comedian Andrew Packer (Kill Tony, Man News, +1M Subs on Youtube) teams up with his real-life dad—an actual therapist with over 35 years experience—for a comedy show like no other.
+
+Audience members anonymously submit a real problem/grievance from their life that they want to ""laugh off"". Then, Andrew and a lineup of comedians turn those real-life topics into improvised stand-up, while his dad offers heartfelt (and hilarious) insight from a therapist’s perspective on stage.
+
+It’s raw, real, and ridiculously funny—part stand-up, part therapy and incredibly entertaining.
+
+Last show sold out early—get your tickets now!
+
+Because sometimes the best way to heal… is to laugh it off.
+
+See clips and follow laughitofflive on instagram [here](https://www.instagram.com/laughitofflive/)",3,1,2025-05-15 12:29:42,https://www.reddit.com/r/Torontoevents/comments/1kncl1m/may_17th_laugh_it_off_comedy_show_with_a_real/,"['BLOOR -', 'pm\n\nComedy']",0.16833670715249663,False,0.8
+1kn0bw7,TorontoEvents,Casey Rocket at Comedy Bar May 17 tix 🦀,"hey guys, my friend and i loafted on buying tickets to see casey rocket at comedy bar, and of course the event is sold out now. we’re looking for 2 tickets to his saturday may 17 show - doesn’t matter which seats or time slot. message me if you’re looking to sell! 🦀",3,0,2025-05-15 01:18:03,https://www.reddit.com/r/Torontoevents/comments/1kn0bw7/casey_rocket_at_comedy_bar_may_17_tix/,"['and of course the event', 'Casey Rocket at Comedy']",0.0,False,1.0
+1kmrp8y,TorontoEvents,Stand Up Comedy Album Recording May 23rd & 30th,"Hi! I’m a local stand up comic and I’m recording an album at Comedy Bar on May 23rd & 30th with Comedy Records. They’re an independent record label based in Toronto. I’ve performed at the Edinburgh Fringe Festival, Just for Laughs Toronto, New York Comedy Festival and my comedy can regularly be heard on SiriusXM. This whole self-promotion thing does not come naturally to me but would love to see you there! 
+
+[Tickets & more info here ](https://comedybar.ca/shows/comedy-records-live)
+
+",4,0,2025-05-14 17:54:11,https://www.reddit.com/r/Torontoevents/comments/1kmrp8y/stand_up_comedy_album_recording_may_23rd_30th/,"['Comedy Bar', 'm recording an album at Comedy', 'on May']",0.20126262626262628,False,0.83
+1km475j,TorontoEvents,"Human Cost of Wrongful Convictions (June 17, Lecture Night)","Join us for engaging evenings where professors, experts, and storytellers bring their thought-provoking lectures to your favorite Toronto bars.
+
+Hosted by Sip and Scholar
+
+📅 **Date**: June 17, 2025  
+⏰ **Time**: 6:00 PM  
+📍 **Location**: Yonge x Bloor (exact address given in confirmation email)  
+🎙️ **Lecture**: ""Beyond the Bars: The Human Tragedy of Wrongful Convictions""  
+👨‍🏫 **Speaker**: Stephanie Nowak, Executive Director
+
+**What happens when the justice system gets it wrong?**  
+Wrongful convictions don’t just steal years—they shatter lives, families, and communities. In this eye-opening session, we’ll go beyond the headlines to explore the personal, legal, and societal impacts of wrongful convictions in Canada.
+
+We’re joined by **Stephanie Nowak**, Executive Director of **Innocence Canada**, the organization dedicated to identifying, advocating for, and exonerating the wrongly convicted. With real stories and frontline insights, Stephanie will unpack how these tragedies happen—and what it takes to fight for justice.
+
+[Get Tickets](https://www.eventbrite.com/e/the-human-tragedy-of-wrongful-convictions-a-sip-and-scholar-lecture-night-tickets-1362406868619?aff=oddtdtcreator) ",3,0,2025-05-13 22:21:46,https://www.reddit.com/r/Torontoevents/comments/1km475j/human_cost_of_wrongful_convictions_june_17/,['Beyond the'],0.08636363636363636,False,1.0
+1kwa5gw,TorontoAnarchy,ISO the city’s lushest grassy field,"My degenerate hippie neighbour is weeping about bumblebees or something because I sprayed my gorgeous lawn for dandelions. Fuck them bees, I still have trauma from watching My Girl as a kid. Anyway I don’t want to hear her and her two partners and their drum circle anymore, their overall vibe is stiflig. Suggestions for the next best patch of grass to touch in TO? No dandelions, bees, bugs in general, dogs, dogshit or marijuana smell HA GOOD LUCK WITH THAT HERE IN SODOM AND GOMORRAH preferred. TIA xx",0,1,2025-05-26 20:37:31,https://www.reddit.com/r/TorontoAnarchy/comments/1kwa5gw/iso_the_citys_lushest_grassy_field/,"['HERE', 'their overall vibe']",0.2928571428571428,False,0.29
+1kvidjj,TorontoAnarchy,Why can’t I ask questions?,"For example, I've never even heard of Fight Club. But it sounds like it would have been a lot shorter if Edward Norton just took his meds.
+
+Thanks ... I am not jealous or a hater. Just because I participate in subreddits devoted to hating someone I've never met is completely irrelevant.
+
+Edit: Brigading is NOT ALLOWED you mama’s boys. I see a bunch of people in clear need of a strong Chad role model themselves. Sad
+
+Edit 2: Wow, down to 18%. Roughly the amount of time your parents were home when you were little
+
+Edit 3: BREAKING CHARACTER FOR A SECOND jesus fooking christ man for all this grass touching talk I don’t have karma in the six digits, I never used an email for my ancient account and after coming back to this hellsite it is IMPOSSIBLE to post from a blank slate  like even if u need housing in an emergency or have the exact answer to somebody’s very niche question. I’m not funny enough to make it to all or whatever so I just have to I guess scrape the bottom of the barrel (not here) in order to post the second tier up from the damn sewers of Reddit and so forth. By all means don’t engage, block me, tell me to fuck off whatever. All those things are more honest than this dick move which frankly even r JBP is above so like look at your lives and choices mans frr. Be the grass u want to touch in the world",0,7,2025-05-25 21:28:34,https://www.reddit.com/r/TorontoAnarchy/comments/1kvidjj/why_cant_i_ask_questions/,['Brigading'],0.010809178743961357,False,0.13
+1k983sy,TorontoAnarchy,"TorontoAnarchy Editorial Board: In a time of crisis, Gong Xiao Hua is the steady hand Canada needs",,18,15,2025-04-27 12:33:14,https://i.redd.it/2cx0dx39nexe1.png,['Gong Xiao Hua'],0.16666666666666666,False,0.79
+1k983sy,TorontoAnarchy,"TorontoAnarchy Editorial Board: In a time of crisis, Gong Xiao Hua is the steady hand Canada needs",,19,15,2025-04-27 12:33:14,https://i.redd.it/2cx0dx39nexe1.png,['Gong Xiao Hua'],0.16666666666666666,False,0.81
+1kvidjj,TorontoAnarchy,Why can’t I ask questions?,"For example, I've never even heard of Fight Club. But it sounds like it would have been a lot shorter if Edward Norton just took his meds.
+
+Thanks ... I am not jealous or a hater. Just because I participate in subreddits devoted to hating someone I've never met is completely irrelevant.
+
+Edit: Brigading is NOT ALLOWED you mama’s boys. I see a bunch of people in clear need of a strong Chad role model themselves. Sad
+
+Edit 2: Wow, down to 18%. Roughly the amount of time your parents were home when you were little
+
+Edit 3: BREAKING CHARACTER FOR A SECOND jesus fooking christ man for all this grass touching talk I don’t have karma in the six digits, I never used an email for my ancient account and after coming back to this hellsite it is IMPOSSIBLE to post from a blank slate  like even if u need housing in an emergency or have the exact answer to somebody’s very niche question. I’m not funny enough to make it to all or whatever so I just have to I guess scrape the bottom of the barrel (not here) in order to post the second tier up from the damn sewers of Reddit and so forth. By all means don’t engage, block me, tell me to fuck off whatever. All those things are more honest than this dick move which frankly even r JBP is above so like look at your lives and choices mans frr. Be the grass u want to touch in the world",0,7,2025-05-25 21:28:34,https://www.reddit.com/r/TorontoAnarchy/comments/1kvidjj/why_cant_i_ask_questions/,['Brigading'],0.010809178743961357,False,0.13
+1jfoc08,GTAMarketPlace,Launching Verified Messaging 💬 in goConfirm,"Hey GTA!
+
+There are some awesome shows and festivals coming up in Toronto this summer, and this busy season always brings about more scammers.
+
+As you know, scammers take advantage of the anonymous nature of Reddit. They can use compromised accounts, farm karma, and impersonate others. Ultimately this enables them to “look” trustworthy, commit fraud, and block you. They can keep doing this with little risk of being stopped or face consequences.
+
+This is exactly what Verified Messaging in goConfirm is designed to stop. 
+
+Now once you’ve connected with a potential buyer or seller in goConfirm, you can now use built-in Verified Messaging so you know exactly who you are talking with when exchanging important and sensitive info like payment details or meet-up/shipping logistics.
+
+In the very rare event of fraud, our Fraud Support team has your back. We can take action, because we know exactly who’s involved —including permanent bans.
+
+It’s easy: Like before, create and connect to invite codes for whatever you’re buying or selling. You can share the code in your posts or DMs and ask interested parties to connect.
+
+It’s not just for Reddit, you can use goConfirm in Facebook Groups, Marketplace and WhatsApp. 
+
+https://i.redd.it/692magcbeupe1.gif
+
+  
+",3,3,2025-03-20 08:59:41,https://www.reddit.com/r/gtamarketplace/comments/1jfoc08/launching_verified_messaging_in_goconfirm/,"['our Fraud Support team', 'Verified Messaging']",0.23973958333333334,False,1.0
+1ktyub7,GTAMarketPlace,2 Post Malone Tickets for May 26th,"Hi all i'm looking to sell my two tickets to Post Malone on May 26th for less than face value for sec 525 $180 per ticket. 
+
+I didn't get the day off work so I'm hoping to make a bit of money back from it. I rather sell to someone that for ticketmaster to steal a bunch in fees.
+
+I'll do whatever someone needs to prove im not scamming and will transfer directly to your tm account. ",1,1,2025-05-23 20:26:48,https://www.reddit.com/r/gtamarketplace/comments/1ktyub7/2_post_malone_tickets_for_may_26th/,['for ticketmaster to steal a bunch'],-0.041666666666666664,False,1.0
+1kpwog8,GTAMarketPlace,Solid Wood Dining Table with Storage (4 chairs plus bench),"Set Includes:
+• 1 large solid wood counter-height table with built-in storage (cabinet & shelves on both sides)
+• 4 upholstered chairs with tufted backs
+• 1 long upholstered bench (comfortably seats 2-3)
+
+Features:
+• Rich dark espresso finish
+• Durable wood construction with a modern rustic feel (real hardwood) 
+• Generous tabletop space – perfect for hosting (comes with an extender) 
+• Hidden storage underneath for added convenience
+• Neutral beige fabric chairs – easy to pair with any décor
+
+Reason for sale: moving and the colour won’t match the new hardwood floor. This is a rare custom made oak wood table and will leave for a very very long time for its new buyer.",2,4,2025-05-18 18:45:52,https://www.reddit.com/gallery/1kpwog8,['This'],0.18522997835497831,False,1.0
+1kwar7w,TorontoRealEstate,Concord Detached Home for just over 800 k?,"Just wanted to know if anyone had some insight in this 1800 square foot home in Concord Glen Shields area? No inside pics which leads me to think it’s a total gut job, or worse, and barely anything in the sales description, but it’s a two car garage, 3 beds/ 3 baths, and as long as there’s no black mould or cracks in the foundation, I’d say 820 000 k for that is insane 🤷‍♀️ I’m always intrigued with listings like this, so just figured I’d inquire! ",3,5,2025-05-26 21:08:31,https://i.redd.it/t90x8mim583f1.jpeg,['k for that'],-0.21944444444444444,False,0.72
+1kvyk1n,TorontoRealEstate,Feedback Wanted: PH5111 - 38 Widmer | Is Now the Time to Strike or Sit Tight?,"Hey everyone,
+
+I’m looking for some collective wisdom on this unit:
+
+👉 [PH5111 – 38 Widmer Street (Central Condos)](https://housesigma.com/on/toronto-real-estate/ph5111-38-widmer-street/home/5VXv3lX8wqO3j2q8?id_listing=bEDRYaGDPqP71VaB&utm_campaign=listing&utm_source=user-share&utm_medium=desktop&ign=)
+
+It’s a large penthouse (\~1,900 sq ft, 3 bed/3 bath, two-storey) listed at **$1.88M**, with no parking or locker included in the base price (though parking is a purchase option). The unit is part of **Central Condos by Concord**, which just completed. I’m looking to use this unit partially as a residence when I'm in town, and occasionally as a family pad when they visit. So it’s not a pure investment or pure primary residence.
+
+Here’s what’s making me hesitate:
+
+* **There are currently 15+ units for sale in the same building** — including another penthouse at a similar price, and multiple high-floor units in the $1.0–$1.2M range.
+* The building and area have seen a **ton of investor activity**, so I’m cautious about resale liquidity and long-term appreciation.
+* Market reports (e.g., TD, WOWA) are predicting **continued downward pressure on GTA condo prices throughout 2025**, especially in oversupplied segments.
+* The unit was originally listed in 2023 for nearly $3M — obviously delusional — and has since dropped over $1M. It’s been sitting on the market again for several weeks.
+
+# My current position:.
+
+* I’ve run the affordability numbers; it fits. But I want to avoid catching a falling knife if this market correction has more room to run.
+* I’m back in Toronto in June and could act then. Wondering if **waiting until summer might squeeze more desperation out of the seller** or if I risk someone else scooping it up.
+
+**Questions for the hive mind:**
+
+1. **Would you offer now, or wait until June?** Is this sitting long enough to push for a lowball?
+2. **How much of a haircut would be reasonable to offer on $1.88M?** Is $1.45M–$1.5M insulting or strategic in this climate?
+3. Anyone have insight on **how Concord handles end-of-cycle sales** like this? Do they negotiate directly? Bundle perks like parking or storage?
+4. Thoughts on this building’s long-term upside or downside? (It’s positioned well near the tech/financial corridor and Union.)
+
+Appreciate any advice — or horror stories — especially if you’ve transacted in this building or with Concord before. 🙏",0,24,2025-05-26 12:22:52,https://www.reddit.com/r/TorontoRealEstate/comments/1kvyk1n/feedback_wanted_ph5111_38_widmer_is_now_the_time/,"['The unit', 'though parking']",0.05212053571428574,False,0.43
+1kvgmpy,TorontoRealEstate,First Time Home Buyer - Am I on the right track?,"My long-term girlfriend and I currently live in a rental apartment, paying an absurdly low $1400/month because we've been here for over 7 years. However, we both recently had job transfers to the Barrie area, and the hour+ commute and $30-$60 a day in gas (depending on if we can align our schedules to carpool) is wearing us thin. So we are considering buying our first property in the Barrie area instead of paying for another rental. Our finances are as such:
+
+* I make about $4400/month after tax. With bonuses, I can garnish about $5000 extra a year, minimum.
+* She makes about $2200/month after tax. This can fluctuate with some piecemeal pay, but that's about the average.
+* My grandfather passed away recently, and his will boosted my savings to about $430,000 liquid.
+* Her savings are minimal, not enough to meaningfully contribute to a down payment.
+* We keep our finances separate, and we plan to continue this. I have seen some strong opinions against this in this sub, but we are both more comfortable this way and unless there are some very strong reasons brought up as to why this is a bad idea, it will be the plan going forward.
+
+My goals are thus:
+
+* We want a fully detached house. Due to the plummeting condo market, questionable build qualities, and our own quality of life, we are looking to avoid condos and townhouses if at all possible.
+* I plan to put a substantial downpayment of $300,000 with a maximum price of $700,000. From my research, this will put our mortgage at ~$2,000/month at 5% interest.
+* I will use the remaining $130,000 on agent/lawyer fees, inspection, repairs and furnishings, and transfer tax. Whatever is left will be invested, minus an emergency fund.
+
+And I see the timeline as such:
+
+* We will need to obtain separate family lawyers to draw up contracts to keep our finances, and contributions to the property separate. I know some people may disagree, but with me being the massive contributor to the downpayment, we both agree that it would be logical to protect me and my portion of the purchase. **I am a little lost in the woods of how exactly to execute this, so anyone with experience or guidance would be appreciated.**
+* We need to find a mortgage broker, to hopefully find the best possible rate in this time of questionable percentages as the national interest rate falls.
+* We need to get a real estate agent. I know this isn't explicitly necessary, but it seems to be the path of least resistance. Neither of us really have the time to learn the fine details of executing it without an agent while we both work full time jobs.
+* Then...we find the house we want to buy?
+
+I am sure I am missing a ton of detail, and there's a lot of factors I've left out that will change the situation. I am really hoping the wealth of experience in this subreddit can make sure I am on the right track, and point out anything I may have missed or overlooked.
+
+Please ask if further detail is required, and thank you to anyone who has any input.",18,23,2025-05-25 19:55:55,https://www.reddit.com/r/TorontoRealEstate/comments/1kvgmpy/first_time_home_buyer_am_i_on_the_right_track/,"['Please ask if further detail', 'and thank you to anyone who', 'we both recently had job transfers to the', 'Whatever', 'I know this']",0.10110562469937473,False,0.87
+1kry4mu,TorontoRealEstate,"Canada is entering a recession and will soon bleed another 100,000 jobs: TD chief economist","https://www.removepaywall.com/search?url=https://www.theglobeandmail.com/investing/markets/inside-the-market/article-canada-is-entering-a-recession-and-will-soon-bleed-another-100000-jobs/
+
+",352,302,2025-05-21 09:41:28,https://www.reddit.com/r/TorontoRealEstate/comments/1kry4mu/canada_is_entering_a_recession_and_will_soon/,['Canada'],0.0,False,0.92
+1kqd5iv,TorontoRealEstate,Developers built condos for investors & this is what you get,"So many layouts in the condo market have these ridiculous interior bedrooms. The reality is you can't build the condo without investors putting down money. They are not living in the building so it does not matter. Floor plans in older buildings were decent, now you get a lot of this in order to stuff in as many units as possible.  Not many people want units that look like this as end users, so how will they get absorbed? When will investors jump back in to pick these units up? Rental market is not that strong so what incentive do they have? Also buyers have spoken will they get more liveable units or more of this trash?",254,121,2025-05-19 10:30:48,https://i.redd.it/5pk44lsm0r1f1.jpeg,"['The reality', 'you get So many layouts', 'Rental market', 'Developers built condos for investors & this']",0.17905982905982903,False,0.96
+md73m2,TorontoJobs,"Free Government funded Resume, Interview, LinkedIn and General Employment Services Assistance","Hello
+
+We're noticing a steady stream of posts advertising resume and LinkedIn writing services for a fee. I'd like to point out that you can get your resume and LinkedIn critiqued for free. These services are offered through Employment Ontario Employment Services Agencies. Employment Ontario agencies consists of registered nonprofit organizations and charities dedicated to serving Torontonians.
+
+Employment Ontario is funded by the Government of Ontario and offer **FREE** resume, interview, LinkedIn and a host of other employment related training and workshops. We also assist with Second Career applications.
+
+Most agencies are working virtually at the moment, but none the less, here is how you can find the closest agency to where you live and attend their workshops virtually or for some, in-person.
+
+https://feat.findhelp.ca/
+
+Every agency has a slight variation and flavour of these workshops. Visit their website by finding the closest one near you via the link above. 
+
+------------
+
+**SHAMELESS SELF PLUG**
+
+For our agency, Toronto Community Employment Services, we offer the following workshops to anyone residing within Ontario...
+
+**Career Exploration Workshop**
+
+Career Cruising & Job Opportunities that are in demand in Canada
+
+* A tool used to explore career interests, determine your learning style, research careers, education programs and browsed through job postings
+* Current and future job trends, industry demands, essential skills to labour market
+* Learning styles and strengths assessment¬
+
+**Interview Techniques**
+
+* Beginner’s guide to interviews; covering topics such as your role in interviews, types of interviews and how to present yourself during the interviews.
+* By the end of the workshop, you will be able to have a base level understanding on interview FAQs and build strategies to answer these questions. 
+
+**Job Search Workshop**
+
+An all-inclusive workshop that talks about where people are getting jobs, how to market yourself and how to take on the Applicant Tracking Software
+
+* What information must be included in your cover letter, follow up methods including thank you letter
+* Understanding how to prepare for an interview including questions, attire, references, and the confidence to be successful
+
+**Mastering Job Fairs**
+
+* How to prepare for, attend and ace your online job fairs
+* Do’s and Don’ts of online interactions with recruiters 
+
+**Networking Workshop**
+
+* Networking and social media; how to best use social media to optimize job search
+* How to build your personal brand using social media
+
+**Resume Critique**
+
+* Critique and review of your resume with the facilitator
+* Sampling, editing, and tailoring your current resume to a specific job or industry
+
+**Resume Techniques**
+
+* How to build your resume from scratch and what to include in your resume
+* Resume formats that works best for you (chronological, functional, combination)
+* Do’s and Don’ts to writing a resume for the Canadian job market and best practices to writing an effective and targeted resume.
+
+**Return to Work**
+
+A workshop to help address and understand employment gaps. 
+
+* How to answer questions about employment gaps in an interview
+* Employment Standards and protection for employees. 
+
+You may submit a request via our Google Forms at: https://forms.gle/PGN8smXtC2tbBvC98
+
+----
+
+Note: 
+
+** **One-on-one Assisted Employment Services** is only available to people who are Canadian Citizens, Permanent Residents, Conventional Refugees or people who are in the process of getting their Permanent Resident status.
+
+** Everyone outside of the above listed categories are eligible to attend our workshops as they are open to the general public.",109,27,2021-03-25 16:05:24,https://www.reddit.com/r/torontoJobs/comments/md73m2/free_government_funded_resume_interview_linkedin/,"['to include', 'here', 'Employment Ontario', 'Every agency', 'information must be included']",0.14647237682951966,False,0.99
+1b7dt3q,TorontoJobs,"Rules Update: Job Postings, Disclosure of Pay, Appropriate Netiquette, Removal of Ragebait","**Ragebait** - This is a job board, not a workplace demographics report. This **isn't** the place to complain about immigrants, newcomers, student visas, (insert ethnicity) people...etc. Complaining won't help you get a job nor will it change the employer's mind. Ragebait posts and comments will be removed and/or banned depending on each moderator's discretion. Posts **without** [Hiring] or [For Hire] tags will be under greater scrutiny and increased risk of removal. Examples:
+
+* Why are there so many (insert ethnicity) working in (insert profession)?
+* Immigrant this, newcomer that, student visa this...
+* ""Lol. I'm guessing the mods in this sub are refugees."" [\[1\]](https://old.reddit.com/r/torontoJobs/comments/1b7dt3q/rules_update_job_postings_disclosure_of_pay/kthz451/) Comments like won't improve one's chances of finding employment. It doesn't make any meaningful contribution to the community.
+
+**Minimum Wage** - Job Postings that do not pay at least $16.55/h will be removed and/or banned unless exempt under Ontario Law. Posts offering to work below minimum wage will also be removed.
+
+https://news.ontario.ca/en/release/1002886/ontario-increasing-minimum-wage-to-1655-an-hour
+
+**Disclosure of Pay Rate or Range** - Job Postings that do not explicitly list pay rate/range will be at risk of removal. It is not written in law... yet. But we're not going to wait. Hiding and not disclosing the pay rate/range is a terrible practice and wastes everyone's time.
+
+* https://www.cbc.ca/news/business/pay-transparency-1.7027826
+* Up to each moderator's discretion: If a posting doesn't explicitly list the pay rate/range but does list it in the link, the post is at risk of being removed.
+* Example: This posting would be at risk of removal https://old.reddit.com/r/torontoJobs/comments/13ft2ct/hiring_city_of_toronto_byelection_workers/?ref=share&ref_source=link
+
+**Netiquette** - Common Toronto. We can do better. Be nice. Be empathetic. Pretend your grandma human resources is watching. Unprofessional comments will be at risk of removal or ban to each moderator's own discretion. We've so far been very lenient and hands-off on some not-so-nice comments. Don't Do Examples:
+
+* ""Shut up. If you have no suggestion keep your stupid distate to yourself."" [\[1\]](https://old.reddit.com/r/torontoJobs/comments/17jkshe/21f_looking_for_a_job/k73z914/)
+* ""Please go back to wherever you came from. We don't need more balding, neurotic, men's rights weirdos in the country."" [\[2\]](https://old.reddit.com/r/torontoJobs/comments/16qce59/what_are_some_easy_jobs_that_will_help_you_with/k1wchzj/)
+* ""She speaks with heavy Punjabi accent, loud and stupid."" [\[3\]](https://old.reddit.com/r/torontoJobs/comments/16bv23p/when_do_you_think_the_job_market_will_start/jzx2o1t/)
+
+**Dental Cleaning**: I get it, you need your hours and willing to pay. Please keep it 1 post per week maximum per user. I might have an ongoing thread if it gets too excessive.
+
+Thank you.",52,42,2024-03-05 14:17:19,https://www.reddit.com/r/torontoJobs/comments/1b7dt3q/rules_update_job_postings_disclosure_of_pay/,"['do not pay', 'Pretend your grandma human resources', 'range', 'the post', 'This']",0.09782608695652176,False,0.77
+1kw1nxn,TorontoJobs,Left Canada,"There was a viral post in here a bit ago saying how leaving was the better option and wanted to affirm that sentiment. For context, I am a university student at UofT with dual US/Canadian citizenship (raised in Canada). With the latest political climate, I tried hard to land a job in Canada to no avail. I applied online and followed up multiple times with employers with no luck each time. At the beginning of summer when it was becoming clear a job was not going to be found, I very reluctantly came to the decision to seek employment options south of the border. The media in Canada had me very concerned about settling in the states with its perceived volatility and political leadership. Furthermore, the recent “elbows up” of not betraying my country continued to eat away at me.
+
+When searching for employment stateside, difference was night and day. I landed full time employment within 24 hours of looking for work and a week later landed a second part time job (for context this is just across the border in NY). All of my coworkers are in their early 20’s like myself and have all said that all their university friends have had no issues or barriers entering the labour force. 
+
+At the current moment, I am not considering coming back to Canada until things improve. I was barely able to live in Toronto given its high prices. Leveraging the exchange rate, I’m currently able to put nearly $6,000 CAD towards savings every month right now (working between 65-75 hours a week). I say this not to brag but simply to point out how badly the immigration policy in Canada has been constructed and how it’s doing significant damage to the esteem and dreams of Canada’s youth. The youth unemployment level being this high (especially in Ontario) is unacceptable and it’s entirely a massive policy failure that the government cannot continue to ignore (14.1 percent in Canada; 9.6 percent in the US). It will continue the cycle of Canada bleeding talented, qualified individuals to other nations. Furthermore, I write this to affirm people’s suspicions of the significant quality of life differences Americans are currently feeling compared to Canadians. While the United States and Canada have always had their differences, I’ve never seen the gap this wide between our two nations. It’s sad to see Canada in such a tough spot economically and I can only hope government gets their immigration policy together to defend Canada’s youth and Canada’s labour sectors.",434,552,2025-05-26 14:26:24,https://www.reddit.com/r/torontoJobs/comments/1kw1nxn/left_canada/,"['away', 'I was', 'for context this']",0.0870696512159927,False,0.71
+1kw9420,TorontoJobs,Method to get interviews,"Seeing a lot of posts from people having a hard time with the job market and want to share a method I use to get interviews. Works about 25% of the time, though I am not applying to many job ads.
+
+TLDR: Apply to the position through the website so your application is in the applicant tracking system. Then, send an email to the hiring manager to try and get your foot in the door. You could call this a ""cold networking approach."" Here's how it works in more detail:
+
+**1. Apply as regular.** It's unlikely that just putting in an application will ever, even in the best of times, get you an interview except by sheer luck or if you're in a particular industry that favours job seekers.
+
+**2. Look up the hiring manager.** Many job ads list the name of the position that the role will report to, and if not it is something you can often look up on the organization's website. LinkedIn can also be helpful to find the right person, or even a Google search can sometimes find them.
+
+**3. Find their email address.** I find the best way is to do a Google search for ""company name"" and ""email prefix."" In most organizations, it will be something like firstname.lastname at companyname dot com, or firstinitial.last name or just firstname. You will sometimes end up sending a couple of initial emails until you get it right.
+
+**4. Send them the following email:** Hi Name. I applied for a role as nameofrole, which I understand reports directly to you. If it is appropriate, I would love to connect for a quick 10-minute call to learn a little more about this opportunity. I believe I would be a good fit, but have a few questions. Thanks, Yourname.
+
+**5. Attach your cover letter and resume** as a single PDF to the email. They may not open the PDF, as most organizations have trained everyone to never do that, so be sure to also have your email signature link to your LinkedIn or some other platform that they will know and trust.
+
+**6. Assume that they will not respond.** Most hiring managers will open and read your email, but only a small percentage will respond to the initial email. You should plan to send the following email 48 hours later: Hi Name. Just a quick follow-up to my previous email. I'd love to connect if you have a moment. Best, Yourname.
+
+**7. When you get a reply, they will say one of the following:** a) Yes, let's connect for a call. b) No, it isn't appropriate in our process for us to have a call right now. c) Some variation of, How dare you and how did you find my email!  You wouldn't have wanted to work for c), so consider that a bullet dodged. But for a) and b), you have your foot in the door. With a), you can prepare for a very quick call, during which you can ask some questions about the role, and especially to try and learn any pain points for the hiring manager, so you can be ready to share how you will solve those pains when/if you get the formal interview. With b), even though you don't get the call, you've managed to connect directly with the hiring manager and increase your chances of an interview. Overall, for both a) and b), you've demonstrated that you are proactive, a good communicator, and ready to make the hiring manager's job easier.
+
+Once you get the interview, there's obviously a lot more to think about and prepare. I try to interview every few months, even though I'm not really interested in changing jobs, because it's important to keep the skills sharp, and also because it's good for confidence. And finally, better than the above method is a ""warm networking approach,"" in which you would have cultivated the connection with the hiring manager over a period of time and targeted precisely the job and organization you want.
+
+It can be difficult, but keeping a positive mindset and remembering that you are bringing value to any potential employer can make a big difference in these interactions. I wish you all good luck in your job search.",16,5,2025-05-26 19:45:21,https://www.reddit.com/r/torontoJobs/comments/1kw9420/method_to_get_interviews/,"['I find the best way', 'better than the above method', 'and if not it', 'just putting', 'If it']",0.21294483702571934,False,0.9
+1kvzu6s,TorontoJobs,Under 30 Cohort issues with Finding Employment,"I’m in the under 30 cohort and so many of my friends and colleagues can’t find work with uni/college education or trades experience. 
+
+I’ve been unemployed for a year now and I have a masters in health sciences, have worked clinical health roles, research and most recently worked in public health with research and planning. My and other co workers contracts expired at the same as funding ran out and we haven’t been able to find anything since in any field. Most recently, my former manager was hiring for a role I was definitely over qualified for but reached out to get me to apply. I got rejected w/o even an interview or explanation. In the last year it’s like all the jobs vanished and there’s nothing to apply to.
+
+One of my friends has a degree in engineering. Had great co ops, got great connections and overall great person. Been unemployed 1.5 years since graduating and is now a professional fighter who does fights in Asia because that’s the only way he can find work. 
+
+Another friend has his masters in pharmacology and had take reduced hours for medical reasons and eventually got terminated and has been unemployed since over a year ago. Another one in trades drives 4 hours a day for work but can’t move closer bc he can’t afford the rent with his current pay. 
+
+My only friends/colleagues who are employed are in education or nursing, or are in low paying dead end jobs and are on the verge of suicide with substance abuse issues developed only within the last couple years. 
+
+Every person I know under the age of 25 is unemployed despite trying their best to find work. I even know physiotherapists and teachers who graduated in last 2 years who are struggling to find work. Colleagues who work in University co op programs are telling me they’re also facing the largest number of students w/o landing co ops in their history.
+
+I’m only surviving because I live at home and have a side gig training recreational lifters and competitive powerlifters and have had this for years now. It isn’t enough to make a living off, however. I feel like I have no future any more and have no direction.
+
+On top of all this, I have a disability/chronic health issues that make finding sustainable work for me incredibly difficult, and most jobs in the past I’ve tried to just push through because I thought that’s what I had to do in order to get my career started and deal with consequences after things are stable. Now I sit here unemployed and health issues made worse by pushing through it and the stress of finding work, in addition to the loss of some family members this year.
+
+When does this all end? ",14,4,2025-05-26 13:13:20,https://www.reddit.com/r/torontoJobs/comments/1kvzu6s/under_30_cohort_issues_with_finding_employment/,"['chronic health', 'research and most recently worked in', 'I had to do', 'Now I sit here unemployed and health', 'years since graduating and', 'Cohort', 'One of my friends']",0.15571253071253066,False,0.95
+1kvjcir,TorontoJobs,Market is too saturated with temp workers maybe?,"Was checking out Trading Economics for macro indicators and got a bit confused by Canada’s 6.9% unemployment rate. That number feels oddly familiar — like, wasn’t it around the same back in 2016–2017? The thing is, it *feels* very different now. I was a new grad back then, and even without much experience, I’d still get recruiter messages regularly — maybe not every week, but definitely monthly.
+
+Now? Jack shit
+
+It kind of makes sense when you think about population growth, though. Not sure how much of the increase is from new immigrants or temporary residents, but I imagine it’s a factor. Just feels weird seeing similar unemployment numbers but experiencing such a different job market.
+
+Also, when do temporary workers usually end their visa status? And does that get reflected in the official population count somehow?
+
+  
+Population 
+
+https://preview.redd.it/pw6sc7nyc13f1.png?width=1170&format=png&auto=webp&s=c8f5bb5a0553061606019fea86f487e8fbaa2447
+
+unemployment rate 
+
+https://preview.redd.it/igulntc8d13f1.png?width=1081&format=png&auto=webp&s=3e703b26a352984e819a72f41e2eb7fd2370a217
+
+  
+",108,107,2025-05-25 22:22:07,https://www.reddit.com/r/torontoJobs/comments/1kvjcir/market_is_too_saturated_with_temp_workers_maybe/,"['Jack shit\n\nIt kind of', 'Market', 'The thing', 'get reflected', 'Not sure how much of the increase']",0.0023863636363636366,False,0.87
+1kwbm74,TorontoJobs,I am wondering is it my resume is poor or I am not good enough for the software dev market nowday?,"Hi everyone,
+
+I hope some good experience / senior dev can review my resume and give me some advise.
+
+I got laid off due to restructure since end of Feb.
+
+Until now, I have received many and many reject email, even I applied entry-level job.
+
+I am self-learning React JS and going to do Spring-Boot.
+
+Ideally, I wish I can learn and work at the same time because self-learning is extremely slow to me and I am a group-study person, I prefer mentorship and project. ",0,2,2025-05-26 21:53:20,https://www.reddit.com/gallery/1kwbm74,['I am wondering is it my resume'],0.14250000000000002,False,0.5
+1kwag8a,TorontoJobs,Finding a Job in Toronto outside GTA,"Hello! As graduated in Canada from college, through indeed and LinkedIn (e.g. examples) I have seen more jobs in the tech field. Outside the GTA there is not a big market of those jobs
+
+Any recommendations to connect with people and apply for those jobs. Thanks in advance ",1,0,2025-05-26 20:52:50,https://www.reddit.com/r/torontoJobs/comments/1kwag8a/finding_a_job_in_toronto_outside_gta/,['Outside the GTA there'],0.13999999999999999,False,1.0
+1ktvxix,TorontoJobs,"After 3 weeks of silence, they offered me unpaid work","Had an interview for a medical admin job. Thought it went well, but then nothing — no email, no follow-up, just silence for three weeks. I assumed I didn’t get it.
+
+Then yesterday, out of nowhere, they message me to say they’ll “give” me a 3-month volunteer position. After that, they might hire me at $17.50/hr. Because I “have no experience in medial admin work.” (Yeah… “medial.”)
+
+I’m just so tired. This is what the job market is now. Companies ghost you, then offer free labor like it’s a favor. And someone out there will take it, because we’re all just trying to survive.
+
+This isn’t normal. It shouldn’t be.",1673,399,2025-05-23 18:04:57,https://i.redd.it/r69o0oz4ul2f1.jpeg,"['This is what the job market', 'This']",0.06999999999999999,False,0.99
+1kk4myz,TorontoJobs,Your resume and LinkedIn might be holding you back,"Context: I’m a hiring manager that is currently reviewing 500+ applicants for 2 roles at a marketing agency. 
+
+I don’t want to downplay the current job market, and am only posting this to hopefully help at least one person out there be a better applicant. I expect to potentially be downvoted to all hell but it needs to be said - you might be in your own way in your job journey. 
+
+Your resume - the roles I hire for require high attention to detail. If there are errors and inconsistency in your spelling and grammar, I just can’t consider you, as from the get go, you aren’t even marketing yourself well. 
+
+LinkedIn - it’s also wild how minimal information is here. Most people will add their LinkedIn… hiring managers do actually go here and how you present yourself there also matters and can play a big factor in hiring decisions. 
+
+For both of these, highly suggest you to leverage friends to proof-read or provide suggestions. You can also PDF your LinkedIn and run it through ChatGPT for suggestions and optimization efforts. 
+
+FWIW - for the one role which is Director level, about 40-50 of the 350 applicants had relevant experience, and more than half of those people had resumes that had spelling and grammatical errors so I had to filter them out. 
+",257,126,2025-05-11 12:13:03,https://www.reddit.com/r/torontoJobs/comments/1kk4myz/your_resume_and_linkedin_might_be_holding_you_back/,"['FWIW - for the one role which', 's also wild how minimal information', 'm a hiring manager that']",0.12385964912280703,False,0.89
+1ki58la,TorontoJobs,Job Market is BROKEN,"I have been looking for senior PM/BA roles since last fall. I applied to over 200 jobs and went through a few interviews. I did get lucky and landed a decent role recently. My experience and skillset against this role was quite a good fit, but I have concluded that 99% reason why I landed this role was luck. The current employment landscape in Canada is extremely challenging and here is my observsion and journey. By all means this post is NOT a success story to brag about, but a society problem that needs immediate attention. 
+
+Throughout my unemployment journey, I have had the good opportunity to meet a few recruiters and HR friends. They all shared similar feedback on how our jobs system is broken to the core, and quite frankly have no idea how to fix it. As an applicant, I shared my frastration and anxiety. While it has been acknowledged, we agreed this is more Canada’s problem and it will take years to repair, if that’s even fixable. Here are our key takeaways. 
+
+1) The major cities job markets have slowed down since last summer. That said, reputable companies are still hiring. With the popularization of AI, companies are actually leaning more towards middle to senior management, hoping that one strong leader would replace a team. They are being extremely selective with their candidates, often requiring a perfect fit to their expected job description, culture, and personalities. High expectations comes with high price. These jobs typically have good titles, hybrid/remote, and competitive total comp - and companies are generally pretty transparent about this in their postings. But here is the problem…
+
+2) I am sure most people in this community have the following experienced. As early as 2 days after a sought after job is posted, Linkedin displayed 100+ ppl have applied to this job. There you wonder what the actual eff…
+
+Are there that many ppl actively looking for jobs? 
+How is it possible everyone has these niche experiences? 
+
+This is pretty demoralizing. So I asked around. 
+
+3) after talking to a few HR friends. Here are their inputs. The reality is often more pathetic than our expectations. If you see there are 100+ ppl applied, often its closer to thousands. Easily 2000+. But thats not the comical part.  You may think ATS does the job to filter out unqualified candidates. Nope. The bad players have evolved. The old trick is to use white fonts to bypass ATS. Now they blatently lie and create perfect resumes tailored for the jobs. Of the 2000+ applicants, 90% of the resumes have almost perfect fit to the job on paper. Gone are the days when your experience is 95% match and still get an interview. That’s just not good enough anymore. Why would they pick you over a bunch of ppl when claim they have done the exact same jobs?
+
+4) so that begs the questions. Who are these qualified/over-qualified people? To answer this question thoroughly, let’s think about your own situation. 
+
+As an applicant legally allowed to work in Canada, when you apply for a job, your goal is obviously to start a nice career with the company that you apply to. Therefore you are honest about your experience and skillsets. You think ahead and envision yourself answering interview questions about your experience, and wish that the hiring manager like you as a person and find you a good fit. Thats the majority of us. The reason why you don’t lie or make shit up is, other than that it’s WRONG, you just never know when this will come back to haunt you. And that’s the moral line we hope to hold in the western civilization. 
+
+4) Now imagine you are not part of the western civilization, or had a taste but on the verge of leaving due to financial reasons. There is NOTHING worse than the current situation stuck in a 3rd world country, or having your work visa expiring in a month - not even getting caught lying down the road. What are the thing that you are willing to put down in your resume to get a call from the recruiter? It’s actually a different game we are playing. We are playing to build a career, they are playing to survive another day. A call from a recruiter and interviews from hiring managers means a golden ticket out of their current situations. 
+
+5) you may ask, don’t they need a work sponsor visa? Yes. And they absolutely check the box. Again, the objective is not about careers. Its about survival. Its about have potential opportunities and discussion to get sponsored. One in a million that they lied about everything but the hiring manager absolutely connected with the candidate. So much so that they would sponsor a work visa and forgive about the lying part. The chance of that happen is not zero and for them its a numbers game. 
+
+6) what does this mean to you? Hiring managers have KPIs. For every fake profile they reviewed, thats one less chance yours get reviewed. Again, you are up against thousands of perfectly tailored applications. Your applications are just buried under a pile of made up candidates. Think PP in Carlton :D
+
+Quite frankly, we need to fix this. Maybe its geofencing to only allow Canadian IP address.  We don’t think this trend is going to stop…it’s a borderline cybersecurity issue and it’s the everyday hardworking Canadians who are impacted the most. I do think though whoever fix this it’s going to be a multi million business because of course US and European companies are affected by job trolls…and this would drastically reduce HR effort and bad hires. 
+
+Also how do I know this is valid? If you have notice the equivalent government jobs that pay decent are actually not affected. Why? Because trolls know governments do not hire ineligible workers. No exceptions. 
+
+
+
+",237,170,2025-05-08 20:08:44,https://www.reddit.com/r/torontoJobs/comments/1ki58la/job_market_is_broken/,"['t lie or make shit up', 'Gone are the days when your experience', 'Also how do I know this', 'The old trick', 'There', 'This', 'The chance of that happen', 'your goal', 'How is it possible everyone', 'the objective', 'The reality', 's a borderline cybersecurity', 'By all means this post', 'While it', 'days after a sought after job', 'are the thing that you are willing to put down', 'Job Market', 'But here', 'we agreed this', 't think this trend']",0.1211057692307692,False,0.9
+1kcsyll,TorontoJobs,"It wasn’t fault immigration , it was exploitation by businesses and institutions.","Problem was never immigration, an international student legitimately getting a job or influx of professionals. usually a country with a higher number of highly educated skilled population has a stronger economy.
+
+the problem was that getting a PR was already very hard (you wont believe it, but through legitimate paths, only about 10% could get a PR. So employers saw LMI.A as an opportunity to begin their slavery business by charging people who wanted to work for them $50k. and this way, a lot of fake startups started popping out (new businesses get more flexibility to bring cheap labor from another country) and their whole business has been charging people to work for them and sometimes not  actually working for them and instead, just sell them an LMI .A and tell them to go do Uber because that business does not provide any product/service.
+
+these ridiculous LMI. A numbers mislead immigration statistics and numbers and skewed everything and lead to further increased difficulty in getting a PR (higher points required) because the government was already getting lots of immigrants from LMI.A so the required PR points adjust and adapt based on targets. and this became a vicious cycle that started going full on slavery.
+
+Another problem that started was the number of diploma mills opening up to cash in on international student 5x tuition fees and even colleges who used to be reputable, also started going the profit focused route of accepting everyone in their program who is willing to pay a high price. the quality of education then started to drop significantly across all colleges specially during covid when professors would submit 1 week worth of lectures as a single powerpoint file and not care anymore. So this further lead to colleges becoming just a place to use for immigration and colleges gave out diplomas that do not represent actual knowledge. the lack of skill from graduates made legitimate employers avoid hiring lots of these graduates and only hire the ones with experience. and these graduates started going the LMI .A route just to save themselves after spending 5x the tuition for 2-3 years with high cost lf living.
+
+If you agree or understand my points. we can then agree that the root cause is businesses and employers and institutions exploiting the system.
+",165,134,2025-05-02 01:01:11,https://www.reddit.com/r/torontoJobs/comments/1kcsyll/it_wasnt_fault_immigration_it_was_exploitation_by/,"['and their whole business', 'we can then agree that the root cause', 'started going full']",0.08917993297025555,False,0.71
+1kq3hjs,TorontoJobs,Told I got the job. Employer reposted job and got 70 people in a day. Has ghosted since.,"Yeah so things are really bad.
+I had an interview through a recruiter for a position that on paper shouldn't have been very attractive to most eligible candidates. 
+Anyways I needed the job and after the interview per the recruiter, the employer said I got the job and he was drafting an updated offer letter. The only mistake by me in hindsight was during the interview I pushed him to go to his upper end of the salary range and I think that really set him off.
+
+Probably the employer thought he could find cheaper people and posted the job on LinkedIn the day after he spoke to the recruiter. Within a day it had 70 people applied to it before he too it down. This is extremely rare for civil engineering jobs and quite honestly I've seen nothing like it. Especially for this job which is bottom tier of the field at a 5 man company that really only desperate new grads would do. Ever since I havent heard back anything. It's been 5 days now and i think LinkedIn gave him the confidence that he will surely find his wage slave for half the price.
+
+The market is well and truly cooked. Find some other means of making money everyone.
+
+
+Update:Reached out to employer. Said they aren't going ahead.",151,45,2025-05-19 00:54:59,https://www.reddit.com/r/torontoJobs/comments/1kq3hjs/told_i_got_the_job_employer_reposted_job_and_got/,"['The market', 'Especially for this job which', 'This']",0.08759655377302435,False,0.97
+1kw3v5a,UofT,"please deinfluence humanities for me, i got rejected :,)","Hi, just got rejected with a 94% average and am very distraught LOL. Never anticipated I could be rejected. I'm working on an appeal, but I don't want to get my hopes up and need to decide on my second choice. Here are some reasons I wanted to go to UofTears, but pls argue against them so I can feel better :,))  
+\-It's in downtown Toronto, and I'm really in love with the city and since I have a lot of niche interests it's a lot easier to find groups/stores. plus the campus is so pretty with lots of places to study
+
+\-Challenging workload: I know this is technically a con but I really want to make the most of my undergraduate academically, and I'm able to get accommodations as well.
+
+\-Professors are pretty prestigious and there's been new ones coming in as well. Although I know the classes in first year are crazy big, I've heard they thin out over time. Especially with departments like linguistics.
+
+\-First year is destreamed, so I don't have to pick my major immediately.",25,15,2025-05-26 15:56:28,https://www.reddit.com/r/UofT/comments/1kw3v5a/please_deinfluence_humanities_for_me_i_got/,"['plus the campus', 'First year', 'I know this']",0.10625598086124403,False,0.84
+1kwbcfr,UofT,How does the first year of University of Toronto work?,"Hello,
+
+I am an Ontario high school student who recently applied to UTM for computer science. I was given an alternate offer for commerce instead. 
+
+I heard that the first year at UofT is general and by second year you are expected to apply for your desired programs.  
+  
+I was wondering if it is possible to take the required CS courses as a commerce student and apply for CS POSt after first year. 
+
+Thanks!",1,0,2025-05-26 21:39:09,https://www.reddit.com/r/UofT/comments/1kwbcfr/how_does_the_first_year_of_university_of_toronto/,"['I heard that the first year at UofT', 'the first year', 'I was wondering if it']",0.10090909090909092,False,0.99
+1kwap1y,UofT,Engineering students; did you feel that your workload was actually worse than other eng schools?,"If you had friends who did engineering at other schools like mac, queens, Waterloo, western, did you feel that your tests, exams, homework, and overall course load WAS actually harder than others? or is this whole ""uoft eng is wayyyy harder"" thing kinda blown outta proportion? i wanna go to uoft instead of mac but im scared the workload is gonna cook me, esp since im a procrastinator who has no motivation. ",0,1,2025-05-26 21:05:18,https://www.reddit.com/r/UofT/comments/1kwap1y/engineering_students_did_you_feel_that_your/,"['uoft eng', 'esp since im a procrastinator who']",-0.08125,False,0.5
+1kaypy3,UofT,"I think Robarts is in Friends season 10, episode 13","So I am rewatching friends for the fifth time (don’t judge me😂) and I think Robarts is in it. In the episode where Rachel’s father gets a heart attack, they pan to the hospital where her father is in and it looks like Robarts! I know UOFT is in a lot of movies but I never noticed it in friends. Has anyone else noticed this before?",345,24,2025-04-29 16:56:00,https://i.redd.it/zhvzjliy7uxe1.jpeg,"['they pan to the hospital where her father', 'and I think Robarts', 'I think Robarts', 'I know UOFT']",0.0,False,0.98
+1kbpxoe,UofT,"24 years old math and physics majors graduating from UofT, no life, no girlfriend, no response from the job market, what should I do next?","Hi, I am a UofT math and physics majors student graduating this year, and now I am struggling to even receive a response from the job market.
+
+I was taken to Canada at the age of 16, with almost zero knowledge of English language. The English education I received in China was really messed up, it didn't prepare me for the actual English usage at all. So for the three years at Canadian high school I tried my ass off to study and internalize English.
+
+Luckily, I eventually got admitted into UofT, but my unfamiliarity with Western culture let me have little choice beside STEM. At the beginning I chose to do math specialist, but later I realized that it was too hard for me, so I switched to math major and physics major.
+
+Now I am approaching my graduation in June, but I really can't get any response from the job market despite hundreds of resumes sent. Is my decision of doing math and physics a bad choice? Is a cs degree a better choice (I really don't like the way the cs exams are conducted, testing students to hand-write code on paper is too stupid, imo).
+
+What should I do next? Any experience from those experienced?",246,159,2025-04-30 16:03:45,https://www.reddit.com/r/UofT/comments/1kbpxoe/24_years_old_math_and_physics_majors_graduating/,['testing students to hand-write code on paper'],0.026631944444444458,False,0.98
+1kcpdo8,UofT,Hating on Robarts as a U of T student is like hating on the St Peter’s Basilica as a Catholic,You guys need to stop hating on the architecture of our beloved Robarts. It feeds us. It sustains us. It gives us Starbucks. It gives us sushi. It gives us Celsius fridge. Nothing provides us with love and pleasure for 24 hours straight like Robarts commons. One single floor of Robarts solos all of Graham dat ugly ahh library. You guys need to remember this and remember your roots. Peace out.,172,16,2025-05-01 21:38:00,https://www.reddit.com/r/UofT/comments/1kcpdo8/hating_on_robarts_as_a_u_of_t_student_is_like/,['Hating on Robarts as a U of T student'],0.10476190476190476,False,0.94
+1kcsvi3,UofT,Stay far away from Sky Group & Harrington Housing,"UPDATE: After telling them I filed with the LTB and got in contact with journalists, they e-transfered me all my money back LOL. When I handed back the key, I had another Tenant of the same place record the conversation. He agent looked me in the eye with a dead stare and asked “anything you gotta say to me” and I said, good luck in life and I hope you find a real job that doesn’t involve working for crooks. I also reported it to building staff after he left, they’re in for a treat 🤣. 
+
+——————————————————
+
+PLEASE DON'T FALL FOR THIS!!!!!!!  
+Sky Group Residence Inc. and its parent company, Harrington Housing, are running an absolute scam. They market rooms (often called “Flex Rooms”) to students and young professionals as fully private bedrooms, but you get a plastic-walled section of a living room with zero privacy, no ceiling coverage, and no lock.
+
+I just got trapped into paying $2,960 upfront (first, last, and an ILLEGAL $600 deposit) for a unit that turned out to be:
+
+• A literal converted living room with plastic sheets and IKEA bookshelves as “walls”
+
+• A sliding plastic door that cost maybe $10 and had no lock
+
+• Walls that didn’t reach the ceiling so that I could hear EVERYTHING from the kitchen and other rooms
+
+• A “private balcony” that’s fully visible from someone else’s bedroom
+
+• No working mailbox access (the key didn’t even work)
+
+When I confronted them, their rep **ADMITTED** it was wrong and said the FaceTime tour guy “does that sometimes.” I have it on audio recording. Then I was handed a phone, and their “manager”, and they told me I could only get my money back if I stayed there for a month and viewed their other units.
+
+So yeah... full-on coercion.
+
+I walked out. Didn’t move in. Applied the Landlord and Tenant Board and submitted everything:
+
+• Audio recordings of their staff admitting it
+
+• Room tour video
+
+• Payment receipts
+
+• Screenshots of the listing and fake reviews
+
+• And a published article exposing these same people on The Local (look it up, they’ve been doing this for YEARS).
+
+,
+
+**They’re targeting:**
+
+• Students
+
+• International renters
+
+• Anyone desperate for affordable housing
+
+If you’re Googling Harrington Housing, Sky Group Residence, or “flex room Toronto”, STAY AWAY.
+
+They’re currently listing places on university housing sites and showing up on Facebook Marketplace, too. Don’t fall for it. **The pictures never show the plastic walls or exposed ceilings. You only find out after they get your money.**
+
+[Here is a video of the place.](https://youtube.com/shorts/8G3yvWCiPeE) Sorry for the cussing.",114,5,2025-05-02 00:55:51,https://www.reddit.com/r/UofT/comments/1kcsvi3/stay_far_away_from_sky_group_harrington_housing/,"['Here', 'And a']",-0.028125,False,0.99
+1kcqus4,UofT,"It been a while, I miss her, and it was all my fault, I chickened out","About a month and a half ago, I realized I’d fallen HARD for this girl in my CSC108 class. She’s Chinese (I’m Chinese too, but CBC), and honestly, she was just… different. The kind of student who never touched her phone during lecture, always did the worksheets, even sometimes answered questions, even though English clearly wasn’t her first language. She used to sit with another girl, but I think that girl dropped halfway through the term. That should’ve been my freaking cue.
+
+It’s been a MONTH since our last class. We ended early a class early. She was in a different exam section. But I swear, I think I saw her one last time, maybe sitting on the stairs in Robarts as I walked to my exam. I had 36 minutes to spare, just walking to my room… and I STILL didn’t say anything. I barely glanced for half a second and froze. Classic me.
+
+What really kills me is I had *at least six solid chances* to talk to her once I realized I liked her. SIX. And every time I chickened out. I kept telling myself “next class.” Then the final class rolls around, and she shows up 40 minutes late, looking completely dead, holding a warm bubble tea and sick. She missed the class before too. And I just watched. Like a background NPC.
+
+I had a WHOLE SEMESTER to ask her for her WeChat. And I did nothing. Nothing. Now I’ll probably never see her again. And yes, I made a post about her before on a different account, because she’s literally showing up in my dreams now. I’m going crazy. She was the most attractive, peaceful-looking girl I’ve ever seen and I NEVER even talked to her. Just admired from the sidelines like a passive, awkward dumb\*\*\*.
+
+I hate that I let this happen. I hate the constant “what if” running through my head. My Apple Watch thought I was having a panic attack during that exam walk, last class, and now because of how fast my heart was racing.
+
+I hope she’s doing okay. But I’m absolutely not.  
+Maybe I’ll translate this whole mess into Chinese and post it on rednote, who knows. Might as well use my 18 years of Chinese experience on that since I never used it on her.",114,53,2025-05-01 22:56:31,https://www.reddit.com/r/UofT/comments/1kcqus4/it_been_a_while_i_miss_her_and_it_was_all_my/,"['since I never used it', 'What really kills me']",0.012008281573498961,False,0.84
+wmogll,ryerson,Marketing professors,Hello fellow students! Wondering if any one has had experience having class with professors Matthieu Lajante or Osama Butt. Just seeking some insight on either and it would be greatly appreciated as I am deciding which one of the two to choose mkt 702.,0,3,2022-08-12 11:43:40,https://www.reddit.com/r/ryerson/comments/wmogll/marketing_professors/,['Wondering if any one'],0.2,False,0.5
+1i60muf,yorku,Spots for York University,"Hi All,
+
+Me and a couple friends made [https://spots.yorku.dev/](https://spots.yorku.dev/) for YorkU.
+
+Finding the perfect spot to study on York University's massive campus can feel overwhelming. Despite the abundance of empty classrooms, these spaces often go underutilized.
+
+Thats why we built spots.yorku.dev. Features include:
+
+* Expand buildings to see the status of rooms.
+* Buildings are sorted by your current location for convenience.
+* Explore an interactive map with clickable pins for building details.
+* Find library spaces and even book empty rooms through handy links.
+
+Shout out to Akhsar Barot’s Spots for the inspiration, and SSADC for their support :)",59,5,2025-01-20 15:48:04,https://www.reddit.com/r/yorku/comments/1i60muf/spots_for_york_university/,['Shout out to Akhsar'],0.3,False,1.0
+1kw5gud,yorku,EECS GPA Calculator,"Hello r/yorku
+
+In a personal project, I recently developed a Chrome extension for [York's GPA Calculator](https://apps12.sis.yorku.ca/apps/gpa-calculator/) that filters out all the non-EECS courses for the web app to calculate your EECS GPA.
+
+You can add it here: [EECS GPA Calculator](https://chromewebstore.google.com/detail/eecs-gpa-calculator/eeemcnihalgnonmdnomknpbgoheckioa?utm_source=item-share-cb)
+
+# Why did I make this?
+
+Typically in upper year EECS courses, there is a prerequisite regarding your EECS GPA from the Courses Website:
+
+>Prerequisites: cumulative GPA of 4.50 or better over all major EECS courses (without second digit ""5"")
+
+I'm going to my 4th year of Software Engineering, so I have taken (and sometimes bombed) many EECS courses. Since advanced classes become more difficult to maintain your GPA, it's well worth finding out what your EECS GPA is at this point as a ""wake-up call"".
+
+It is also a bit tedious to have to remove every non-EECS class when I use the tool to compute my EECS GPA, so I decided to automate that my making myself an extension.
+
+# Questions & Answers
+
+>How do I add activate the extension?
+
+1. Add the extension to Chrome
+2. Click on a puzzle piece icon on the top right next to the Chrome search bar
+3. ""EECS GPA Calculator"" should appear in a list, when clicked, a small pop up box should appear
+4. Toggle on the extension by clicking on the switch
+5. Visit [York's GPA Calculator](https://apps12.sis.yorku.ca/apps/gpa-calculator/) and see the magic happen!
+
+>How do I get all my courses back?
+
+You have to first toggle off the extension in the pop up box, then refresh the calculator page. Doing these two things should have all your courses back on the page.
+
+>I cannot modify or add any courses on the calculator, how can I fix this?
+
+Again, toggle off the extension and reload the page, the web calculator will be working normally again.
+
+>Does it collect or use my data?
+
+No, it has no intention or use of obtaining data from anyone who installs the extension. It has been made clear on the extension page that your data is:
+
+* Not being sold to third parties, outside of the [approved use cases](https://developer.chrome.com/docs/webstore/program-policies/limited-use/)
+* Not being used or transferred for purposes that are unrelated to the item's core functionality
+* Not being used or transferred to determine creditworthiness or for lending purposes
+
+# Support Me
+
+If you've tried out my tool, please consider leaving a review on the Chrome Web Store! Here's the [GitHub Repo](https://github.com/hxddad/eecs-gpa-calculator) of my project for more details. And if it helped you out, I’d love a star on GitHub!",4,1,2025-05-26 17:02:33,https://www.reddit.com/r/yorku/comments/1kw5gud/eecs_gpa_calculator/,"[""it's well worth finding out what your EECS GPA"", 'your EECS GPA is', 'there']",0.12585978835978837,False,0.83
+1kw3su7,yorku,Deciding which university is best for me,"Hi, I'm currently in grade 12 trying to decide which uni to go to. I have to commute from home as I can't live on campus and so my choices are between york bio keele campus (1hr20 commute one way ) and lakehead life sci at the orillia campus (50min commute one way); trying to avoid McMaster and UofT as they are too far (1.8 - 2.5 hr commute one way). I am currently planning on doing med school after uni and know that I need a high gpa as well as publications. Would lakehead be a good choice for pre med, as in would I be able to find some research opportunities? Thanks for any advice!",2,2,2025-05-26 15:53:40,https://www.reddit.com/r/yorku/comments/1kw3su7/deciding_which_university_is_best_for_me/,['Deciding which university'],0.31626262626262625,False,0.67
+1kw8x7p,yorku,How good is christopher  bergevin  for phys 1011,Hey everyone! I’m starting at YorkU in Fall/Winter 2025-2026 and thinking about taking PHYS 1011. Has anyone had Christopher Bergevin as a prof for this course? I’m curious about what he’s like as a teacher. And how is the class formatted (syllabus). Thank you,0,0,2025-05-26 19:36:10,https://www.reddit.com/r/yorku/comments/1kw8x7p/how_good_is_christopher_bergevin_for_phys_1011/,"['And how', 'YorkU', 'How good']",0.25833333333333336,False,0.5
+1kvby1w,yorku,I'm about to be homeless with my last year to go through. Any advice?,"Hi there!
+As the title suggests, I'm leaving ""home""; currently in maple with absolutely nothing except for 2k to my name. My parents are insane and incredibly controlling so there's a few things I'm worried about. 
+
+My dad has my passport which I know to find before i leave, but he also didn't allow me to do anything for myself. So he has a lot of logins for the important things I'd need in the future, like my OSAP funding for my last year of university in September, and all taxes were done by him too. 
+
+I'll be able to get my passport, drivers license, SIN, health card etc but I'm unsure of were to go after leaving too tbh. I know york u campus pretty well so I figured I could hide out in some corner for a little bit.
+But my main concern where I'd really really love some assistance or advice would be getting a job and a place to stay permanently.
+
+I know that I'd be a valuable hire, but thanks to my parents, I barely have any experience to prove it. I've just got 1 summers worth of job experience as a Food safety/quality assurance worker in a factory that handled food.
+These days everything works through references and connections so please, help this internet stranger out.
+
+I know this is typed out super weirdly but my brain is going a mile a minute right now and I just wanna plan this out and leave ASAP. Thanks a bunch in advance 🙏 ",69,21,2025-05-25 16:15:52,https://www.reddit.com/r/yorku/comments/1kvby1w/im_about_to_be_homeless_with_my_last_year_to_go/,"['So he', 'My dad']",0.11420068027210885,False,1.0
+1kvm0hk,yorku,Please help me in suggesting some courses to take for the below for Computer Science,"
+So I am in BSc Honours for Computer Science and I was wondering what courses I can take the satisfy the below requirements thank you. I need interesting, has no presentation (not the best at public speaking), online. I’m planning on taking 6 courses
+
+And this : Science breadth: 24 credits in science disciplines outside the major, of which three credits must be at the 2000 level or above. 18 of these 24 credits are satisfied by the general education requirement.
+
+Thank you
+",4,6,2025-05-26 00:54:21,https://i.redd.it/yjx3h960523f1.jpeg,['not the best at'],0.2640625,False,0.7
+1kcjlx5,yorku,For the first time in a long time I am kinda proud of myself.,"I turned 28 last December, and I’m graduating this June with an Honours BA in Psychology. For a long time, I felt like I was too old to still be in undergrad. No matter how well or poorly I was doing academically, I carried a weird sense of shame about being on campus or sitting in class. But today, I was looking over my grades, and honestly… I felt proud. I realized I actually did pretty well. And maybe not everyone is this good at school? I don’t know. Either way, it feels nice to give myself a bit of credit. It’s just an undergrad degree, but it still means something—and that’s kind of cool.
+Now I’m about to start my graduate school journey, though I’m still deciding whether to stick with psychology or pivot to a marketing degree. Either way, I’m excited (and nervous) for what’s next.
+
+P.S. I’ve attached a screenshot of my grades—just curious to hear from other psych students: is this around the level you’re at too?
+",374,53,2025-05-01 17:04:24,https://i.redd.it/r3t2sg6aj8ye1.jpeg,['And maybe not everyone'],0.18947368421052632,False,0.98
+1ksy37d,yorku,I have nothing to do over the summer and can’t find a job,"I’ve been rotting away trying to find a job for months now, but now being on break for 4 months I have literally nothing to do. Finding a job is impossible, and I didn’t take any summer courses which I maybe should’ve done lmao. 
+
+But does anyone know any jobs I could apply for on campus or anything I could do that would actually b productive over the summer even if it’s not paid. Getting a job isn’t that necessary for me rn since I’m at home, it would’ve been nice, but everyone knows how the job market is rn. 
+
+and I already have enough volunteer experience to make my resume decent so ion wanna just keep doing the same stuff again. 
+
+Any advice?? 😭😭😭",41,12,2025-05-22 14:28:07,https://www.reddit.com/r/yorku/comments/1ksy37d/i_have_nothing_to_do_over_the_summer_and_cant/,"['Getting a job', 'Finding a job', 'but everyone knows how the job market']",0.0875,False,0.99
+1kvby1w,yorku,I'm about to be homeless with my last year to go through. Any advice?,"Hi there!
+As the title suggests, I'm leaving ""home""; currently in maple with absolutely nothing except for 2k to my name. My parents are insane and incredibly controlling so there's a few things I'm worried about. 
+
+My dad has my passport which I know to find before i leave, but he also didn't allow me to do anything for myself. So he has a lot of logins for the important things I'd need in the future, like my OSAP funding for my last year of university in September, and all taxes were done by him too. 
+
+I'll be able to get my passport, drivers license, SIN, health card etc but I'm unsure of were to go after leaving too tbh. I know york u campus pretty well so I figured I could hide out in some corner for a little bit.
+But my main concern where I'd really really love some assistance or advice would be getting a job and a place to stay permanently.
+
+I know that I'd be a valuable hire, but thanks to my parents, I barely have any experience to prove it. I've just got 1 summers worth of job experience as a Food safety/quality assurance worker in a factory that handled food.
+These days everything works through references and connections so please, help this internet stranger out.
+
+I know this is typed out super weirdly but my brain is going a mile a minute right now and I just wanna plan this out and leave ASAP. Thanks a bunch in advance 🙏 ",68,21,2025-05-25 16:15:52,https://www.reddit.com/r/yorku/comments/1kvby1w/im_about_to_be_homeless_with_my_last_year_to_go/,"['So he', 'My dad']",0.11420068027210885,False,1.0
