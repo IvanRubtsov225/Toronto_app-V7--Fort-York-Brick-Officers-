@@ -11,6 +11,8 @@ import sys
 import csv
 from datetime import datetime
 import glob
+import random
+import subprocess
 
 # Add project root to path
 sys.path.append(os.path.dirname(os.path.abspath(__file__)))
@@ -179,7 +181,7 @@ def index():
 @app.route('/gems')
 def gems_page():
     """Hidden gems explorer page"""
-    all_gems = api.get_all_gems(50)  # Limit for performance
+    all_gems = api.get_all_gems()  # Show all recommendations
     return render_template('gems.html', gems=all_gems)
 
 @app.route('/documentation')
@@ -263,30 +265,206 @@ def analytics():
     
     return render_template('analytics.html', data=analytics_data)
 
+def get_mood_gradient(mood):
+    """Get gradient style for a mood"""
+    gradients = {
+        'romantic': 'linear-gradient(135deg, #FF6B6B 0%, #FFB8B8 100%)',
+        'foodie': 'linear-gradient(135deg, #FF9F1C 0%, #FFBF69 100%)',
+        'adventure': 'linear-gradient(135deg, #2EC4B6 0%, #7DDCD3 100%)',
+        'relaxing': 'linear-gradient(135deg, #9381FF 0%, #B8B8FF 100%)',
+        'cultural': 'linear-gradient(135deg, #F72585 0%, #FF99D7 100%)',
+        'budget': 'linear-gradient(135deg, #4CAF50 0%, #8BC34A 100%)'
+    }
+    return gradients.get(mood.lower(), 'linear-gradient(135deg, #6c757d 0%, #495057 100%)')
+
+def get_mood_emoji(mood):
+    """Get emoji for a mood"""
+    emojis = {
+        'romantic': '💑',
+        'foodie': '🍽️',
+        'adventure': '🌟',
+        'relaxing': '🌿',
+        'cultural': '🎭',
+        'budget': '💰'
+    }
+    return emojis.get(mood.lower(), '🏷️')
+
+# Register template filters
+app.jinja_env.filters['mood_gradient'] = get_mood_gradient
+app.jinja_env.filters['mood_emoji'] = get_mood_emoji
+
 @app.route('/moods')
 def moods_page():
-    """Mood-based gem browsing page"""
+    """Mood-based exploration page with interactive map"""
     stats = api.get_statistics()
+    return render_template('moods.html', stats=stats)
+
+@app.route('/api/gems/moods', methods=['GET'])
+def api_gems_by_moods():
+    """API endpoint: Get gems filtered by multiple moods"""
+    moods = request.args.get('moods', '').split(',')
+    moods = [mood.strip().lower() for mood in moods if mood.strip()]
     
-    # Get gems for each mood category
-    mood_categories = ['romantic', 'foodie', 'budget', 'nightlife', 'family', 'cultural', 'relaxing', 'adventure']
-    mood_gems = {}
+    if not moods:
+        gems = api.get_all_gems()
+    else:
+        gems = [gem for gem in api.get_all_gems() if any(
+            mood in (gem.get('mood_tags', '').lower()) for mood in moods
+        )]
     
-    for mood in mood_categories:
-        gems = api.get_gems_by_mood(mood, limit=8)
-        mood_gems[mood] = gems
-    
-    return render_template('moods.html', mood_gems=mood_gems, mood_stats=stats.get('mood_distribution', {}))
+    return jsonify({
+        'status': 'success',
+        'count': len(gems),
+        'data': gems
+    })
 
 @app.route('/about')
 def about():
     """About page explaining the project and methodology"""
     return render_template('about.html')
 
+@app.route('/api/gems/all')
+def api_gems_all():
+    """API endpoint: Get all gems (no limit, for client-side filtering)"""
+    gems = api.get_all_gems()
+    return jsonify({
+        'status': 'success',
+        'count': len(gems),
+        'data': gems
+    })
+
 @app.route('/static/<path:filename>')
 def static_files(filename):
     """Serve static files"""
     return send_from_directory('static', filename)
+
+@app.route('/api/flutter/random-gem')
+def api_flutter_random_gem():
+    """Flutter endpoint: Get a random hidden gem (Toronto style!)"""
+    gems = api.get_all_gems()
+    if not gems:
+        return jsonify({
+            'status': 'oh no!',
+            'message': 'No gems found in the 6ix! 🍁',
+            'data': None
+        })
+    gem = random.choice(gems)
+    return jsonify({
+        'status': 'success',
+        'message': 'Here\'s a random Toronto hidden gem for your Flutter app! 🏙️',
+        'data': gem
+    })
+
+@app.route('/api/flutter/moods')
+def api_flutter_moods():
+    """Flutter endpoint: Get all unique moods (Toronto style!)"""
+    gems = api.get_all_gems()
+    mood_set = set()
+    for gem in gems:
+        moods = gem.get('mood_tags', '')
+        for mood in moods.split(','):
+            mood = mood.strip()
+            if mood:
+                mood_set.add(mood)
+    return jsonify({
+        'status': 'success',
+        'message': 'All the moods you\'ll find in Toronto! 🎉',
+        'count': len(mood_set),
+        'data': sorted(list(mood_set))
+    })
+
+@app.route('/api/refresh-data', methods=['POST'])
+def api_refresh_data():
+    """Endpoint to refresh the hidden gems data (Toronto style!)"""
+    try:
+        api.load_latest_data()
+        return jsonify({
+            'status': 'success',
+            'message': 'Data refreshed! The 6ix is up to date! 🏙️🍁',
+        })
+    except Exception as e:
+        return jsonify({
+            'status': 'error',
+            'message': f'Uh oh! Something went wrong in the 6ix: {str(e)}',
+        }), 500
+
+@app.route('/api/collect-data', methods=['POST'])
+def api_collect_data():
+    """Endpoint to run the recommendation-based hidden gems finder with mood analysis"""
+    try:
+        print("🚀 Starting recommendation-based hidden gems finder with mood analysis...")
+        
+        # Get the absolute path to the project directory
+        project_dir = os.path.dirname(os.path.abspath(__file__))
+        venv_python = os.path.join(project_dir, 'venv', 'bin', 'python3')
+        script_path = os.path.join(project_dir, 'scripts', 'run.py')
+        
+        print(f"📍 Project directory: {project_dir}")
+        print(f"📍 Using Python from: {venv_python}")
+        print(f"📜 Running script: {script_path}")
+        
+        # Create and activate virtual environment if it doesn't exist
+        if not os.path.exists(os.path.join(project_dir, 'venv')):
+            print("🔧 Creating virtual environment...")
+            subprocess.run(
+                [sys.executable, '-m', 'venv', 'venv'],
+                check=True,
+                cwd=project_dir
+            )
+        
+        # Install dependencies
+        print("📦 Installing dependencies...")
+        subprocess.run(
+            [venv_python, '-m', 'pip', 'install', '-r', 'config/requirements.txt'],
+            check=True,
+            cwd=project_dir
+        )
+        
+        # First run the recommendations collector
+        print("🎯 Running recommendations collector...")
+        subprocess.run(
+            [venv_python, script_path, 'recommendations'],
+            check=True,
+            cwd=project_dir
+        )
+        
+        # Then run the recommendation-based finder with mood analysis
+        print("💝 Running recommendation-based finder with mood analysis...")
+        result = subprocess.run(
+            [venv_python, script_path, 'find-recs'],
+            capture_output=True,
+            text=True,
+            cwd=project_dir
+        )
+        
+        print("📤 Command output:")
+        print(result.stdout)
+        
+        if result.stderr:
+            print("❌ Error output:")
+            print(result.stderr)
+        
+        if result.returncode == 0:
+            print("✅ Hidden gems finder completed successfully!")
+            return jsonify({
+                'status': 'success',
+                'message': 'Hidden gems found with mood analysis!',
+                'output': result.stdout
+            })
+        else:
+            print(f"❌ Hidden gems finder failed with return code: {result.returncode}")
+            return jsonify({
+                'status': 'error',
+                'message': 'Hidden gems finder failed.',
+                'output': result.stderr
+            }), 500
+            
+    except Exception as e:
+        print(f"❌ Exception occurred: {str(e)}")
+        return jsonify({
+            'status': 'error',
+            'message': f'Error: {str(e)}'
+        }), 500
 
 if __name__ == '__main__':
     print("🍽️ Toronto Hidden Gems Web Application")

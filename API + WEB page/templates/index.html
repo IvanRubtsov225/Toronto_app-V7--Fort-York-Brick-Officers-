@@ -21,6 +21,25 @@
     </div>
 </section>
 
+<section class="container my-5" id="collect-data-section">
+    <div class="text-center">
+        <button id="collectDataBtn" class="btn btn-lg btn-primary shadow-lg" style="font-size:2rem; border-radius: 40px;">
+            Collect Data
+        </button>
+        <div id="collectLoading" style="display:none; margin-top:2rem;">
+            <div class="progress" style="height: 2.5rem;">
+                <div id="collectProgressBar" class="progress-bar progress-bar-striped progress-bar-animated bg-primary" role="progressbar" style="width: 0%; font-size:1.2rem;">Processing...</div>
+            </div>
+        </div>
+        <div id="collectSuccess" class="alert alert-success mt-4" style="display:none; font-size:1.2rem;">
+            ✅ Data collection complete!
+        </div>
+        <div id="collectError" class="alert alert-danger mt-4" style="display:none; font-size:1.2rem;">
+            ❌ Something went wrong. Please try again.
+        </div>
+    </div>
+</section>
+
 <!-- Statistics Section -->
 <section class="py-5">
     <div class="container">
@@ -310,4 +329,88 @@ curl http://localhost:8000/api/stats</code></pre>
         background-color: var(--dark-text) !important;
     }
 </style>
-{% endblock %} 
+{% endblock %}
+
+<script>
+document.addEventListener('DOMContentLoaded', function() {
+    const btn = document.getElementById('collectDataBtn');
+    const loading = document.getElementById('collectLoading');
+    const progressBar = document.getElementById('collectProgressBar');
+    const success = document.getElementById('collectSuccess');
+    const error = document.getElementById('collectError');
+    
+    btn.addEventListener('click', async function() {
+        btn.disabled = true;
+        loading.style.display = 'block';
+        success.style.display = 'none';
+        error.style.display = 'none';
+        progressBar.style.width = '0%';
+        progressBar.textContent = 'Setting up environment...';
+        
+        // Stages of the process
+        const stages = [
+            'Setting up virtual environment...',
+            'Installing dependencies...',
+            'Collecting Reddit data...',
+            'Processing data...',
+            'Finalizing...'
+        ];
+        
+        let currentStage = 0;
+        let progress = 0;
+        
+        // Update progress more slowly to account for longer processing time
+        const progressInterval = setInterval(() => {
+            if (currentStage < stages.length) {
+                progress = (currentStage + (progress % 20) / 20) * (100 / stages.length);
+                progressBar.style.width = progress + '%';
+                progressBar.textContent = stages[currentStage];
+                
+                // Move to next stage
+                if (progress % 20 === 19) {
+                    currentStage++;
+                }
+            }
+        }, 1000);
+        
+        try {
+            const controller = new AbortController();
+            const timeoutId = setTimeout(() => controller.abort(), 600000); // 10-minute timeout
+            
+            const response = await fetch('/api/collect-data', {
+                method: 'POST',
+                signal: controller.signal
+            });
+            
+            clearTimeout(timeoutId);
+            const data = await response.json();
+            
+            clearInterval(progressInterval);
+            progressBar.style.width = '100%';
+            progressBar.textContent = 'Done!';
+            loading.style.display = 'none';
+            
+            if (data.status === 'success') {
+                success.textContent = '✅ ' + data.message;
+                success.style.display = 'block';
+                // Reload the page after 2 seconds to show new data
+                setTimeout(() => window.location.reload(), 2000);
+            } else {
+                error.textContent = '❌ ' + (data.message || 'Something went wrong. Please try again.');
+                error.style.display = 'block';
+            }
+        } catch (err) {
+            clearInterval(progressInterval);
+            loading.style.display = 'none';
+            if (err.name === 'AbortError') {
+                error.textContent = '❌ Operation timed out. The process is still running in the background.';
+            } else {
+                error.textContent = '❌ ' + err.message;
+            }
+            error.style.display = 'block';
+        } finally {
+            btn.disabled = false;
+        }
+    });
+});
+</script> 

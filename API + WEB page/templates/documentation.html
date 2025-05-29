@@ -363,6 +363,73 @@
     </div>
 </section>
 
+<!-- FLUTTER API BUTTON: Toronto Magic! -->
+<div class="text-center my-5">
+    <button id="flutterApiBtn" class="btn btn-lg btn-primary toronto-btn shadow-lg" style="font-size:2rem; border-radius: 40px; background: linear-gradient(90deg, #0072CE 0%, #41B6E6 100%); animation: bounce 1.2s infinite alternate;">
+        🏙️🍁 FLUTTER API: Press Me for Toronto Magic! 🍁🏙️
+    </button>
+    <div id="flutterApiEndpoints" style="display:none; margin-top:2rem;">
+        <div class="card border-primary animated fadeInUp">
+            <div class="card-header bg-primary text-white">
+                <h4 class="mb-0">Flutter Endpoints (Toronto Style!)</h4>
+            </div>
+            <div class="card-body">
+                <ul class="list-unstyled">
+                    <li class="mb-3">
+                        <span style="font-size:1.5rem;">🎲</span>
+                        <code class="bg-light p-2 rounded">GET /api/flutter/random-gem</code>
+                        <span class="ms-2">- Get a random hidden gem from the 6ix!</span>
+                    </li>
+                    <li class="mb-3">
+                        <span style="font-size:1.5rem;">🌈</span>
+                        <code class="bg-light p-2 rounded">GET /api/flutter/moods</code>
+                        <span class="ms-2">- All the unique Toronto moods, eh!</span>
+                    </li>
+                </ul>
+                <div class="text-center mt-3">
+                    <span style="font-size:2rem;">🦫🗺️🍁🦫</span>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<style>
+@keyframes bounce {
+  0% { transform: translateY(0); }
+  100% { transform: translateY(-18px) scale(1.08); }
+}
+.animated.fadeInUp {
+  animation: fadeInUp 1s;
+}
+@keyframes fadeInUp {
+  from { opacity: 0; transform: translateY(40px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+.toronto-btn:hover {
+  background: linear-gradient(90deg, #41B6E6 0%, #0072CE 100%);
+  color: #fff;
+  transform: scale(1.08) rotate(-2deg);
+  box-shadow: 0 8px 32px rgba(0,114,206,0.18);
+}
+</style>
+<script>
+document.addEventListener('DOMContentLoaded', function() {
+    const btn = document.getElementById('flutterApiBtn');
+    const endpoints = document.getElementById('flutterApiEndpoints');
+    btn.addEventListener('click', function() {
+        endpoints.style.display = 'block';
+        endpoints.classList.add('fadeInUp');
+        btn.innerHTML = '🍁✨ Welcome to the Toronto Flutter API! ✨🍁';
+        btn.disabled = true;
+        btn.style.background = 'linear-gradient(90deg, #41B6E6 0%, #0072CE 100%)';
+        btn.style.color = '#fff';
+        btn.style.transform = 'scale(1.12) rotate(2deg)';
+    });
+});
+</script>
+<!-- END FLUTTER API BUTTON -->
+
 <!-- Response Format -->
 <section class="py-5">
     <div class="container">

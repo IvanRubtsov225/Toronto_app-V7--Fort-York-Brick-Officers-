@@ -1,426 +1,322 @@
 {% extends "base.html" %}
 
-{% block title %}Explore Hidden Gems - Toronto Hidden Gems{% endblock %}
+{% block title %}Hidden Gems Map - Toronto Hidden Gems{% endblock %}
 
 {% block content %}
-<!-- Page Header -->
-<section class="py-5 bg-light">
-    <div class="container">
-        <div class="text-center">
-            <h1 class="display-4 fw-bold text-primary">💎 Explore Hidden Gems</h1>
-            <p class="lead text-muted">Discover amazing local restaurants that locals love</p>
+<div class="gems-explorer">
+    <!-- Hero Section -->
+    <section class="hero gems-hero fade-in">
+        <div class="container">
+            <h1 class="display-4 mb-3">Toronto's Hidden Gems Map</h1>
+            <p class="lead mb-4 slide-up">Explore all the best-kept secrets in Toronto on an interactive map</p>
         </div>
-    </div>
-</section>
+    </section>
 
-<!-- Filters Section -->
-<section class="py-4 border-bottom">
-    <div class="container">
-        <div class="row g-3 align-items-end">
-            <div class="col-md-3">
-                <label for="searchInput" class="form-label fw-semibold">Search</label>
-                <div class="input-group">
-                    <span class="input-group-text"><i class="bi bi-search"></i></span>
-                    <input type="text" class="form-control" id="searchInput" placeholder="Search gems...">
-                </div>
-            </div>
-            
-            <div class="col-md-2">
-                <label for="typeFilter" class="form-label fw-semibold">Type</label>
-                <select class="form-select" id="typeFilter">
-                    <option value="">All Types</option>
-                    <option value="restaurant">Restaurant</option>
-                    <option value="cafe">Cafe</option>
-                    <option value="bakery">Bakery</option>
-                    <option value="bar">Bar/Pub</option>
-                    <option value="take out">Take Out</option>
-                </select>
-            </div>
-            
-            <div class="col-md-2">
-                <label for="moodFilter" class="form-label fw-semibold">Mood</label>
-                <select class="form-select" id="moodFilter">
-                    <option value="">All Moods</option>
-                    <option value="romantic">Romantic</option>
-                    <option value="foodie">Foodie</option>
-                    <option value="budget">Budget</option>
-                    <option value="nightlife">Nightlife</option>
-                    <option value="family">Family</option>
-                    <option value="cultural">Cultural</option>
-                    <option value="relaxing">Relaxing</option>
-                </select>
-            </div>
-            
-            <div class="col-md-2">
-                <label for="scoreFilter" class="form-label fw-semibold">Min Score</label>
-                <select class="form-select" id="scoreFilter">
-                    <option value="0">Any Score</option>
-                    <option value="70">70+</option>
-                    <option value="75">75+</option>
-                    <option value="80">80+</option>
-                    <option value="85">85+</option>
-                </select>
-            </div>
-            
-            <div class="col-md-2">
-                <label for="sortBy" class="form-label fw-semibold">Sort By</label>
-                <select class="form-select" id="sortBy">
-                    <option value="score">Highest Score</option>
-                    <option value="name">Name A-Z</option>
-                    <option value="mentions">Most Mentions</option>
-                    <option value="sentiment">Best Sentiment</option>
-                </select>
-            </div>
-            
-            <div class="col-md-1">
-                <button class="btn btn-outline-secondary w-100" id="clearFilters">
-                    <i class="bi bi-arrow-clockwise"></i>
-                </button>
-            </div>
-        </div>
-    </div>
-</section>
-
-<!-- Results Section -->
-<section class="py-4">
-    <div class="container">
-        <!-- Results Header -->
-        <div class="d-flex justify-content-between align-items-center mb-4">
-            <div>
-                <h5 class="mb-0">Found <span id="resultsCount">{{ gems|length }}</span> hidden gems</h5>
-                <small class="text-muted">Showing the best local favorites</small>
-            </div>
-            
-            <div class="d-flex gap-2">
-                <button class="btn btn-outline-primary btn-sm" id="viewGrid" data-view="grid">
-                    <i class="bi bi-grid-3x3-gap"></i> Grid
-                </button>
-                <button class="btn btn-primary btn-sm" id="viewList" data-view="list">
-                    <i class="bi bi-list"></i> List
-                </button>
-            </div>
-        </div>
-        
-        <!-- Loading Indicator -->
-        <div id="loadingIndicator" class="text-center py-5" style="display: none;">
-            <div class="loading"></div>
-            <p class="mt-3 text-muted">Loading gems...</p>
-        </div>
-        
-        <!-- No Results -->
-        <div id="noResults" class="text-center py-5" style="display: none;">
-            <i class="bi bi-search" style="font-size: 4rem; color: var(--medium-text);"></i>
-            <h4 class="mt-3 text-muted">No gems found</h4>
-            <p class="text-muted">Try adjusting your filters or search terms</p>
-        </div>
-        
-        <!-- Grid View -->
-        <div id="gemsGrid" class="row g-4">
-            {% for gem in gems %}
-            <div class="col-lg-4 col-md-6 gem-item" 
-                 data-name="{{ gem.name|lower }}" 
-                 data-type="{{ gem.type|lower }}" 
-                 data-mood="{{ gem.mood_tags|lower if gem.mood_tags else '' }}"
-                 data-score="{{ gem.hidden_gem_score }}"
-                 data-mentions="{{ gem.mention_count }}"
-                 data-sentiment="{{ gem.avg_sentiment }}">
-                <div class="card gem-card h-100">
+    <div class="container-fluid my-5">
+        <div class="row">
+            <!-- Filters Card -->
+            <div class="col-lg-3 mb-4">
+                <div class="card filter-card animated-fade-in">
                     <div class="card-body">
-                        <div class="d-flex justify-content-between align-items-start mb-3">
-                            <h5 class="card-title fw-bold text-primary mb-0">{{ gem.name }}</h5>
-                            <span class="gem-score">{{ "%.1f"|format(gem.hidden_gem_score) }}</span>
-                        </div>
-                        
-                        <p class="text-muted mb-2">
-                            <i class="bi bi-geo-alt"></i> {{ gem.address }}
-                        </p>
-                        
+                        <h4 class="mb-4">Filters</h4>
+                        <!-- Mood Tags -->
                         <div class="mb-3">
-                            <span class="gem-type">{{ gem.type }}</span>
+                            <label class="form-label">Selected Moods</label>
+                            <div id="selected-moods" class="mb-2"></div>
                         </div>
-                        
-                        {% if gem.mood_tags %}
-                        <div class="mb-3">
-                            {% for tag in gem.mood_tags.split(', ') %}
-                            <span class="mood-tag">{{ tag }}</span>
-                            {% endfor %}
-                        </div>
-                        {% endif %}
-                        
-                        <div class="row text-center small">
-                            <div class="col-3">
-                                <div class="fw-bold text-success">{{ "%.0f"|format(gem.dinesafe_score or 0) }}</div>
-                                <small class="text-muted">DineSafe</small>
-                            </div>
-                            <div class="col-3">
-                                <div class="fw-bold text-info">{{ gem.mention_count or 0 }}</div>
-                                <small class="text-muted">Mentions</small>
-                            </div>
-                            <div class="col-3">
-                                <div class="fw-bold text-warning">{{ "%.2f"|format(gem.avg_sentiment or 0) }}</div>
-                                <small class="text-muted">Sentiment</small>
-                            </div>
-                            <div class="col-3">
-                                <div class="fw-bold text-primary">{{ gem.uniqueness_score|round if gem.uniqueness_score else 0 }}</div>
-                                <small class="text-muted">Unique</small>
+                        <!-- Mood Buttons -->
+                        <div class="mb-4">
+                            <label class="form-label">Mood</label>
+                            <div class="mood-filter-buttons" id="mood-filter">
+                                <button class="btn btn-mood" data-mood="romantic">💑 Romantic</button>
+                                <button class="btn btn-mood" data-mood="adventure">🌟 Adventure</button>
+                                <button class="btn btn-mood" data-mood="relaxing">🌿 Relaxing</button>
+                                <button class="btn btn-mood" data-mood="cultural">🎭 Cultural</button>
+                                <button class="btn btn-mood" data-mood="foodie">🍽️ Foodie</button>
+                                <button class="btn btn-mood" data-mood="nightlife">🌙 Nightlife</button>
+                                <button class="btn btn-mood" data-mood="budget">💰 Budget</button>
                             </div>
                         </div>
-                        
-                        {% if gem.positive_indicators and gem.positive_indicators > 0 %}
-                        <div class="mt-3">
-                            <small class="text-success">
-                                <i class="bi bi-check-circle"></i> {{ gem.positive_indicators }} positive indicators
-                            </small>
+                        <!-- Show All Toggle -->
+                        <div class="form-check mb-4">
+                            <input class="form-check-input" type="checkbox" id="show-all-gems">
+                            <label class="form-check-label" for="show-all-gems">
+                                Show all gems
+                            </label>
                         </div>
-                        {% endif %}
-                    </div>
-                </div>
-            </div>
-            {% endfor %}
-        </div>
-        
-        <!-- List View -->
-        <div id="gemsList" class="d-none">
-            {% for gem in gems %}
-            <div class="card mb-3 gem-item" 
-                 data-name="{{ gem.name|lower }}" 
-                 data-type="{{ gem.type|lower }}" 
-                 data-mood="{{ gem.mood_tags|lower if gem.mood_tags else '' }}"
-                 data-score="{{ gem.hidden_gem_score }}"
-                 data-mentions="{{ gem.mention_count }}"
-                 data-sentiment="{{ gem.avg_sentiment }}">
-                <div class="card-body">
-                    <div class="row align-items-center">
-                        <div class="col-md-6">
-                            <div class="d-flex align-items-center gap-3">
-                                <span class="gem-score">{{ "%.1f"|format(gem.hidden_gem_score) }}</span>
-                                <div>
-                                    <h5 class="mb-1 fw-bold text-primary">{{ gem.name }}</h5>
-                                    <p class="mb-1 text-muted">
-                                        <i class="bi bi-geo-alt"></i> {{ gem.address }}
-                                    </p>
-                                    <span class="gem-type">{{ gem.type }}</span>
-                                </div>
-                            </div>
+                        <!-- Search -->
+                        <div class="mb-4">
+                            <label class="form-label">Search</label>
+                            <input type="text" id="search-input" class="form-control" placeholder="Search by name or address...">
                         </div>
-                        
-                        <div class="col-md-3">
-                            {% if gem.mood_tags %}
-                            <div class="mb-2">
-                                {% for tag in gem.mood_tags.split(', ') %}
-                                <span class="mood-tag">{{ tag }}</span>
-                                {% endfor %}
-                            </div>
-                            {% endif %}
+                        <!-- Type -->
+                        <div class="mb-4">
+                            <label class="form-label">Type</label>
+                            <select id="type-filter" class="form-select">
+                                <option value="all">All Types</option>
+                                <option value="Restaurant">Restaurant</option>
+                                <option value="Cafe">Cafe</option>
+                                <option value="Bar">Bar</option>
+                                <option value="Food Take Out">Take Out</option>
+                                <option value="Bakery">Bakery</option>
+                            </select>
                         </div>
-                        
-                        <div class="col-md-3">
-                            <div class="row text-center small">
-                                <div class="col-6">
-                                    <div class="fw-bold text-success">{{ "%.0f"|format(gem.dinesafe_score or 0) }}</div>
-                                    <small class="text-muted">DineSafe</small>
-                                </div>
-                                <div class="col-6">
-                                    <div class="fw-bold text-info">{{ gem.mention_count or 0 }}</div>
-                                    <small class="text-muted">Mentions</small>
-                                </div>
-                            </div>
+                        <!-- Score -->
+                        <div class="mb-4">
+                            <label class="form-label">Minimum Score</label>
+                            <input type="range" class="form-range" id="score-filter" min="0" max="100" value="0">
+                            <div class="score-value text-center mt-1">0</div>
                         </div>
                     </div>
                 </div>
+                <!-- Visible Gems List (animated) -->
+                <div id="gems-list" class="mt-4"></div>
             </div>
-            {% endfor %}
-        </div>
-        
-        <!-- Load More Button -->
-        <div class="text-center mt-5">
-            <button class="btn btn-outline-primary btn-lg" id="loadMore" style="display: none;">
-                <i class="bi bi-arrow-down"></i> Load More Gems
-            </button>
-        </div>
-    </div>
-</section>
-
-<!-- Quick Stats -->
-<section class="py-4 bg-light">
-    <div class="container">
-        <div class="row g-4 text-center">
-            <div class="col-md-3">
-                <div class="stat-card">
-                    <span class="stat-number" id="avgScore">{{ "%.1f"|format(gems|map(attribute='hidden_gem_score')|average) if gems else 0 }}</span>
-                    <div class="stat-label">Average Score</div>
-                </div>
-            </div>
-            <div class="col-md-3">
-                <div class="stat-card">
-                    <span class="stat-number" id="topType">{{ gems|map(attribute='type')|list|most_common|first|first if gems else 'N/A' }}</span>
-                    <div class="stat-label">Most Common Type</div>
-                </div>
-            </div>
-            <div class="col-md-3">
-                <div class="stat-card">
-                    <span class="stat-number" id="avgSentiment">{{ "%.2f"|format(gems|map(attribute='avg_sentiment')|average) if gems else 0 }}</span>
-                    <div class="stat-label">Average Sentiment</div>
-                </div>
-            </div>
-            <div class="col-md-3">
-                <div class="stat-card">
-                    <span class="stat-number" id="excellentCount">{{ gems|selectattr('hidden_gem_score', '>=', 80)|list|length if gems else 0 }}</span>
-                    <div class="stat-label">Excellent (80+)</div>
+            <!-- Map -->
+            <div class="col-lg-9">
+                <div class="card map-card animated-fade-in">
+                    <div class="card-body p-0">
+                        <div id="map" style="height: 650px;"></div>
+                    </div>
                 </div>
             </div>
         </div>
     </div>
-</section>
+</div>
 {% endblock %}
 
-{% block extra_js %}
+{% block styles %}
+<link rel="stylesheet" href="https://unpkg.com/leaflet@1.7.1/dist/leaflet.css" />
+<style>
+    .gems-hero {
+        background: linear-gradient(135deg, var(--toronto-blue) 0%, var(--apple-blue) 100%);
+        padding: 5rem 0 3rem 0;
+        color: white;
+        border-radius: 0 0 32px 32px;
+        box-shadow: 0 8px 32px rgba(0,0,0,0.08);
+    }
+    .filter-card {
+        border-radius: 20px;
+        box-shadow: 0 4px 20px rgba(0,0,0,0.08);
+        background: rgba(255,255,255,0.95);
+        position: sticky;
+        top: 2rem;
+        animation: fadeIn 1s;
+    }
+    .map-card {
+        border-radius: 20px;
+        box-shadow: 0 4px 20px rgba(0,0,0,0.08);
+        overflow: hidden;
+        animation: fadeIn 1.2s;
+    }
+    .mood-filter-buttons {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 0.5rem;
+    }
+    .btn-mood {
+        border-radius: 20px;
+        background: var(--apple-light-gray);
+        color: var(--primary-color);
+        font-weight: 500;
+        transition: all 0.2s;
+        border: 1px solid var(--apple-gray);
+        margin-bottom: 0.25rem;
+    }
+    .btn-mood.active, .btn-mood:active {
+        background: linear-gradient(135deg, var(--secondary-color), var(--primary-color));
+        color: white;
+        border-color: var(--primary-color);
+        transform: scale(1.08);
+    }
+    .score-value {
+        color: var(--medium-text);
+        font-size: 0.95rem;
+    }
+    #selected-moods {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 0.5rem;
+    }
+    .selected-mood-tag {
+        background: var(--apple-light-gray);
+        border-radius: 20px;
+        padding: 0.5rem 1rem;
+        display: inline-flex;
+        align-items: center;
+        gap: 0.5rem;
+        font-size: 0.9rem;
+        cursor: pointer;
+        transition: all 0.2s ease;
+    }
+    .selected-mood-tag:hover {
+        background: var(--apple-gray);
+        color: white;
+    }
+    #gems-list {
+        max-height: 350px;
+        overflow-y: auto;
+        margin-top: 1rem;
+        animation: fadeIn 1.2s;
+    }
+    .gem-item {
+        padding: 1rem;
+        border-radius: 12px;
+        background: white;
+        margin-bottom: 1rem;
+        box-shadow: 0 2px 8px rgba(0,0,0,0.05);
+        transition: all 0.2s;
+        cursor: pointer;
+        animation: slideUp 0.7s;
+    }
+    .gem-item:hover {
+        background: var(--apple-blue);
+        color: white;
+        transform: translateX(5px);
+    }
+    /* Animations */
+    .fade-in { animation: fadeIn 1s; }
+    .slide-up { animation: slideUp 1s; }
+    .animated-fade-in { animation: fadeIn 1.2s; }
+    @keyframes fadeIn { from { opacity: 0; } to { opacity: 1; } }
+    @keyframes slideUp { from { opacity: 0; transform: translateY(20px); } to { opacity: 1; transform: translateY(0); } }
+</style>
+{% endblock %}
+
+{% block scripts %}
+<script src="https://unpkg.com/leaflet@1.7.1/dist/leaflet.js"></script>
 <script>
+// Mood gradients and emojis (for tag UI)
+const moodStyles = {
+    romantic: { emoji: '💑' },
+    foodie: { emoji: '🍽️' },
+    adventure: { emoji: '🌟' },
+    relaxing: { emoji: '🌿' },
+    cultural: { emoji: '🎭' },
+    budget: { emoji: '💰' },
+    nightlife: { emoji: '🌙' }
+};
+let map;
+let markers = [];
+let allGems = [];
+let selectedMoods = new Set();
+
+function fetchGems() {
+    fetch('/api/gems/all')
+        .then(res => res.json())
+        .then(data => {
+            allGems = data.data;
+            updateMap();
+        });
+}
+
+function updateSelectedMoodsUI() {
+    const container = document.getElementById('selected-moods');
+    container.innerHTML = '';
+    selectedMoods.forEach(mood => {
+        const tag = document.createElement('div');
+        tag.className = 'selected-mood-tag';
+        tag.innerHTML = `
+            ${moodStyles[mood]?.emoji || '🏷️'} ${mood}
+            <span class="remove-mood">×</span>
+        `;
+        tag.onclick = () => toggleMood(mood);
+        container.appendChild(tag);
+    });
+}
+
+function toggleMood(mood) {
+    if (selectedMoods.has(mood)) {
+        selectedMoods.delete(mood);
+    } else {
+        selectedMoods.add(mood);
+    }
+    updateSelectedMoodsUI();
+    updateMap();
+}
+
+function updateMap() {
+    // Clear existing markers
+    markers.forEach(marker => marker.remove());
+    markers = [];
+    // Filter gems
+    const showAll = document.getElementById('show-all-gems').checked;
+    const searchTerm = document.getElementById('search-input').value.toLowerCase();
+    const selectedType = document.getElementById('type-filter').value;
+    const minScore = parseInt(document.getElementById('score-filter').value);
+    let filtered = allGems.filter(gem => {
+        const name = gem.name.toLowerCase();
+        const address = (gem.address || '').toLowerCase();
+        const type = gem.type;
+        const score = parseFloat(gem.hidden_gem_score);
+        const gemMoods = (gem.mood_tags || '').toLowerCase().split(',').map(m => m.trim());
+        let visible = (name.includes(searchTerm) || address.includes(searchTerm)) && score >= minScore && (selectedType === 'all' || type.includes(selectedType));
+        if (!showAll && selectedMoods.size > 0) {
+            visible = visible && Array.from(selectedMoods).some(mood => gemMoods.includes(mood));
+        }
+        return visible;
+    });
+    updateGemsList(filtered);
+    filtered.forEach(gem => {
+        if (gem.latitude && gem.longitude) {
+            const marker = L.marker([gem.latitude, gem.longitude])
+                .bindPopup(`
+                    <strong>${gem.name}</strong><br>
+                    ${gem.type}<br>
+                    Score: ${gem.hidden_gem_score.toFixed(1)}<br>
+                    <small>${gem.mood_tags}</small>
+                `);
+            marker.addTo(map);
+            markers.push(marker);
+        }
+    });
+    if (markers.length > 0) {
+        const group = new L.featureGroup(markers);
+        map.fitBounds(group.getBounds().pad(0.1));
+    }
+}
+
+function updateGemsList(gems) {
+    const container = document.getElementById('gems-list');
+    container.innerHTML = '';
+    gems.slice(0, 10).forEach(gem => {
+        const item = document.createElement('div');
+        item.className = 'gem-item';
+        item.innerHTML = `<h5>${gem.name}</h5><p class='mb-1'><small>${gem.type}</small></p><p class='mb-0'><span class='badge bg-primary'>${gem.hidden_gem_score.toFixed(1)}</span> <small class='text-muted'>${gem.mood_tags}</small></p>`;
+        item.onclick = () => {
+            if (gem.latitude && gem.longitude) {
+                map.setView([gem.latitude, gem.longitude], 16);
+                markers.forEach(marker => {
+                    if (marker.getLatLng().lat === gem.latitude && marker.getLatLng().lng === gem.longitude) {
+                        marker.openPopup();
+                    }
+                });
+            }
+        };
+        container.appendChild(item);
+    });
+}
+
 document.addEventListener('DOMContentLoaded', function() {
-    const searchInput = document.getElementById('searchInput');
-    const typeFilter = document.getElementById('typeFilter');
-    const moodFilter = document.getElementById('moodFilter');
-    const scoreFilter = document.getElementById('scoreFilter');
-    const sortBy = document.getElementById('sortBy');
-    const clearFilters = document.getElementById('clearFilters');
-    const viewGrid = document.getElementById('viewGrid');
-    const viewList = document.getElementById('viewList');
-    const gemsGrid = document.getElementById('gemsGrid');
-    const gemsList = document.getElementById('gemsList');
-    const resultsCount = document.getElementById('resultsCount');
-    const noResults = document.getElementById('noResults');
-    
-    let currentView = 'grid';
-    let allGems = Array.from(document.querySelectorAll('.gem-item'));
-    
-    // Filter and search functionality
-    function filterGems() {
-        const searchTerm = searchInput.value.toLowerCase();
-        const typeValue = typeFilter.value.toLowerCase();
-        const moodValue = moodFilter.value.toLowerCase();
-        const scoreValue = parseFloat(scoreFilter.value) || 0;
-        
-        let visibleGems = allGems.filter(gem => {
-            const name = gem.dataset.name;
-            const type = gem.dataset.type;
-            const mood = gem.dataset.mood;
-            const score = parseFloat(gem.dataset.score);
-            
-            const matchesSearch = !searchTerm || name.includes(searchTerm);
-            const matchesType = !typeValue || type.includes(typeValue);
-            const matchesMood = !moodValue || mood.includes(moodValue);
-            const matchesScore = score >= scoreValue;
-            
-            return matchesSearch && matchesType && matchesMood && matchesScore;
+    map = L.map('map').setView([43.6532, -79.3832], 13);
+    L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+        attribution: '© OpenStreetMap contributors'
+    }).addTo(map);
+    fetchGems();
+    // Mood button events
+    document.querySelectorAll('.btn-mood').forEach(btn => {
+        btn.addEventListener('click', function() {
+            toggleMood(this.dataset.mood);
+            this.classList.toggle('active');
         });
-        
-        // Sort gems
-        const sortValue = sortBy.value;
-        visibleGems.sort((a, b) => {
-            switch(sortValue) {
-                case 'name':
-                    return a.dataset.name.localeCompare(b.dataset.name);
-                case 'mentions':
-                    return parseInt(b.dataset.mentions) - parseInt(a.dataset.mentions);
-                case 'sentiment':
-                    return parseFloat(b.dataset.sentiment) - parseFloat(a.dataset.sentiment);
-                default: // score
-                    return parseFloat(b.dataset.score) - parseFloat(a.dataset.score);
-            }
-        });
-        
-        // Hide all gems
-        allGems.forEach(gem => gem.style.display = 'none');
-        
-        // Show filtered gems
-        visibleGems.forEach(gem => gem.style.display = 'block');
-        
-        // Update results count
-        resultsCount.textContent = visibleGems.length;
-        
-        // Show/hide no results message
-        if (visibleGems.length === 0) {
-            noResults.style.display = 'block';
-            gemsGrid.style.display = 'none';
-            gemsList.style.display = 'none';
-        } else {
-            noResults.style.display = 'none';
-            if (currentView === 'grid') {
-                gemsGrid.style.display = 'flex';
-                gemsList.style.display = 'none';
-            } else {
-                gemsGrid.style.display = 'none';
-                gemsList.style.display = 'block';
-            }
-        }
-        
-        // Reorder visible gems in DOM
-        const container = currentView === 'grid' ? gemsGrid : gemsList;
-        visibleGems.forEach(gem => {
-            container.appendChild(gem);
-        });
-    }
-    
-    // View switching
-    function switchView(view) {
-        currentView = view;
-        
-        if (view === 'grid') {
-            viewGrid.classList.add('btn-primary');
-            viewGrid.classList.remove('btn-outline-primary');
-            viewList.classList.add('btn-outline-primary');
-            viewList.classList.remove('btn-primary');
-            
-            gemsGrid.classList.remove('d-none');
-            gemsList.classList.add('d-none');
-            
-            // Move all gems to grid
-            allGems.forEach(gem => {
-                if (gem.style.display !== 'none') {
-                    gemsGrid.appendChild(gem);
-                }
-            });
-        } else {
-            viewList.classList.add('btn-primary');
-            viewList.classList.remove('btn-outline-primary');
-            viewGrid.classList.add('btn-outline-primary');
-            viewGrid.classList.remove('btn-primary');
-            
-            gemsList.classList.remove('d-none');
-            gemsGrid.classList.add('d-none');
-            
-            // Move all gems to list
-            allGems.forEach(gem => {
-                if (gem.style.display !== 'none') {
-                    gemsList.appendChild(gem);
-                }
-            });
-        }
-    }
-    
-    // Clear filters
-    function clearAllFilters() {
-        searchInput.value = '';
-        typeFilter.value = '';
-        moodFilter.value = '';
-        scoreFilter.value = '0';
-        sortBy.value = 'score';
-        filterGems();
-    }
-    
-    // Event listeners
-    searchInput.addEventListener('input', filterGems);
-    typeFilter.addEventListener('change', filterGems);
-    moodFilter.addEventListener('change', filterGems);
-    scoreFilter.addEventListener('change', filterGems);
-    sortBy.addEventListener('change', filterGems);
-    clearFilters.addEventListener('click', clearAllFilters);
-    
-    viewGrid.addEventListener('click', () => switchView('grid'));
-    viewList.addEventListener('click', () => switchView('list'));
-    
-    // Initialize
-    filterGems();
+    });
+    document.getElementById('show-all-gems').addEventListener('change', updateMap);
+    document.getElementById('search-input').addEventListener('input', updateMap);
+    document.getElementById('type-filter').addEventListener('change', updateMap);
+    document.getElementById('score-filter').addEventListener('input', function() {
+        this.nextElementSibling.textContent = this.value;
+        updateMap();
+    });
 });
 </script>
 {% endblock %} 
