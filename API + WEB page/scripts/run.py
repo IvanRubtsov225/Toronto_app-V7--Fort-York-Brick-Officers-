@@ -85,6 +85,102 @@ def run_recommendation_collection():
     else:
         print("❌ No recommendation data collected. Check your Reddit API credentials.")
 
+def run_event_collection():
+    """Collect event data from Reddit and Ticketmaster"""
+    print("🎭 Collecting event data from Reddit and Ticketmaster...")
+    
+    import sys
+    import os
+    sys.path.append(os.path.join(os.path.dirname(__file__), '..'))
+    
+    # Collect Reddit events
+    print("\n📱 Collecting events from Reddit...")
+    from src.collectors.reddit_events_collector import RedditEventsCollector
+    reddit_collector = RedditEventsCollector()
+    reddit_posts, reddit_comments = reddit_collector.collect_all_events(limit_per_subreddit=25)
+    
+    if reddit_posts or reddit_comments:
+        reddit_collector.save_events_data(reddit_posts, reddit_comments)
+    
+    # Collect Ticketmaster events
+    print("\n🎫 Collecting events from Ticketmaster...")
+    from src.collectors.ticketmaster_collector import TicketmasterCollector
+    tm_collector = TicketmasterCollector()
+    tm_events = tm_collector.collect_toronto_events(
+        days_ahead=30,
+        keywords=['food', 'wine', 'beer', 'culinary', 'festival', 'market', 'art', 'music']
+    )
+    
+    if tm_events:
+        tm_collector.save_events_data(tm_events)
+    
+    print(f"\n✅ Event collection complete!")
+    print(f"📱 Reddit events: {len(reddit_posts)}")
+    print(f"🎫 Ticketmaster events: {len(tm_events)}")
+
+def run_event_finder():
+    """Find hidden gem events using combined data"""
+    print("💎 Finding hidden gem events in Toronto...")
+    
+    import sys
+    import os
+    sys.path.append(os.path.join(os.path.dirname(__file__), '..'))
+    
+    from src.finders.event_finder import EventFinder
+    finder = EventFinder()
+    
+    # Collect all event data
+    print("📱 Collecting event data...")
+    finder.collect_all_event_data(days_ahead=30)
+    
+    # Find hidden gem events
+    print("🔍 Finding hidden gem events...")
+    hidden_gems = finder.find_hidden_gem_events(
+        min_hidden_score=50,
+        max_price=100,
+        mood_filters=['foodie', 'cultural', 'artistic', 'romantic']
+    )
+    
+    if hidden_gems:
+        print(f"\n🎉 Found {len(hidden_gems)} hidden gem events!")
+        
+        # Show statistics
+        stats = finder.get_event_statistics()
+        print(f"\n📊 Event Statistics:")
+        print(f"   Ticketmaster Events: {stats['ticketmaster_events']}")
+        print(f"   Reddit Events: {stats['reddit_events']}")
+        print(f"   Average Hidden Score: {stats['average_hidden_score']}")
+        print(f"   Free Events: {stats['free_events']}")
+        print(f"   Average Price: ${stats['average_price']:.2f}")
+        
+        # Show top events
+        print(f"\n🏆 Top 10 Hidden Gem Events:")
+        for i, event in enumerate(hidden_gems[:10], 1):
+            print(f"{i:2d}. {event['name']}")
+            print(f"    📅 {event['date']} at {event['time']}")
+            print(f"    📍 {event['venue']}")
+            print(f"    💰 ${event['price_min']}-${event['price_max']} {event['currency']}")
+            print(f"    🎭 {', '.join(event['mood_tags'])}")
+            print(f"    ⭐ Hidden Score: {event['hidden_gem_score']}")
+            print(f"    📊 Source: {event['source']}")
+            print()
+        
+        # Show mood examples
+        print("\n🎭 Events by Mood:")
+        moods_to_show = ['Foodie', 'Cultural', 'Romantic', 'Free']
+        for mood in moods_to_show:
+            mood_events = finder.filter_by_mood(mood, top_n=3)
+            if mood_events:
+                print(f"\n💫 Top {mood} Events:")
+                for i, event in enumerate(mood_events[:3], 1):
+                    print(f"  {i}. {event['name']} - {event['venue']}")
+        
+        # Export results
+        filename = finder.save_events_data()
+        print(f"\n📄 Results exported to: {filename}")
+    else:
+        print("❌ No hidden gem events found. Try adjusting the criteria.")
+
 def run_dinesafe_analysis():
     """Analyze DineSafe data"""
     print("🏥 Analyzing DineSafe inspection data...")
@@ -234,13 +330,15 @@ def run_test_recommendations():
 
 def main():
     parser = argparse.ArgumentParser(
-        description="Toronto Hidden Gems Finder",
+        description="Toronto Hidden Gems & Events Finder",
         formatter_class=argparse.RawDescriptionHelpFormatter,
         epilog="""
 Examples:
   python run.py dashboard          # Start interactive dashboard
   python run.py collect           # Collect general Reddit data
   python run.py recommendations   # Collect recommendation-focused data
+  python run.py events            # Collect event data (Reddit + Ticketmaster)
+  python run.py find-events       # Find hidden gem events
   python run.py analyze           # Analyze DineSafe data
   python run.py find              # Find hidden gems (general approach)
   python run.py find-recs         # Find hidden gems (recommendation-focused)
@@ -251,7 +349,7 @@ Examples:
     
     parser.add_argument(
         'mode',
-        choices=['dashboard', 'collect', 'recommendations', 'analyze', 'find', 'find-recs', 'test-recs', 'demo'],
+        choices=['dashboard', 'collect', 'recommendations', 'events', 'find-events', 'analyze', 'find', 'find-recs', 'test-recs', 'demo'],
         help='Mode to run the application in'
     )
     
@@ -264,7 +362,7 @@ Examples:
     
     args = parser.parse_args()
     
-    print("🍽️ Toronto Hidden Gems Finder")
+    print("🎭 Toronto Hidden Gems & Events Finder")
     print("=" * 50)
     
     try:
@@ -274,6 +372,10 @@ Examples:
             run_data_collection()
         elif args.mode == 'recommendations':
             run_recommendation_collection()
+        elif args.mode == 'events':
+            run_event_collection()
+        elif args.mode == 'find-events':
+            run_event_finder()
         elif args.mode == 'analyze':
             run_dinesafe_analysis()
         elif args.mode == 'find':
@@ -285,12 +387,13 @@ Examples:
         elif args.mode == 'demo':
             run_quick_demo()
     except KeyboardInterrupt:
-        print("\n\n👋 Goodbye! Thanks for using Toronto Hidden Gems Finder!")
+        print("\n\n👋 Goodbye! Thanks for using Toronto Hidden Gems & Events Finder!")
     except Exception as e:
         print(f"\n❌ Error: {e}")
         print("💡 Make sure you have:")
         print("   - Installed all dependencies (pip install -r requirements.txt)")
         print("   - Set up Reddit API credentials in config.py")
+        print("   - Ticketmaster API credentials are valid")
         print("   - DineSafe data file is present")
 
 if __name__ == "__main__":

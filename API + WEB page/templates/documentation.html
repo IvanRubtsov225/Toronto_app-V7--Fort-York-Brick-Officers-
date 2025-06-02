@@ -363,6 +363,331 @@
     </div>
 </section>
 
+<!-- Events API Endpoints -->
+<section class="py-5">
+    <div class="container">
+        <h2 class="text-center mb-5 fw-bold text-secondary">🎭 Events API Endpoints</h2>
+        <p class="text-center text-muted mb-5">Access Toronto's most exciting events, from concerts to cultural gatherings</p>
+        
+        <!-- Get All Events -->
+        <div class="card mb-4">
+            <div class="card-header">
+                <div class="d-flex justify-content-between align-items-center">
+                    <h4 class="mb-0">Get All Events</h4>
+                    <span class="badge bg-success">GET</span>
+                </div>
+            </div>
+            <div class="card-body">
+                <p><code>/api/events</code></p>
+                <p>Retrieve all events in Toronto with Reddit buzz scores and Ticketmaster integration.</p>
+                
+                <h6>Parameters</h6>
+                <div class="table-responsive">
+                    <table class="table table-sm">
+                        <thead>
+                            <tr>
+                                <th>Parameter</th>
+                                <th>Type</th>
+                                <th>Description</th>
+                                <th>Example</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td><code>limit</code></td>
+                                <td>integer</td>
+                                <td>Maximum number of events to return</td>
+                                <td><code>?limit=20</code></td>
+                            </tr>
+                            <tr>
+                                <td><code>mood</code></td>
+                                <td>string</td>
+                                <td>Filter by mood (romantic, energetic, cultural, etc.)</td>
+                                <td><code>?mood=cultural</code></td>
+                            </tr>
+                            <tr>
+                                <td><code>type</code></td>
+                                <td>string</td>
+                                <td>Filter by event type (concert, festival, sports, etc.)</td>
+                                <td><code>?type=concert</code></td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+                
+                <h6>Response Fields</h6>
+                <div class="table-responsive">
+                    <table class="table table-sm">
+                        <thead>
+                            <tr>
+                                <th>Field</th>
+                                <th>Type</th>
+                                <th>Description</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td><code>name</code></td>
+                                <td>string</td>
+                                <td>Event name</td>
+                            </tr>
+                            <tr>
+                                <td><code>venue</code></td>
+                                <td>string</td>
+                                <td>Venue name and location</td>
+                            </tr>
+                            <tr>
+                                <td><code>date</code></td>
+                                <td>string</td>
+                                <td>Event date (YYYY-MM-DD)</td>
+                            </tr>
+                            <tr>
+                                <td><code>time</code></td>
+                                <td>string</td>
+                                <td>Event start time</td>
+                            </tr>
+                            <tr>
+                                <td><code>price_range</code></td>
+                                <td>string</td>
+                                <td>Price category (Free, Budget, Premium)</td>
+                            </tr>
+                            <tr>
+                                <td><code>mood_tags</code></td>
+                                <td>string</td>
+                                <td>Comma-separated mood categories</td>
+                            </tr>
+                            <tr>
+                                <td><code>reddit_buzz_score</code></td>
+                                <td>float</td>
+                                <td>Reddit community excitement score (0-100)</td>
+                            </tr>
+                            <tr>
+                                <td><code>hidden_gem_score</code></td>
+                                <td>float</td>
+                                <td>Overall event hidden gem score</td>
+                            </tr>
+                            <tr>
+                                <td><code>ticketmaster_url</code></td>
+                                <td>string</td>
+                                <td>Direct link to purchase tickets</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+                
+                <h6>Example</h6>
+                <div class="row">
+                    <div class="col-md-6">
+                        <strong>Request:</strong>
+                        <pre class="bg-dark text-light p-2 rounded small"><code>GET /api/events?limit=5</code></pre>
+                    </div>
+                    <div class="col-md-6">
+                        <strong>Try it:</strong>
+                        <button class="btn btn-outline-primary btn-sm" onclick="testEndpoint('/api/events?limit=3')">
+                            <i class="bi bi-play"></i> Test API
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        <!-- Get Events by Mood -->
+        <div class="card mb-4">
+            <div class="card-header">
+                <div class="d-flex justify-content-between align-items-center">
+                    <h4 class="mb-0">Get Events by Mood</h4>
+                    <span class="badge bg-success">GET</span>
+                </div>
+            </div>
+            <div class="card-body">
+                <p><code>/api/events/mood/{mood}</code></p>
+                <p>Filter events by mood or vibe (romantic, energetic, cultural, artistic, etc.).</p>
+                
+                <h6>Path Parameters</h6>
+                <div class="table-responsive">
+                    <table class="table table-sm">
+                        <thead>
+                            <tr>
+                                <th>Parameter</th>
+                                <th>Type</th>
+                                <th>Description</th>
+                                <th>Options</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td><code>mood</code></td>
+                                <td>string</td>
+                                <td>Mood category to filter by</td>
+                                <td>romantic, energetic, cultural, artistic, foodie, nightlife, family, outdoor, free, budget</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+                
+                <h6>Examples</h6>
+                <div class="row">
+                    <div class="col-md-6">
+                        <strong>Cultural events:</strong>
+                        <pre class="bg-dark text-light p-2 rounded small"><code>GET /api/events/mood/cultural</code></pre>
+                        <button class="btn btn-outline-primary btn-sm" onclick="testEndpoint('/api/events/mood/cultural?limit=3')">
+                            <i class="bi bi-play"></i> Test
+                        </button>
+                    </div>
+                    <div class="col-md-6">
+                        <strong>Free events:</strong>
+                        <pre class="bg-dark text-light p-2 rounded small"><code>GET /api/events/mood/free</code></pre>
+                        <button class="btn btn-outline-primary btn-sm" onclick="testEndpoint('/api/events/mood/free?limit=3')">
+                            <i class="bi bi-play"></i> Test
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        <!-- Get Events Statistics -->
+        <div class="card mb-4">
+            <div class="card-header">
+                <div class="d-flex justify-content-between align-items-center">
+                    <h4 class="mb-0">Get Events Statistics</h4>
+                    <span class="badge bg-success">GET</span>
+                </div>
+            </div>
+            <div class="card-body">
+                <p><code>/api/events/stats</code></p>
+                <p>Get overall statistics about Toronto events.</p>
+                
+                <h6>Response Fields</h6>
+                <div class="table-responsive">
+                    <table class="table table-sm">
+                        <thead>
+                            <tr>
+                                <th>Field</th>
+                                <th>Type</th>
+                                <th>Description</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td><code>total_events</code></td>
+                                <td>integer</td>
+                                <td>Total number of events</td>
+                            </tr>
+                            <tr>
+                                <td><code>free_events</code></td>
+                                <td>integer</td>
+                                <td>Number of free events</td>
+                            </tr>
+                            <tr>
+                                <td><code>average_reddit_buzz</code></td>
+                                <td>float</td>
+                                <td>Average Reddit buzz score</td>
+                            </tr>
+                            <tr>
+                                <td><code>average_hidden_gem_score</code></td>
+                                <td>float</td>
+                                <td>Average hidden gem score</td>
+                            </tr>
+                            <tr>
+                                <td><code>mood_distribution</code></td>
+                                <td>object</td>
+                                <td>Count of events by mood category</td>
+                            </tr>
+                            <tr>
+                                <td><code>upcoming_events</code></td>
+                                <td>integer</td>
+                                <td>Events happening in the next 30 days</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+                
+                <h6>Example</h6>
+                <div class="row">
+                    <div class="col-md-6">
+                        <strong>Request:</strong>
+                        <pre class="bg-dark text-light p-2 rounded small"><code>GET /api/events/stats</code></pre>
+                    </div>
+                    <div class="col-md-6">
+                        <strong>Try it:</strong>
+                        <button class="btn btn-outline-primary btn-sm" onclick="testEndpoint('/api/events/stats')">
+                            <i class="bi bi-play"></i> Test API
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        <!-- Collect Events Data -->
+        <div class="card mb-4">
+            <div class="card-header">
+                <div class="d-flex justify-content-between align-items-center">
+                    <h4 class="mb-0">Trigger Events Data Collection</h4>
+                    <span class="badge bg-warning">POST</span>
+                </div>
+            </div>
+            <div class="card-body">
+                <p><code>/api/collect-events</code></p>
+                <p>Manually trigger collection of fresh events data from Ticketmaster and Reddit.</p>
+                
+                <div class="alert alert-warning">
+                    <i class="bi bi-exclamation-triangle"></i>
+                    <strong>Note:</strong> This endpoint may take several minutes to complete as it collects data from multiple sources.
+                </div>
+                
+                <h6>Response</h6>
+                <div class="table-responsive">
+                    <table class="table table-sm">
+                        <thead>
+                            <tr>
+                                <th>Field</th>
+                                <th>Type</th>
+                                <th>Description</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td><code>status</code></td>
+                                <td>string</td>
+                                <td>Collection status ("started", "completed", "error")</td>
+                            </tr>
+                            <tr>
+                                <td><code>ticketmaster_events</code></td>
+                                <td>integer</td>
+                                <td>Number of events collected from Ticketmaster</td>
+                            </tr>
+                            <tr>
+                                <td><code>reddit_events</code></td>
+                                <td>integer</td>
+                                <td>Number of events found on Reddit</td>
+                            </tr>
+                            <tr>
+                                <td><code>processing_time</code></td>
+                                <td>string</td>
+                                <td>Time taken to complete collection</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+                
+                <h6>Example</h6>
+                <div class="row">
+                    <div class="col-md-6">
+                        <strong>Request:</strong>
+                        <pre class="bg-dark text-light p-2 rounded small"><code>POST /api/collect-events</code></pre>
+                    </div>
+                    <div class="col-md-6">
+                        <strong>Try it:</strong>
+                        <button class="btn btn-outline-warning btn-sm" onclick="testCollectEvents()">
+                            <i class="bi bi-cloud-download"></i> Collect Events
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
 <!-- FLUTTER API BUTTON: Toronto Magic! -->
 <div class="text-center my-5">
     <button id="flutterApiBtn" class="btn btn-lg btn-primary toronto-btn shadow-lg" style="font-size:2rem; border-radius: 40px; background: linear-gradient(90deg, #0072CE 0%, #41B6E6 100%); animation: bounce 1.2s infinite alternate;">
@@ -425,6 +750,104 @@ document.addEventListener('DOMContentLoaded', function() {
         btn.style.background = 'linear-gradient(90deg, #41B6E6 0%, #0072CE 100%)';
         btn.style.color = '#fff';
         btn.style.transform = 'scale(1.12) rotate(2deg)';
+    });
+});
+
+function testEndpoint(endpoint) {
+    showLoading();
+    
+    fetch(endpoint)
+        .then(response => {
+            const status = response.status;
+            const statusClass = status === 200 ? 'bg-success' : 'bg-danger';
+            document.getElementById('responseStatus').className = `badge ${statusClass}`;
+            document.getElementById('responseStatus').textContent = `${status} ${response.statusText}`;
+            
+            return response.json();
+        })
+        .then(data => {
+            showResponse(JSON.stringify(data, null, 2));
+        })
+        .catch(error => {
+            document.getElementById('responseStatus').className = 'badge bg-danger';
+            document.getElementById('responseStatus').textContent = 'Error';
+            showResponse(`Error: ${error.message}`);
+        });
+}
+
+function testCustomEndpoint() {
+    const endpoint = document.getElementById('apiUrl').value;
+    if (endpoint) {
+        testEndpoint(endpoint);
+    }
+}
+
+function loadQuickTest() {
+    const select = document.getElementById('quickTest');
+    const endpoint = select.value;
+    if (endpoint) {
+        document.getElementById('apiUrl').value = endpoint;
+        testEndpoint(endpoint);
+    }
+}
+
+function showLoading() {
+    document.getElementById('apiResponse').style.display = 'none';
+    document.getElementById('apiLoading').style.display = 'block';
+}
+
+function showResponse(response) {
+    document.getElementById('apiLoading').style.display = 'none';
+    document.getElementById('responseBody').textContent = response;
+    document.getElementById('apiResponse').style.display = 'block';
+}
+
+// Special function for testing collect events (POST request)
+function testCollectEvents() {
+    showLoading();
+    
+    fetch('/api/collect-events', {
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/json',
+        }
+    })
+    .then(response => {
+        const status = response.status;
+        const statusClass = status === 200 ? 'bg-success' : 'bg-danger';
+        document.getElementById('responseStatus').className = `badge ${statusClass}`;
+        document.getElementById('responseStatus').textContent = `${status} ${response.statusText}`;
+        
+        return response.json();
+    })
+    .then(data => {
+        showResponse(JSON.stringify(data, null, 2));
+    })
+    .catch(error => {
+        document.getElementById('responseStatus').className = 'badge bg-danger';
+        document.getElementById('responseStatus').textContent = 'Error';
+        showResponse(`Error: ${error.message}`);
+    });
+}
+
+// Syntax highlighting for code blocks
+document.addEventListener('DOMContentLoaded', function() {
+    // Add copy buttons to code blocks
+    document.querySelectorAll('pre code').forEach(block => {
+        const button = document.createElement('button');
+        button.className = 'btn btn-sm btn-outline-secondary position-absolute top-0 end-0 m-2';
+        button.innerHTML = '<i class="bi bi-clipboard"></i>';
+        button.onclick = () => {
+            navigator.clipboard.writeText(block.textContent);
+            button.innerHTML = '<i class="bi bi-check"></i>';
+            setTimeout(() => {
+                button.innerHTML = '<i class="bi bi-clipboard"></i>';
+            }, 2000);
+        };
+        
+        const container = block.closest('pre');
+        container.style.position = 'relative';
+        container.appendChild(button);
     });
 });
 </script>
@@ -590,7 +1013,11 @@ document.addEventListener('DOMContentLoaded', function() {
                             <option value="/api/gems/top?limit=3">Top 3 Gems</option>
                             <option value="/api/gems/mood/romantic?limit=2">Romantic Places</option>
                             <option value="/api/gems/type/bakery?limit=2">Bakeries</option>
-                            <option value="/api/stats">Statistics</option>
+                            <option value="/api/stats">Gems Statistics</option>
+                            <option value="/api/events?limit=3">All Events</option>
+                            <option value="/api/events/mood/cultural?limit=2">Cultural Events</option>
+                            <option value="/api/events/mood/free?limit=2">Free Events</option>
+                            <option value="/api/events/stats">Events Statistics</option>
                         </select>
                     </div>
                 </div>
@@ -665,6 +1092,34 @@ function showResponse(response) {
     document.getElementById('apiLoading').style.display = 'none';
     document.getElementById('responseBody').textContent = response;
     document.getElementById('apiResponse').style.display = 'block';
+}
+
+// Special function for testing collect events (POST request)
+function testCollectEvents() {
+    showLoading();
+    
+    fetch('/api/collect-events', {
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/json',
+        }
+    })
+    .then(response => {
+        const status = response.status;
+        const statusClass = status === 200 ? 'bg-success' : 'bg-danger';
+        document.getElementById('responseStatus').className = `badge ${statusClass}`;
+        document.getElementById('responseStatus').textContent = `${status} ${response.statusText}`;
+        
+        return response.json();
+    })
+    .then(data => {
+        showResponse(JSON.stringify(data, null, 2));
+    })
+    .catch(error => {
+        document.getElementById('responseStatus').className = 'badge bg-danger';
+        document.getElementById('responseStatus').textContent = 'Error';
+        showResponse(`Error: ${error.message}`);
+    });
 }
 
 // Syntax highlighting for code blocks

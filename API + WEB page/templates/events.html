@@ -1,0 +1,776 @@
+{% extends "base.html" %}
+
+{% block title %}Toronto Events - Toronto Hidden Gems{% endblock %}
+
+{% block extra_css %}
+<style>
+    .events-hero {
+        background: linear-gradient(135deg, #FF6B35 0%, #F7931E 100%);
+        padding: 5rem 0 3rem 0;
+        color: white;
+        border-radius: 0 0 32px 32px;
+        box-shadow: 0 8px 32px rgba(0,0,0,0.08);
+        position: relative;
+        overflow: hidden;
+    }
+    
+    .events-hero::before {
+        content: '';
+        position: absolute;
+        top: 0;
+        left: 0;
+        right: 0;
+        bottom: 0;
+        background: url("data:image/svg+xml,%3Csvg width='40' height='40' viewBox='0 0 40 40' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='%23ffffff' fill-opacity='0.05' fill-rule='evenodd'%3E%3Cpath d='M20 20c0-5.5-4.5-10-10-10s-10 4.5-10 10 4.5 10 10 10 10-4.5 10-10zm10 0c0 5.5 4.5 10 10 10s10-4.5 10-10-4.5-10-10-10-10 4.5-10 10z'/%3E%3C/g%3E%3C/svg%3E") repeat;
+    }
+    
+    .events-hero .container {
+        position: relative;
+        z-index: 1;
+    }
+    
+    .filter-card {
+        border-radius: 20px;
+        box-shadow: 0 4px 20px rgba(0,0,0,0.08);
+        background: rgba(255,255,255,0.95);
+        backdrop-filter: blur(10px);
+        position: sticky;
+        top: 2rem;
+        animation: fadeInUp 0.8s ease-out;
+    }
+    
+    .events-grid {
+        animation: fadeInUp 1s ease-out;
+    }
+    
+    .event-card {
+        border-radius: 20px;
+        overflow: hidden;
+        transition: all 0.3s ease;
+        height: 100%;
+        background: white;
+        box-shadow: 0 4px 20px rgba(0,0,0,0.08);
+        position: relative;
+    }
+    
+    .event-card:hover {
+        transform: translateY(-8px);
+        box-shadow: 0 12px 40px rgba(0,0,0,0.15);
+    }
+    
+    .event-header {
+        background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+        color: white;
+        padding: 1.5rem;
+        position: relative;
+    }
+    
+    .event-header::after {
+        content: '';
+        position: absolute;
+        bottom: 0;
+        left: 0;
+        right: 0;
+        height: 4px;
+        background: linear-gradient(90deg, #ff6b35, #f7931e, #feca57);
+    }
+    
+    .event-score {
+        background: rgba(255,255,255,0.2);
+        backdrop-filter: blur(10px);
+        color: white;
+        padding: 0.5rem 1rem;
+        border-radius: 20px;
+        font-weight: 600;
+        font-size: 0.9rem;
+        display: inline-block;
+        position: absolute;
+        top: 1rem;
+        right: 1rem;
+    }
+    
+    .event-type {
+        background: rgba(255,255,255,0.15);
+        color: white;
+        padding: 0.3rem 0.8rem;
+        border-radius: 12px;
+        font-size: 0.8rem;
+        font-weight: 500;
+        display: inline-block;
+        margin-bottom: 0.5rem;
+    }
+    
+    .event-title {
+        font-size: 1.3rem;
+        font-weight: 700;
+        margin: 0;
+        line-height: 1.3;
+    }
+    
+    .event-venue {
+        opacity: 0.9;
+        font-size: 1rem;
+        margin-top: 0.5rem;
+    }
+    
+    .event-body {
+        padding: 1.5rem;
+    }
+    
+    .event-date {
+        background: linear-gradient(135deg, var(--primary-color), var(--secondary-color));
+        color: white;
+        padding: 0.8rem;
+        border-radius: 12px;
+        text-align: center;
+        margin-bottom: 1rem;
+        font-weight: 600;
+    }
+    
+    .event-price {
+        font-size: 1.2rem;
+        font-weight: 700;
+        color: var(--success-color);
+        margin-bottom: 1rem;
+    }
+    
+    .event-price.free {
+        color: var(--apple-green);
+    }
+    
+    .event-price.premium {
+        color: var(--accent-color);
+    }
+    
+    .event-mood-tags {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 0.5rem;
+        margin-bottom: 1rem;
+    }
+    
+    .event-mood-tag {
+        background: linear-gradient(135deg, #ff9a9e 0%, #fecfef 100%);
+        color: #333;
+        padding: 0.3rem 0.8rem;
+        border-radius: 15px;
+        font-size: 0.8rem;
+        font-weight: 500;
+        display: inline-flex;
+        align-items: center;
+        gap: 0.3rem;
+    }
+    
+    .event-stats {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        padding-top: 1rem;
+        border-top: 1px solid #f0f0f0;
+        font-size: 0.9rem;
+        color: var(--medium-text);
+    }
+    
+    .btn-mood {
+        border-radius: 20px;
+        background: var(--apple-light-gray);
+        color: var(--primary-color);
+        font-weight: 500;
+        transition: all 0.3s ease;
+        border: 1px solid #e0e0e0;
+        margin: 0.25rem;
+        padding: 0.5rem 1rem;
+    }
+    
+    .btn-mood.active {
+        background: linear-gradient(135deg, var(--secondary-color), var(--primary-color));
+        color: white;
+        border-color: var(--primary-color);
+        transform: scale(1.05);
+        box-shadow: 0 4px 15px rgba(0,123,255,0.3);
+    }
+    
+    .btn-mood:hover {
+        transform: translateY(-2px);
+        box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+    }
+    
+    .filter-section {
+        margin-bottom: 2rem;
+        padding-bottom: 1.5rem;
+        border-bottom: 1px solid #f0f0f0;
+    }
+    
+    .filter-section:last-child {
+        border-bottom: none;
+        margin-bottom: 0;
+    }
+    
+    .filter-title {
+        font-weight: 600;
+        color: var(--dark-text);
+        margin-bottom: 1rem;
+        display: flex;
+        align-items: center;
+        gap: 0.5rem;
+    }
+    
+    .stats-row {
+        background: linear-gradient(135deg, var(--light-bg) 0%, #ffffff 100%);
+        border-radius: 20px;
+        padding: 2rem;
+        margin-bottom: 2rem;
+        box-shadow: 0 4px 20px rgba(0,0,0,0.05);
+    }
+    
+    .stat-item {
+        text-align: center;
+    }
+    
+    .stat-icon {
+        font-size: 2.5rem;
+        margin-bottom: 0.5rem;
+        display: block;
+    }
+    
+    .stat-number {
+        font-size: 2rem;
+        font-weight: 700;
+        color: var(--primary-color);
+        display: block;
+    }
+    
+    .stat-label {
+        color: var(--medium-text);
+        font-weight: 500;
+        font-size: 0.9rem;
+    }
+    
+    .no-events {
+        text-align: center;
+        padding: 4rem 2rem;
+        color: var(--medium-text);
+    }
+    
+    .no-events i {
+        font-size: 4rem;
+        margin-bottom: 1rem;
+        opacity: 0.5;
+    }
+    
+    @keyframes fadeInUp {
+        from {
+            opacity: 0;
+            transform: translateY(30px);
+        }
+        to {
+            opacity: 1;
+            transform: translateY(0);
+        }
+    }
+    
+    @keyframes pulse {
+        0%, 100% {
+            transform: scale(1);
+        }
+        50% {
+            transform: scale(1.05);
+        }
+    }
+    
+    .loading-spinner {
+        animation: pulse 2s infinite;
+    }
+    
+    /* Responsive Design */
+    @media (max-width: 768px) {
+        .events-hero h1 {
+            font-size: 2.5rem;
+        }
+        
+        .filter-card {
+            position: relative;
+            top: 0;
+        }
+        
+        .event-card {
+            margin-bottom: 2rem;
+        }
+    }
+</style>
+{% endblock %}
+
+{% block content %}
+<div class="events-explorer">
+    <!-- Hero Section -->
+    <section class="events-hero">
+        <div class="container">
+            <div class="row align-items-center">
+                <div class="col-lg-8">
+                    <h1 class="display-4 mb-3">🎭 Toronto Events</h1>
+                    <p class="lead mb-4">Discover hidden gem events, concerts, festivals, and cultural experiences in Toronto</p>
+                    <div class="d-flex gap-3">
+                        <button class="btn btn-light btn-lg" onclick="collectNewEvents(this)">
+                            <i class="bi bi-arrow-clockwise"></i> Discover New Events
+                        </button>
+                        <button class="btn btn-outline-light btn-lg" onclick="scrollToFilters()">
+                            <i class="bi bi-funnel"></i> Filter Events
+                        </button>
+                    </div>
+                </div>
+                <div class="col-lg-4 text-center">
+                    <div class="loading-spinner">
+                        <i class="bi bi-calendar-event" style="font-size: 6rem; opacity: 0.7;"></i>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Statistics Row -->
+    <div class="container mt-5">
+        <div class="stats-row">
+            <div class="row">
+                <div class="col-md-3">
+                    <div class="stat-item">
+                        <span class="stat-icon">🎪</span>
+                        <span class="stat-number">{{ stats.total_events }}</span>
+                        <div class="stat-label">Total Events</div>
+                    </div>
+                </div>
+                <div class="col-md-3">
+                    <div class="stat-item">
+                        <span class="stat-icon">🎁</span>
+                        <span class="stat-number">{{ stats.free_events }}</span>
+                        <div class="stat-label">Free Events</div>
+                    </div>
+                </div>
+                <div class="col-md-3">
+                    <div class="stat-item">
+                        <span class="stat-icon">⭐</span>
+                        <span class="stat-number">{{ "%.1f"|format(stats.average_score) }}</span>
+                        <div class="stat-label">Avg Hidden Score</div>
+                    </div>
+                </div>
+                <div class="col-md-3">
+                    <div class="stat-item">
+                        <span class="stat-icon">💰</span>
+                        <span class="stat-number">${{ "%.0f"|format(stats.average_price) }}</span>
+                        <div class="stat-label">Avg Price</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="container-fluid my-5">
+        <div class="row">
+            <!-- Filters Sidebar -->
+            <div class="col-lg-3 mb-4">
+                <div class="card filter-card">
+                    <div class="card-body">
+                        <h4 class="mb-4">🎯 Filter Events</h4>
+                        
+                        <!-- Mood Filters -->
+                        <div class="filter-section">
+                            <h6 class="filter-title">
+                                <i class="bi bi-heart"></i>
+                                Mood & Vibe
+                            </h6>
+                            <div class="mood-filter-buttons" id="mood-filter">
+                                <button class="btn btn-mood" data-mood="romantic">💑 Romantic</button>
+                                <button class="btn btn-mood" data-mood="energetic">⚡ Energetic</button>
+                                <button class="btn btn-mood" data-mood="cultural">🎭 Cultural</button>
+                                <button class="btn btn-mood" data-mood="artistic">🎨 Artistic</button>
+                                <button class="btn btn-mood" data-mood="foodie">🍽️ Foodie</button>
+                                <button class="btn btn-mood" data-mood="nightlife">🌙 Nightlife</button>
+                                <button class="btn btn-mood" data-mood="family">👨‍👩‍👧‍👦 Family</button>
+                                <button class="btn btn-mood" data-mood="outdoor">🌲 Outdoor</button>
+                                <button class="btn btn-mood" data-mood="free">🎁 Free</button>
+                                <button class="btn btn-mood" data-mood="budget">💰 Budget</button>
+                            </div>
+                        </div>
+                        
+                        <!-- Event Type Filter -->
+                        <div class="filter-section">
+                            <h6 class="filter-title">
+                                <i class="bi bi-tags"></i>
+                                Event Type
+                            </h6>
+                            <select id="type-filter" class="form-select">
+                                <option value="all">All Types</option>
+                                <option value="music">🎵 Music</option>
+                                <option value="arts">🎨 Arts & Theatre</option>
+                                <option value="sports">🏈 Sports</option>
+                                <option value="food">🍽️ Food & Drink</option>
+                                <option value="film">🎬 Film</option>
+                                <option value="miscellaneous">🎪 Other</option>
+                            </select>
+                        </div>
+                        
+                        <!-- Price Range -->
+                        <div class="filter-section">
+                            <h6 class="filter-title">
+                                <i class="bi bi-currency-dollar"></i>
+                                Price Range
+                            </h6>
+                            <select id="price-filter" class="form-select">
+                                <option value="all">All Prices</option>
+                                <option value="free">🎁 Free Events</option>
+                                <option value="budget">💰 Under $30</option>
+                                <option value="moderate">💳 $30 - $100</option>
+                                <option value="premium">💎 $100+</option>
+                            </select>
+                        </div>
+                        
+                        <!-- Hidden Gem Score -->
+                        <div class="filter-section">
+                            <h6 class="filter-title">
+                                <i class="bi bi-gem"></i>
+                                Hidden Gem Score
+                            </h6>
+                            <input type="range" class="form-range" id="score-filter" min="0" max="100" value="0">
+                            <div class="text-center mt-2">
+                                <span class="badge bg-primary" id="score-value">0+</span>
+                            </div>
+                        </div>
+                        
+                        <!-- Search -->
+                        <div class="filter-section">
+                            <h6 class="filter-title">
+                                <i class="bi bi-search"></i>
+                                Search
+                            </h6>
+                            <input type="text" id="search-input" class="form-control" placeholder="Search events, venues, or artists...">
+                        </div>
+                        
+                        <!-- Quick Actions -->
+                        <div class="filter-section">
+                            <button class="btn btn-outline-secondary btn-sm w-100 mb-2" onclick="clearAllFilters()">
+                                <i class="bi bi-x-circle"></i> Clear Filters
+                            </button>
+                            <button class="btn btn-outline-primary btn-sm w-100" onclick="refreshEvents()">
+                                <i class="bi bi-arrow-clockwise"></i> Refresh Events
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Events Grid -->
+            <div class="col-lg-9">
+                <div class="events-grid">
+                    <div class="d-flex justify-content-between align-items-center mb-4">
+                        <h3 id="events-count">{{ events|length }} Hidden Gem Events</h3>
+                        <div class="btn-group" role="group">
+                            <button type="button" class="btn btn-outline-secondary" onclick="sortEvents('score')">
+                                <i class="bi bi-sort-numeric-down"></i> By Score
+                            </button>
+                            <button type="button" class="btn btn-outline-secondary" onclick="sortEvents('date')">
+                                <i class="bi bi-calendar"></i> By Date
+                            </button>
+                            <button type="button" class="btn btn-outline-secondary" onclick="sortEvents('price')">
+                                <i class="bi bi-currency-dollar"></i> By Price
+                            </button>
+                        </div>
+                    </div>
+                    
+                    <div class="row" id="events-container">
+                        {% if events %}
+                            {% for event in events %}
+                            <div class="col-lg-6 col-xl-4 mb-4 event-item" 
+                                 data-mood="{{ event.mood_tags }}" 
+                                 data-type="{{ event.segment|lower }}" 
+                                 data-price="{{ event.price_min }}"
+                                 data-score="{{ event.hidden_gem_score }}"
+                                 data-search="{{ event.name|lower }} {{ event.venue|lower }}">
+                                <div class="event-card">
+                                    <div class="event-header">
+                                        {% if event.segment %}
+                                            <div class="event-type">{{ event.segment }}</div>
+                                        {% endif %}
+                                        <div class="event-score">⭐ {{ "%.1f"|format(event.hidden_gem_score) }}</div>
+                                        <h5 class="event-title">{{ event.name[:50] }}{% if event.name|length > 50 %}...{% endif %}</h5>
+                                        {% if event.venue %}
+                                            <div class="event-venue">
+                                                <i class="bi bi-geo-alt"></i> {{ event.venue }}
+                                            </div>
+                                        {% endif %}
+                                    </div>
+                                    
+                                    <div class="event-body">
+                                        {% if event.date %}
+                                            <div class="event-date">
+                                                <i class="bi bi-calendar-event"></i>
+                                                {{ event.date }}
+                                                {% if event.time and event.time != 'TBD' %}
+                                                    at {{ event.time }}
+                                                {% endif %}
+                                            </div>
+                                        {% endif %}
+                                        
+                                        <div class="event-price {% if event.price_min == 0 %}free{% elif event.price_min > 100 %}premium{% endif %}">
+                                            {% if event.price_min == 0 %}
+                                                🎁 Free Event
+                                            {% elif event.price_max > 0 %}
+                                                💰 ${{ event.price_min }} - ${{ event.price_max }} {{ event.currency }}
+                                            {% else %}
+                                                💰 From ${{ event.price_min }} {{ event.currency }}
+                                            {% endif %}
+                                        </div>
+                                        
+                                        {% if event.mood_tags %}
+                                            <div class="event-mood-tags">
+                                                {% for mood in event.mood_tags.split(',')[:3] %}
+                                                    <span class="event-mood-tag">
+                                                        {{ mood|mood_emoji }} {{ mood.strip() }}
+                                                    </span>
+                                                {% endfor %}
+                                            </div>
+                                        {% endif %}
+                                        
+                                        {% if event.info %}
+                                            <p class="text-muted small mb-3">{{ event.info[:100] }}{% if event.info|length > 100 %}...{% endif %}</p>
+                                        {% endif %}
+                                        
+                                        <div class="event-stats">
+                                            <div>
+                                                <i class="bi bi-chat-dots"></i> 
+                                                Reddit Buzz: {{ event.reddit_buzz }}
+                                            </div>
+                                            <div>
+                                                {% if event.accessibility_score > 0 %}
+                                                    <i class="bi bi-universal-access"></i> 
+                                                    {{ event.accessibility_score }}% Accessible
+                                                {% endif %}
+                                            </div>
+                                        </div>
+                                        
+                                        {% if event.url %}
+                                            <div class="mt-3">
+                                                <a href="{{ event.url }}" target="_blank" class="btn btn-primary btn-sm">
+                                                    <i class="bi bi-link-45deg"></i> View Event
+                                                </a>
+                                            </div>
+                                        {% endif %}
+                                    </div>
+                                </div>
+                            </div>
+                            {% endfor %}
+                        {% else %}
+                            <div class="col-12">
+                                <div class="no-events">
+                                    <i class="bi bi-calendar-x"></i>
+                                    <h4>No Events Found</h4>
+                                    <p>Try collecting new event data or adjusting your filters.</p>
+                                    <button class="btn btn-primary" onclick="collectNewEvents(this)">
+                                        <i class="bi bi-arrow-clockwise"></i> Collect New Events
+                                    </button>
+                                </div>
+                            </div>
+                        {% endif %}
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script>
+var allEventsData = {{ events|tojson|safe }};
+var filteredEvents = allEventsData;
+
+document.addEventListener('DOMContentLoaded', function() {
+    updateScoreValue();
+    initializeFilters();
+});
+
+function initializeFilters() {
+    document.querySelectorAll('.btn-mood').forEach(function(btn) {
+        btn.addEventListener('click', function() {
+            this.classList.toggle('active');
+            applyFilters();
+        });
+    });
+    
+    document.getElementById('type-filter').addEventListener('change', applyFilters);
+    document.getElementById('price-filter').addEventListener('change', applyFilters);
+    document.getElementById('score-filter').addEventListener('input', function() {
+        updateScoreValue();
+        applyFilters();
+    });
+    document.getElementById('search-input').addEventListener('input', applyFilters);
+}
+
+function updateScoreValue() {
+    var scoreValue = document.getElementById('score-filter').value;
+    document.getElementById('score-value').textContent = scoreValue + '+';
+}
+
+function applyFilters() {
+    var activeMoods = Array.from(document.querySelectorAll('.btn-mood.active')).map(function(btn) {
+        return btn.dataset.mood;
+    });
+    var typeFilter = document.getElementById('type-filter').value;
+    var priceFilter = document.getElementById('price-filter').value;
+    var scoreFilter = parseFloat(document.getElementById('score-filter').value);
+    var searchFilter = document.getElementById('search-input').value.toLowerCase();
+    
+    filteredEvents = allEventsData.filter(function(event) {
+        if (activeMoods.length > 0) {
+            var eventMoods = (event.mood_tags || '').toLowerCase();
+            if (!activeMoods.some(function(mood) { return eventMoods.includes(mood); })) return false;
+        }
+        
+        if (typeFilter !== 'all') {
+            var eventType = (event.segment || '').toLowerCase();
+            if (!eventType.includes(typeFilter)) return false;
+        }
+        
+        if (priceFilter !== 'all') {
+            var price = event.price_min || 0;
+            switch (priceFilter) {
+                case 'free':
+                    if (price > 0) return false;
+                    break;
+                case 'budget':
+                    if (price > 30) return false;
+                    break;
+                case 'moderate':
+                    if (price < 30 || price > 100) return false;
+                    break;
+                case 'premium':
+                    if (price < 100) return false;
+                    break;
+            }
+        }
+        
+        if ((event.hidden_gem_score || 0) < scoreFilter) return false;
+        
+        if (searchFilter) {
+            var searchText = (event.name + ' ' + event.venue + ' ' + (event.info || '')).toLowerCase();
+            if (!searchText.includes(searchFilter)) return false;
+        }
+        
+        return true;
+    });
+    
+    renderEvents();
+}
+
+function renderEvents() {
+    var container = document.getElementById('events-container');
+    var countElement = document.getElementById('events-count');
+    
+    countElement.textContent = filteredEvents.length + ' Hidden Gem Events';
+    
+    if (filteredEvents.length === 0) {
+        container.innerHTML = '<div class="col-12"><div class="no-events"><i class="bi bi-calendar-x"></i><h4>No Events Match Your Filters</h4><p>Try adjusting your search criteria or clearing some filters.</p><button class="btn btn-outline-primary" onclick="clearAllFilters()"><i class="bi bi-x-circle"></i> Clear All Filters</button></div></div>';
+        return;
+    }
+    
+    container.innerHTML = filteredEvents.map(function(event) {
+        var priceClass = event.price_min === 0 ? 'free' : event.price_min > 100 ? 'premium' : '';
+        var priceText = event.price_min === 0 ? '🎁 Free Event' : 
+                       event.price_max > 0 ? '💰 $' + event.price_min + ' - $' + event.price_max + ' ' + (event.currency || 'CAD') :
+                       '💰 From $' + event.price_min + ' ' + (event.currency || 'CAD');
+        
+        return '<div class="col-lg-6 col-xl-4 mb-4 event-item">' +
+               '<div class="event-card">' +
+               '<div class="event-header">' +
+               (event.segment ? '<div class="event-type">' + event.segment + '</div>' : '') +
+               '<div class="event-score">⭐ ' + (event.hidden_gem_score || 0).toFixed(1) + '</div>' +
+               '<h5 class="event-title">' + (event.name || '').substring(0, 50) + (event.name && event.name.length > 50 ? '...' : '') + '</h5>' +
+               (event.venue ? '<div class="event-venue"><i class="bi bi-geo-alt"></i> ' + event.venue + '</div>' : '') +
+               '</div>' +
+               '<div class="event-body">' +
+               (event.date ? '<div class="event-date"><i class="bi bi-calendar-event"></i> ' + event.date + (event.time && event.time !== 'TBD' ? ' at ' + event.time : '') + '</div>' : '') +
+               '<div class="event-price ' + priceClass + '">' + priceText + '</div>' +
+               (event.info ? '<p class="text-muted small mb-3">' + event.info.substring(0, 100) + (event.info.length > 100 ? '...' : '') + '</p>' : '') +
+               '<div class="event-stats">' +
+               '<div><i class="bi bi-chat-dots"></i> Reddit Buzz: ' + (event.reddit_buzz || 0) + '</div>' +
+               (event.accessibility_score > 0 ? '<div><i class="bi bi-universal-access"></i> ' + event.accessibility_score + '% Accessible</div>' : '') +
+               '</div>' +
+               (event.url ? '<div class="mt-3"><a href="' + event.url + '" target="_blank" class="btn btn-primary btn-sm"><i class="bi bi-link-45deg"></i> View Event</a></div>' : '') +
+               '</div></div></div>';
+    }).join('');
+}
+
+function sortEvents(criteria) {
+    switch (criteria) {
+        case 'score':
+            filteredEvents.sort(function(a, b) { return (b.hidden_gem_score || 0) - (a.hidden_gem_score || 0); });
+            break;
+        case 'date':
+            filteredEvents.sort(function(a, b) { return new Date(a.date || '9999-12-31') - new Date(b.date || '9999-12-31'); });
+            break;
+        case 'price':
+            filteredEvents.sort(function(a, b) { return (a.price_min || 0) - (b.price_min || 0); });
+            break;
+    }
+    renderEvents();
+}
+
+function clearAllFilters() {
+    document.querySelectorAll('.btn-mood.active').forEach(function(btn) {
+        btn.classList.remove('active');
+    });
+    
+    document.getElementById('type-filter').value = 'all';
+    document.getElementById('price-filter').value = 'all';
+    document.getElementById('score-filter').value = 0;
+    document.getElementById('search-input').value = '';
+    
+    updateScoreValue();
+    applyFilters();
+}
+
+function refreshEvents() {
+    fetch('/api/refresh-data', { method: 'POST' })
+        .then(function(response) { return response.json(); })
+        .then(function(data) {
+            if (data.status === 'success') {
+                location.reload();
+            } else {
+                alert('Failed to refresh data: ' + data.message);
+            }
+        })
+        .catch(function(error) {
+            console.error('Error refreshing data:', error);
+            alert('Error refreshing data');
+        });
+}
+
+function collectNewEvents(btn) {
+    var originalText = btn.innerHTML;
+    btn.innerHTML = '<span class="loading"></span> Collecting Events...';
+    btn.disabled = true;
+    
+    fetch('/api/collect-events', { method: 'POST' })
+        .then(function(response) { return response.json(); })
+        .then(function(data) {
+            if (data.status === 'success') {
+                alert('New events collected! Refreshing page...');
+                location.reload();
+            } else {
+                alert('Failed to collect events: ' + data.message);
+            }
+        })
+        .catch(function(error) {
+            console.error('Error collecting events:', error);
+            alert('Error collecting events');
+        })
+        .finally(function() {
+            btn.innerHTML = originalText;
+            btn.disabled = false;
+        });
+}
+
+function scrollToFilters() {
+    document.querySelector('.filter-card').scrollIntoView({ 
+        behavior: 'smooth', 
+        block: 'start' 
+    });
+}
+</script>
+{% endblock %} 

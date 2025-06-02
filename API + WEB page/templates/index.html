@@ -23,19 +23,45 @@
 
 <section class="container my-5" id="collect-data-section">
     <div class="text-center">
-        <button id="collectDataBtn" class="btn btn-lg btn-primary shadow-lg" style="font-size:2rem; border-radius: 40px;">
-            Collect Data
+        <h2 class="display-6 fw-bold text-primary mb-3">🏙️ Toronto Data Collection</h2>
+        <p class="lead text-muted mb-4">Powered by the Toronto Mood Collector algorithm</p>
+        <button id="collectDataBtn" class="btn btn-lg btn-primary shadow-lg" style="font-size:1.8rem; border-radius: 40px; background: linear-gradient(45deg, #0072CE, #41B6E6); border: none; padding: 15px 40px;">
+            🍁 Collect Complete Toronto Data 🎭
         </button>
+        <p class="small text-muted mt-2">Collects both hidden gems and events data from multiple sources</p>
         <div id="collectLoading" style="display:none; margin-top:2rem;">
-            <div class="progress" style="height: 2.5rem;">
-                <div id="collectProgressBar" class="progress-bar progress-bar-striped progress-bar-animated bg-primary" role="progressbar" style="width: 0%; font-size:1.2rem;">Processing...</div>
+            <div class="progress" style="height: 2.5rem; border-radius: 25px;">
+                <div id="collectProgressBar" class="progress-bar progress-bar-striped progress-bar-animated" role="progressbar" style="width: 0%; font-size:1.2rem; background: linear-gradient(45deg, #41B6E6, #0072CE);">Processing...</div>
             </div>
+            <p class="text-muted mt-2" id="collectStatusText">Initializing Toronto data collection...</p>
         </div>
-        <div id="collectSuccess" class="alert alert-success mt-4" style="display:none; font-size:1.2rem;">
+        <div id="collectSuccess" class="alert alert-success mt-4" style="display:none; font-size:1.2rem; border-radius: 15px;">
             ✅ Data collection complete!
         </div>
-        <div id="collectError" class="alert alert-danger mt-4" style="display:none; font-size:1.2rem;">
+        <div id="collectError" class="alert alert-danger mt-4" style="display:none; font-size:1.2rem; border-radius: 15px;">
             ❌ Something went wrong. Please try again.
+        </div>
+        <div id="collectResults" class="mt-4" style="display:none;">
+            <div class="row justify-content-center">
+                <div class="col-md-4">
+                    <div class="card text-center" style="background: linear-gradient(45deg, rgba(0,114,206,0.1), rgba(65,182,230,0.1)); border: none;">
+                        <div class="card-body">
+                            <h5 class="card-title">💎 Hidden Gems</h5>
+                            <span id="gemsCount" class="display-6 fw-bold text-primary">0</span>
+                            <p class="text-muted">Found</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <div class="card text-center" style="background: linear-gradient(45deg, rgba(255,193,7,0.1), rgba(255,87,34,0.1)); border: none;">
+                        <div class="card-body">
+                            <h5 class="card-title">🎭 Events</h5>
+                            <span id="eventsCount" class="display-6 fw-bold text-warning">0</span>
+                            <p class="text-muted">Found</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
         </div>
     </div>
 </section>
@@ -336,24 +362,31 @@ document.addEventListener('DOMContentLoaded', function() {
     const btn = document.getElementById('collectDataBtn');
     const loading = document.getElementById('collectLoading');
     const progressBar = document.getElementById('collectProgressBar');
+    const statusText = document.getElementById('collectStatusText');
     const success = document.getElementById('collectSuccess');
     const error = document.getElementById('collectError');
+    const results = document.getElementById('collectResults');
+    const gemsCount = document.getElementById('gemsCount');
+    const eventsCount = document.getElementById('eventsCount');
     
     btn.addEventListener('click', async function() {
         btn.disabled = true;
         loading.style.display = 'block';
         success.style.display = 'none';
         error.style.display = 'none';
+        results.style.display = 'none';
         progressBar.style.width = '0%';
-        progressBar.textContent = 'Setting up environment...';
+        progressBar.textContent = 'Initializing...';
+        statusText.textContent = 'Setting up Toronto Mood Collector environment...';
         
-        // Stages of the process
+        // Toronto Mood Collector style progress stages
         const stages = [
-            'Setting up virtual environment...',
-            'Installing dependencies...',
-            'Collecting Reddit data...',
-            'Processing data...',
-            'Finalizing...'
+            'Setting up Toronto Mood Collector environment...',
+            'Installing Toronto data dependencies...',
+            'Phase 1: Collecting Hidden Gems from Reddit & DineSafe...',
+            'Phase 2: Collecting Events from Ticketmaster & Reddit...',
+            'Phase 3: Processing Toronto moods and sentiments...',
+            'Finalizing Toronto data collection...'
         ];
         
         let currentStage = 0;
@@ -362,20 +395,21 @@ document.addEventListener('DOMContentLoaded', function() {
         // Update progress more slowly to account for longer processing time
         const progressInterval = setInterval(() => {
             if (currentStage < stages.length) {
-                progress = (currentStage + (progress % 20) / 20) * (100 / stages.length);
+                progress = (currentStage + (progress % 16.66) / 16.66) * (100 / stages.length);
                 progressBar.style.width = progress + '%';
-                progressBar.textContent = stages[currentStage];
+                progressBar.textContent = `${Math.round(progress)}%`;
+                statusText.textContent = stages[currentStage];
                 
                 // Move to next stage
-                if (progress % 20 === 19) {
+                if (progress % 16.66 > 15) {
                     currentStage++;
                 }
             }
-        }, 1000);
+        }, 1200);
         
         try {
             const controller = new AbortController();
-            const timeoutId = setTimeout(() => controller.abort(), 600000); // 10-minute timeout
+            const timeoutId = setTimeout(() => controller.abort(), 900000); // 15-minute timeout for comprehensive collection
             
             const response = await fetch('/api/collect-data', {
                 method: 'POST',
@@ -387,14 +421,23 @@ document.addEventListener('DOMContentLoaded', function() {
             
             clearInterval(progressInterval);
             progressBar.style.width = '100%';
-            progressBar.textContent = 'Done!';
+            progressBar.textContent = 'Complete!';
+            statusText.textContent = 'Toronto data collection complete!';
             loading.style.display = 'none';
             
-            if (data.status === 'success') {
+            if (data.status === 'success' || data.status === 'partial_success') {
+                // Show results
+                if (data.details) {
+                    gemsCount.textContent = data.details.gems_found || 0;
+                    eventsCount.textContent = data.details.events_found || 0;
+                    results.style.display = 'block';
+                }
+                
                 success.textContent = '✅ ' + data.message;
                 success.style.display = 'block';
-                // Reload the page after 2 seconds to show new data
-                setTimeout(() => window.location.reload(), 2000);
+                
+                // Reload the page after 3 seconds to show new data
+                setTimeout(() => window.location.reload(), 3000);
             } else {
                 error.textContent = '❌ ' + (data.message || 'Something went wrong. Please try again.');
                 error.style.display = 'block';
@@ -403,7 +446,7 @@ document.addEventListener('DOMContentLoaded', function() {
             clearInterval(progressInterval);
             loading.style.display = 'none';
             if (err.name === 'AbortError') {
-                error.textContent = '❌ Operation timed out. The process is still running in the background.';
+                error.textContent = '❌ Operation timed out. The comprehensive data collection is still running in the background.';
             } else {
                 error.textContent = '❌ ' + err.message;
             }
