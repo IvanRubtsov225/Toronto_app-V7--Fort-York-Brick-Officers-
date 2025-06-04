@@ -150,14 +150,14 @@ class _GemsListScreenState extends State<GemsListScreen> {
                         const SizedBox(height: 16),
                         Text(
                           'Oops! Something went wrong',
-                          style: theme.textTheme.titleLarge?.copyWith(
+                          style: Theme.of(context).textTheme.titleLarge?.copyWith(
                             color: Colors.grey[600],
                           ),
                         ),
                         const SizedBox(height: 8),
                         Text(
                           'Unable to load gems right now',
-                          style: theme.textTheme.bodyMedium?.copyWith(
+                          style: Theme.of(context).textTheme.bodyMedium?.copyWith(
                             color: Colors.grey[500],
                           ),
                         ),
@@ -165,7 +165,7 @@ class _GemsListScreenState extends State<GemsListScreen> {
                         ElevatedButton(
                           onPressed: () => gemsProvider.refresh(),
                           style: ElevatedButton.styleFrom(
-                            backgroundColor: theme.primaryColor,
+                            backgroundColor: Theme.of(context).primaryColor,
                             foregroundColor: Colors.white,
                             padding: const EdgeInsets.symmetric(
                               horizontal: 24,
@@ -182,71 +182,67 @@ class _GemsListScreenState extends State<GemsListScreen> {
                   );
                 }
 
-                final gemsToShow = gemsProvider.filteredGems.isNotEmpty
-                    ? gemsProvider.filteredGems
-                    : gemsProvider.allGems;
-
-                if (gemsToShow.isEmpty) {
-                  return Center(
-                    child: Column(
-                      mainAxisAlignment: MainAxisAlignment.center,
-                      children: [
-                        Icon(
-                          Icons.search_off_rounded,
-                          size: 64,
-                          color: Colors.grey[400],
-                        ),
-                        const SizedBox(height: 16),
-                        Text(
-                          'No gems found',
-                          style: theme.textTheme.titleLarge?.copyWith(
-                            color: Colors.grey[600],
+                return Column(
+                  children: [
+                    // Filter status banner
+                    if (gemsProvider.currentMoodFilter != null)
+                      Container(
+                        width: double.infinity,
+                        padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 12),
+                        margin: const EdgeInsets.all(16),
+                        decoration: BoxDecoration(
+                          gradient: LinearGradient(
+                            colors: [
+                              _getMoodColor(gemsProvider.currentMoodFilter!),
+                              _getMoodColor(gemsProvider.currentMoodFilter!).withOpacity(0.8),
+                            ],
                           ),
+                          borderRadius: BorderRadius.circular(12),
                         ),
-                        const SizedBox(height: 8),
-                        Text(
-                          'Try adjusting your search or filters',
-                          style: theme.textTheme.bodyMedium?.copyWith(
-                            color: Colors.grey[500],
-                          ),
+                        child: Row(
+                          children: [
+                            Text(
+                              _getMoodEmoji(gemsProvider.currentMoodFilter!),
+                              style: const TextStyle(fontSize: 24),
+                            ),
+                            const SizedBox(width: 12),
+                            Expanded(
+                              child: Column(
+                                crossAxisAlignment: CrossAxisAlignment.start,
+                                children: [
+                                  Text(
+                                    '${gemsProvider.currentMoodFilter} Vibes',
+                                    style: Theme.of(context).textTheme.titleMedium?.copyWith(
+                                      color: Colors.white,
+                                      fontWeight: FontWeight.bold,
+                                    ),
+                                  ),
+                                  Text(
+                                    '${gemsProvider.filteredGems.length} gems found',
+                                    style: Theme.of(context).textTheme.bodySmall?.copyWith(
+                                      color: Colors.white.withOpacity(0.9),
+                                    ),
+                                  ),
+                                ],
+                              ),
+                            ),
+                            IconButton(
+                              onPressed: () => gemsProvider.clearFilters(),
+                              icon: const Icon(
+                                Icons.close_rounded,
+                                color: Colors.white,
+                              ),
+                              tooltip: 'Clear filter',
+                            ),
+                          ],
                         ),
-                        if (gemsProvider.hasFilters) ...[
-                          const SizedBox(height: 24),
-                          TextButton(
-                            onPressed: () {
-                              setState(() {
-                                _selectedCategory = null;
-                                _selectedMood = null;
-                                _minScore = 0.0;
-                              });
-                              _searchController.clear();
-                              gemsProvider.clearFilters();
-                            },
-                            child: const Text('Clear all filters'),
-                          ),
-                        ],
-                      ],
+                      ),
+                    
+                    // Gems list content
+                    Expanded(
+                      child: _buildGemsList(context, gemsProvider),
                     ),
-                  );
-                }
-
-                return RefreshIndicator(
-                  onRefresh: () => gemsProvider.refresh(),
-                  child: ListView.builder(
-                    controller: _scrollController,
-                    padding: const EdgeInsets.all(16),
-                    itemCount: gemsToShow.length,
-                    itemBuilder: (context, index) {
-                      final gem = gemsToShow[index];
-                      return Padding(
-                        padding: const EdgeInsets.only(bottom: 16),
-                        child: GemCard(
-                          gem: gem,
-                          onTap: () => context.go('/gem/${gem.id}'),
-                        ),
-                      );
-                    },
-                  ),
+                  ],
                 );
               },
             ),
@@ -280,8 +276,8 @@ class _GemsListScreenState extends State<GemsListScreen> {
                     shape: RoundedRectangleBorder(
                       borderRadius: BorderRadius.circular(12),
                     ),
-                    side: BorderSide(color: theme.primaryColor),
-                    foregroundColor: theme.primaryColor,
+                    side: BorderSide(color: Theme.of(context).primaryColor),
+                    foregroundColor: Theme.of(context).primaryColor,
                   ),
                 ),
               ),
@@ -291,7 +287,7 @@ class _GemsListScreenState extends State<GemsListScreen> {
                 icon: const Icon(Icons.map_rounded),
                 label: const Text('Map View'),
                 style: ElevatedButton.styleFrom(
-                  backgroundColor: theme.primaryColor,
+                  backgroundColor: Theme.of(context).primaryColor,
                   foregroundColor: Colors.white,
                   padding: const EdgeInsets.symmetric(vertical: 12, horizontal: 20),
                   shape: RoundedRectangleBorder(
@@ -334,5 +330,122 @@ class _GemsListScreenState extends State<GemsListScreen> {
         ),
       ),
     );
+  }
+
+  Widget _buildGemsList(BuildContext context, GemsProvider gemsProvider) {
+    final theme = Theme.of(context);
+    
+    final gemsToShow = gemsProvider.filteredGems.isNotEmpty
+        ? gemsProvider.filteredGems
+        : gemsProvider.allGems;
+
+    if (gemsToShow.isEmpty) {
+      return Center(
+        child: Column(
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: [
+            Icon(
+              Icons.search_off_rounded,
+              size: 64,
+              color: Colors.grey[400],
+            ),
+            const SizedBox(height: 16),
+            Text(
+              'No gems found',
+              style: theme.textTheme.titleLarge?.copyWith(
+                color: Colors.grey[600],
+              ),
+            ),
+            const SizedBox(height: 8),
+            Text(
+              'Try adjusting your search or filters',
+              style: theme.textTheme.bodyMedium?.copyWith(
+                color: Colors.grey[500],
+              ),
+            ),
+            if (gemsProvider.hasFilters) ...[
+              const SizedBox(height: 24),
+              TextButton(
+                onPressed: () {
+                  setState(() {
+                    _selectedCategory = null;
+                    _selectedMood = null;
+                    _minScore = 0.0;
+                  });
+                  _searchController.clear();
+                  gemsProvider.clearFilters();
+                },
+                child: const Text('Clear all filters'),
+              ),
+            ],
+          ],
+        ),
+      );
+    }
+
+    return RefreshIndicator(
+      onRefresh: () => gemsProvider.refresh(),
+      child: ListView.builder(
+        controller: _scrollController,
+        padding: const EdgeInsets.all(16),
+        itemCount: gemsToShow.length,
+        itemBuilder: (context, index) {
+          final gem = gemsToShow[index];
+          return Padding(
+            padding: const EdgeInsets.only(bottom: 16),
+            child: GemCard(
+              gem: gem,
+              onTap: () => context.go('/gem/${gem.id}'),
+            ),
+          );
+        },
+      ),
+    );
+  }
+
+  Color _getMoodColor(String mood) {
+    switch (mood.toLowerCase()) {
+      case 'romantic':
+        return Colors.pink;
+      case 'foodie':
+        return Colors.orange;
+      case 'adventure':
+        return Colors.purple;
+      case 'relaxing':
+        return Colors.green;
+      case 'cultural':
+        return Colors.indigo;
+      case 'nightlife':
+        return Colors.deepPurple;
+      case 'budget':
+        return Colors.teal;
+      case 'family':
+        return Colors.amber;
+      default:
+        return Theme.of(context).primaryColor;
+    }
+  }
+
+  String _getMoodEmoji(String mood) {
+    switch (mood.toLowerCase()) {
+      case 'romantic':
+        return '💕';
+      case 'foodie':
+        return '🍽️';
+      case 'adventure':
+        return '🌟';
+      case 'relaxing':
+        return '🌸';
+      case 'cultural':
+        return '🎭';
+      case 'nightlife':
+        return '🌙';
+      case 'budget':
+        return '💰';
+      case 'family':
+        return '👨‍👩‍👧‍👦';
+      default:
+        return '💎';
+    }
   }
 }
