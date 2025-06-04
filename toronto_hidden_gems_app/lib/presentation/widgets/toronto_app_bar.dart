@@ -46,13 +46,39 @@ class TorontoAppBar extends StatelessWidget implements PreferredSizeWidget {
               width: 32,
               height: 32,
               decoration: BoxDecoration(
-                color: theme.primaryColor,
                 borderRadius: BorderRadius.circular(8),
+                boxShadow: [
+                  BoxShadow(
+                    color: theme.primaryColor.withOpacity(0.2),
+                    blurRadius: 8,
+                    offset: const Offset(0, 2),
+                  ),
+                ],
               ),
-              child: const Icon(
-                Icons.location_city_rounded,
-                color: Colors.white,
-                size: 20,
+              child: ClipRRect(
+                borderRadius: BorderRadius.circular(8),
+                child: Image.asset(
+                  'assets/images/tower.png',
+                  width: 32,
+                  height: 32,
+                  fit: BoxFit.cover,
+                  errorBuilder: (context, error, stackTrace) {
+                    // Fallback to original icon if image fails to load
+                    return Container(
+                      width: 32,
+                      height: 32,
+                      decoration: BoxDecoration(
+                        color: theme.primaryColor,
+                        borderRadius: BorderRadius.circular(8),
+                      ),
+                      child: const Icon(
+                        Icons.location_city_rounded,
+                        color: Colors.white,
+                        size: 20,
+                      ),
+                    );
+                  },
+                ),
               ),
             ),
             const SizedBox(width: 12),

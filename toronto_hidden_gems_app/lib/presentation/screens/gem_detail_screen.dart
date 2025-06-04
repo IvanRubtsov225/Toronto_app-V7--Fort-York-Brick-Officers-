@@ -5,6 +5,7 @@ import '../../core/providers/gems_provider.dart';
 import '../../core/providers/location_provider.dart';
 import '../../core/models/hidden_gem.dart';
 import '../widgets/toronto_app_bar.dart';
+import 'package:go_router/go_router.dart';
 
 class GemDetailScreen extends StatefulWidget {
   final String gemId;
@@ -113,7 +114,7 @@ class _GemDetailScreenState extends State<GemDetailScreen> {
                 ),
                 const SizedBox(height: 24),
                 ElevatedButton(
-                  onPressed: () => Navigator.of(context).pop(),
+                  onPressed: () => _navigateBack(context),
                   child: const Text('Go Back'),
                 ),
               ],
@@ -133,6 +134,58 @@ class _GemDetailScreenState extends State<GemDetailScreen> {
             pinned: true,
             backgroundColor: theme.primaryColor,
             foregroundColor: Colors.white,
+            leading: Container(
+              margin: const EdgeInsets.all(8),
+              decoration: BoxDecoration(
+                color: Colors.black.withOpacity(0.3),
+                borderRadius: BorderRadius.circular(25),
+              ),
+              child: IconButton(
+                onPressed: () => _navigateBack(context),
+                icon: const Icon(
+                  Icons.arrow_back_ios_rounded,
+                  color: Colors.white,
+                  size: 20,
+                ),
+                tooltip: 'Back to explore more gems',
+              ),
+            ),
+            actions: [
+              Container(
+                margin: const EdgeInsets.all(8),
+                decoration: BoxDecoration(
+                  color: Colors.black.withOpacity(0.3),
+                  borderRadius: BorderRadius.circular(25),
+                ),
+                child: IconButton(
+                  onPressed: () {
+                    // TODO: Implement favorites
+                  },
+                  icon: const Icon(
+                    Icons.favorite_outline_rounded,
+                    color: Colors.white,
+                  ),
+                  tooltip: 'Add to favorites',
+                ),
+              ),
+              Container(
+                margin: const EdgeInsets.all(8),
+                decoration: BoxDecoration(
+                  color: Colors.black.withOpacity(0.3),
+                  borderRadius: BorderRadius.circular(25),
+                ),
+                child: IconButton(
+                  onPressed: () {
+                    // TODO: Implement share
+                  },
+                  icon: const Icon(
+                    Icons.share_rounded,
+                    color: Colors.white,
+                  ),
+                  tooltip: 'Share this gem',
+                ),
+              ),
+            ],
             flexibleSpace: FlexibleSpaceBar(
               background: Stack(
                 fit: StackFit.expand,
@@ -152,8 +205,8 @@ class _GemDetailScreenState extends State<GemDetailScreen> {
                         begin: Alignment.topCenter,
                         end: Alignment.bottomCenter,
                         colors: [
-                          Colors.transparent,
                           Colors.black.withOpacity(0.3),
+                          Colors.black.withOpacity(0.5),
                         ],
                       ),
                     ),
@@ -488,6 +541,100 @@ class _GemDetailScreenState extends State<GemDetailScreen> {
           ),
         ],
       ),
+      floatingActionButton: Consumer<GemsProvider>(
+        builder: (context, gemsProvider, child) {
+          // Show different button based on context
+          if (gemsProvider.currentMoodFilter != null) {
+            return FloatingActionButton.extended(
+              onPressed: () => context.go('/gems'),
+              backgroundColor: theme.primaryColor,
+              foregroundColor: Colors.white,
+              icon: const Icon(Icons.filter_list_rounded),
+              label: Text('${gemsProvider.currentMoodFilter} Gems'),
+              tooltip: 'Back to filtered gems list',
+            );
+          } else {
+            return FloatingActionButton.extended(
+              onPressed: () => context.go('/gems'),
+              backgroundColor: theme.primaryColor,
+              foregroundColor: Colors.white,
+              icon: const Icon(Icons.explore_rounded),
+              label: const Text('Explore More'),
+              tooltip: 'Discover more hidden gems',
+            );
+          }
+        },
+      ),
+      bottomNavigationBar: Container(
+        padding: const EdgeInsets.all(16),
+        decoration: BoxDecoration(
+          color: Colors.white,
+          boxShadow: [
+            BoxShadow(
+              color: Colors.black.withOpacity(0.1),
+              blurRadius: 10,
+              offset: const Offset(0, -2),
+            ),
+          ],
+        ),
+        child: SafeArea(
+          child: Consumer<GemsProvider>(
+            builder: (context, gemsProvider, child) {
+              return Row(
+                children: [
+                  Expanded(
+                    child: OutlinedButton.icon(
+                      onPressed: () => _navigateBack(context),
+                      icon: const Icon(Icons.arrow_back_rounded),
+                      label: Text(gemsProvider.currentMoodFilter != null 
+                          ? '${gemsProvider.currentMoodFilter} List' 
+                          : 'Back'),
+                      style: OutlinedButton.styleFrom(
+                        padding: const EdgeInsets.symmetric(vertical: 12),
+                        shape: RoundedRectangleBorder(
+                          borderRadius: BorderRadius.circular(12),
+                        ),
+                        side: BorderSide(color: theme.primaryColor),
+                        foregroundColor: theme.primaryColor,
+                      ),
+                    ),
+                  ),
+                  const SizedBox(width: 12),
+                  Expanded(
+                    child: ElevatedButton.icon(
+                      onPressed: _openDirections,
+                      icon: const Icon(Icons.directions_rounded),
+                      label: const Text('Directions'),
+                      style: ElevatedButton.styleFrom(
+                        backgroundColor: theme.primaryColor,
+                        foregroundColor: Colors.white,
+                        padding: const EdgeInsets.symmetric(vertical: 12),
+                        shape: RoundedRectangleBorder(
+                          borderRadius: BorderRadius.circular(12),
+                        ),
+                      ),
+                    ),
+                  ),
+                  const SizedBox(width: 8),
+                  // Home button
+                  Container(
+                    decoration: BoxDecoration(
+                      border: Border.all(color: theme.primaryColor),
+                      borderRadius: BorderRadius.circular(12),
+                    ),
+                    child: IconButton(
+                      onPressed: () => context.go('/home'),
+                      icon: const Icon(Icons.home_rounded),
+                      color: theme.primaryColor,
+                      tooltip: 'Go to Home',
+                    ),
+                  ),
+                ],
+              );
+            },
+          ),
+        ),
+      ),
     );
   }
 
@@ -538,5 +685,27 @@ class _GemDetailScreenState extends State<GemDetailScreen> {
         ),
       ),
     );
+  }
+
+  void _navigateBack(BuildContext context) {
+    // Try to go back to the previous screen, but if there's no history
+    // or it would cause a black screen, go to a logical default screen
+    if (context.canPop()) {
+      // Check if we came from the gems list with filters
+      final gemsProvider = context.read<GemsProvider>();
+      if (gemsProvider.currentMoodFilter != null || gemsProvider.filteredGems.isNotEmpty) {
+        context.go('/gems');
+      } else {
+        // Safe pop with fallback
+        try {
+          context.pop();
+        } catch (e) {
+          context.go('/home');
+        }
+      }
+    } else {
+      // No navigation stack, go to home
+      context.go('/home');
+    }
   }
 } 
