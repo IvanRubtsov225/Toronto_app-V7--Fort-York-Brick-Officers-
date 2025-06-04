@@ -6,10 +6,12 @@ import '../../core/providers/location_provider.dart';
 
 class GemCard extends StatelessWidget {
   final HiddenGem gem;
+  final VoidCallback? onTap;
 
   const GemCard({
     super.key,
     required this.gem,
+    this.onTap,
   });
 
   @override
@@ -17,7 +19,7 @@ class GemCard extends StatelessWidget {
     final theme = Theme.of(context);
     
     return GestureDetector(
-      onTap: () => context.go('/gem/${gem.id}'),
+      onTap: onTap ?? () => context.go('/gem/${gem.id}'),
       child: Container(
         margin: const EdgeInsets.only(bottom: 12),
         decoration: BoxDecoration(

@@ -81,12 +81,16 @@ class EventsProvider extends ChangeNotifier {
     try {
       final results = await Future.wait([
         _apiService.getAllEvents(),
+        _apiService.getFreeEvents(limit: 20),
+        _apiService.getUpcomingEvents(limit: 20),
         _apiService.getEventsStats(),
       ]);
       
       // Handle ApiResponse types correctly
       _allEvents = (results[0] as ApiResponse<List<TorontoEvent>>).data;
-      _stats = results[1] as Map<String, dynamic>;
+      _freeEvents = (results[1] as ApiResponse<List<TorontoEvent>>).data;
+      _upcomingEvents = (results[2] as ApiResponse<List<TorontoEvent>>).data;
+      _stats = results[3] as Map<String, dynamic>;
       
       _filteredEvents = List.from(_allEvents);
       _updateEventLists();

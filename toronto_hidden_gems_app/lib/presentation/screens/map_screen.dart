@@ -1,4 +1,12 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_map/flutter_map.dart';
+import 'package:latlong2/latlong.dart';
+import 'package:provider/provider.dart';
+import 'package:go_router/go_router.dart';
+import '../../core/models/hidden_gem.dart';
+import '../../core/providers/gems_provider.dart';
+import '../../core/providers/location_provider.dart';
+import '../widgets/toronto_app_bar.dart';
 
 class MapScreen extends StatefulWidget {
   const MapScreen({super.key});
@@ -8,11 +16,544 @@ class MapScreen extends StatefulWidget {
 }
 
 class _MapScreenState extends State<MapScreen> {
+  final MapController _mapController = MapController();
+  
+  // Toronto coordinates
+  static const LatLng torontoCenter = LatLng(43.6532, -79.3832);
+
+  @override
+  void initState() {
+    super.initState();
+    WidgetsBinding.instance.addPostFrameCallback((_) {
+      context.read<GemsProvider>().initialize();
+      context.read<LocationProvider>().initializeLocation();
+    });
+  }
+
   @override
   Widget build(BuildContext context) {
+    final theme = Theme.of(context);
+    
     return Scaffold(
-      appBar: AppBar(title: const Text('Toronto Map')),
-      body: const Center(child: Text('Map View Coming Soon!')),
+      appBar: const TorontoAppBar(
+        title: 'Toronto Map',
+      ),
+      body: Consumer2<GemsProvider, LocationProvider>(
+        builder: (context, gemsProvider, locationProvider, child) {
+          return Stack(
+            children: [
+              FlutterMap(
+                mapController: _mapController,
+                options: MapOptions(
+                  initialCenter: torontoCenter,
+                  initialZoom: 13.0,
+                  minZoom: 10.0,
+                  maxZoom: 18.0,
+                  backgroundColor: Colors.grey[100]!,
+                ),
+                children: [
+                  TileLayer(
+                    urlTemplate: 'https://tile.openstreetmap.org/{z}/{x}/{y}.png',
+                    userAgentPackageName: 'com.example.toronto_hidden_gems_app',
+                  ),
+                  
+                  // Gem markers
+                  MarkerLayer(
+                    markers: gemsProvider.allGems.map((gem) {
+                      return Marker(
+                        point: LatLng(gem.latitude, gem.longitude),
+                        width: 50,
+                        height: 50,
+                        child: GestureDetector(
+                          onTap: () => _showGemDetails(context, gem),
+                          child: Container(
+                            decoration: BoxDecoration(
+                              color: _getGemColor(gem),
+                              shape: BoxShape.circle,
+                              boxShadow: [
+                                BoxShadow(
+                                  color: Colors.black.withOpacity(0.3),
+                                  blurRadius: 6,
+                                  offset: const Offset(0, 2),
+                                ),
+                              ],
+                            ),
+                            child: Icon(
+                              _getGemIcon(gem.category),
+                              color: Colors.white,
+                              size: 24,
+                            ),
+                          ),
+                        ),
+                      );
+                    }).toList(),
+                  ),
+                  
+                  // User location marker
+                  if (locationProvider.currentPosition != null)
+                    MarkerLayer(
+                      markers: [
+                        Marker(
+                          point: LatLng(
+                            locationProvider.currentPosition!.latitude,
+                            locationProvider.currentPosition!.longitude,
+                          ),
+                          width: 40,
+                          height: 40,
+                          child: Container(
+                            decoration: BoxDecoration(
+                              color: Colors.blue,
+                              shape: BoxShape.circle,
+                              border: Border.all(color: Colors.white, width: 3),
+                              boxShadow: [
+                                BoxShadow(
+                                  color: Colors.black.withOpacity(0.3),
+                                  blurRadius: 6,
+                                  offset: const Offset(0, 2),
+                                ),
+                              ],
+                            ),
+                            child: const Icon(
+                              Icons.person_pin_rounded,
+                              color: Colors.white,
+                              size: 20,
+                            ),
+                          ),
+                        ),
+                      ],
+                    ),
+                ],
+              ),
+              
+              // Loading overlay
+              if (gemsProvider.isLoading && gemsProvider.allGems.isEmpty)
+                Container(
+                  color: Colors.black.withOpacity(0.3),
+                  child: const Center(
+                    child: Column(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      children: [
+                        CircularProgressIndicator(color: Colors.white),
+                        SizedBox(height: 16),
+                        Text(
+                          'Loading gems...',
+                          style: TextStyle(color: Colors.white, fontSize: 16),
+                        ),
+                      ],
+                    ),
+                  ),
+                ),
+              
+              // Map controls
+              Positioned(
+                top: 16,
+                right: 16,
+                child: Column(
+                  children: [
+                    _buildMapButton(
+                      icon: Icons.my_location_rounded,
+                      onPressed: () => _centerOnUserLocation(locationProvider),
+                      tooltip: 'My Location',
+                    ),
+                    const SizedBox(height: 8),
+                    _buildMapButton(
+                      icon: Icons.location_city_rounded,
+                      onPressed: _centerOnToronto,
+                      tooltip: 'Toronto Center',
+                    ),
+                  ],
+                ),
+              ),
+              
+              // Legend
+              Positioned(
+                bottom: 100,
+                left: 16,
+                child: Container(
+                  padding: const EdgeInsets.all(12),
+                  decoration: BoxDecoration(
+                    color: Colors.white,
+                    borderRadius: BorderRadius.circular(12),
+                    boxShadow: [
+                      BoxShadow(
+                        color: Colors.black.withOpacity(0.1),
+                        blurRadius: 8,
+                        offset: const Offset(0, 2),
+                      ),
+                    ],
+                  ),
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    mainAxisSize: MainAxisSize.min,
+                    children: [
+                      Text(
+                        'Legend',
+                        style: theme.textTheme.titleSmall?.copyWith(
+                          fontWeight: FontWeight.bold,
+                        ),
+                      ),
+                      const SizedBox(height: 8),
+                      _buildLegendItem(
+                        color: const Color(0xFFE31837),
+                        label: 'High Quality Gems',
+                      ),
+                      _buildLegendItem(
+                        color: Colors.orange,
+                        label: 'Popular Gems',
+                      ),
+                      _buildLegendItem(
+                        color: Colors.blue,
+                        label: 'Other Gems',
+                      ),
+                    ],
+                  ),
+                ),
+              ),
+            ],
+          );
+        },
+      ),
+      
+      bottomNavigationBar: SafeArea(
+        child: Container(
+          padding: const EdgeInsets.all(16),
+          decoration: BoxDecoration(
+            color: Colors.white,
+            boxShadow: [
+              BoxShadow(
+                color: Colors.black.withOpacity(0.1),
+                blurRadius: 10,
+                offset: const Offset(0, -2),
+              ),
+            ],
+          ),
+          child: Row(
+            children: [
+              Expanded(
+                child: OutlinedButton.icon(
+                  onPressed: () => context.go('/home'),
+                  icon: const Icon(Icons.home_rounded),
+                  label: const Text('Back to Home'),
+                  style: OutlinedButton.styleFrom(
+                    padding: const EdgeInsets.symmetric(vertical: 12),
+                    shape: RoundedRectangleBorder(
+                      borderRadius: BorderRadius.circular(12),
+                    ),
+                    side: BorderSide(color: theme.primaryColor),
+                    foregroundColor: theme.primaryColor,
+                  ),
+                ),
+              ),
+              const SizedBox(width: 12),
+              ElevatedButton.icon(
+                onPressed: () => context.go('/gems'),
+                icon: const Icon(Icons.list_rounded),
+                label: const Text('List View'),
+                style: ElevatedButton.styleFrom(
+                  backgroundColor: theme.primaryColor,
+                  foregroundColor: Colors.white,
+                  padding: const EdgeInsets.symmetric(vertical: 12, horizontal: 20),
+                  shape: RoundedRectangleBorder(
+                    borderRadius: BorderRadius.circular(12),
+                  ),
+                ),
+              ),
+            ],
+          ),
+        ),
+      ),
+    );
+  }
+
+  Widget _buildMapButton({
+    required IconData icon,
+    required VoidCallback onPressed,
+    required String tooltip,
+  }) {
+    return Container(
+      decoration: BoxDecoration(
+        color: Colors.white,
+        shape: BoxShape.circle,
+        boxShadow: [
+          BoxShadow(
+            color: Colors.black.withOpacity(0.1),
+            blurRadius: 8,
+            offset: const Offset(0, 2),
+          ),
+        ],
+      ),
+      child: IconButton(
+        onPressed: onPressed,
+        icon: Icon(icon),
+        tooltip: tooltip,
+        iconSize: 24,
+      ),
+    );
+  }
+
+  Widget _buildLegendItem({
+    required Color color,
+    required String label,
+  }) {
+    return Padding(
+      padding: const EdgeInsets.symmetric(vertical: 2),
+      child: Row(
+        mainAxisSize: MainAxisSize.min,
+        children: [
+          Container(
+            width: 12,
+            height: 12,
+            decoration: BoxDecoration(
+              color: color,
+              shape: BoxShape.circle,
+            ),
+          ),
+          const SizedBox(width: 8),
+          Text(
+            label,
+            style: const TextStyle(fontSize: 12),
+          ),
+        ],
+      ),
+    );
+  }
+
+  Color _getGemColor(HiddenGem gem) {
+    if (gem.isHighQuality) {
+      return const Color(0xFFE31837); // Toronto red
+    } else if (gem.isPopular) {
+      return Colors.orange;
+    } else {
+      return Colors.blue;
+    }
+  }
+
+  IconData _getGemIcon(GemCategory category) {
+    switch (category) {
+      case GemCategory.restaurant:
+        return Icons.restaurant_rounded;
+      case GemCategory.cafe:
+        return Icons.coffee_rounded;
+      case GemCategory.park:
+        return Icons.park_rounded;
+      case GemCategory.museum:
+        return Icons.museum_rounded;
+      case GemCategory.shopping:
+        return Icons.shopping_bag_rounded;
+      case GemCategory.entertainment:
+        return Icons.theater_comedy_rounded;
+      case GemCategory.historical:
+        return Icons.account_balance_rounded;
+      case GemCategory.viewpoint:
+        return Icons.visibility_rounded;
+    }
+  }
+
+  void _centerOnUserLocation(LocationProvider locationProvider) {
+    if (locationProvider.currentPosition != null) {
+      _mapController.move(
+        LatLng(
+          locationProvider.currentPosition!.latitude,
+          locationProvider.currentPosition!.longitude,
+        ),
+        15.0,
+      );
+    } else {
+      ScaffoldMessenger.of(context).showSnackBar(
+        const SnackBar(
+          content: Text('Location not available'),
+          duration: Duration(seconds: 2),
+        ),
+      );
+    }
+  }
+
+  void _centerOnToronto() {
+    _mapController.move(torontoCenter, 13.0);
+  }
+
+  void _showGemDetails(BuildContext context, HiddenGem gem) {
+    final theme = Theme.of(context);
+    
+    showModalBottomSheet(
+      context: context,
+      isScrollControlled: true,
+      backgroundColor: Colors.transparent,
+      builder: (context) => Container(
+        constraints: BoxConstraints(
+          maxHeight: MediaQuery.of(context).size.height * 0.6,
+        ),
+        decoration: const BoxDecoration(
+          color: Colors.white,
+          borderRadius: BorderRadius.only(
+            topLeft: Radius.circular(20),
+            topRight: Radius.circular(20),
+          ),
+        ),
+        child: Column(
+          mainAxisSize: MainAxisSize.min,
+          children: [
+            // Handle bar
+            Container(
+              margin: const EdgeInsets.only(top: 8),
+              width: 40,
+              height: 4,
+              decoration: BoxDecoration(
+                color: Colors.grey[300],
+                borderRadius: BorderRadius.circular(2),
+              ),
+            ),
+            
+            Flexible(
+              child: SingleChildScrollView(
+                padding: const EdgeInsets.all(20),
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    Row(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        Container(
+                          width: 50,
+                          height: 50,
+                          decoration: BoxDecoration(
+                            color: _getGemColor(gem),
+                            shape: BoxShape.circle,
+                          ),
+                          child: Icon(
+                            _getGemIcon(gem.category),
+                            color: Colors.white,
+                            size: 24,
+                          ),
+                        ),
+                        const SizedBox(width: 16),
+                        Expanded(
+                          child: Column(
+                            crossAxisAlignment: CrossAxisAlignment.start,
+                            children: [
+                              Text(
+                                gem.name,
+                                style: theme.textTheme.titleLarge?.copyWith(
+                                  fontWeight: FontWeight.bold,
+                                ),
+                              ),
+                              const SizedBox(height: 4),
+                              Text(
+                                gem.address,
+                                style: theme.textTheme.bodyMedium?.copyWith(
+                                  color: Colors.grey[600],
+                                ),
+                              ),
+                            ],
+                          ),
+                        ),
+                      ],
+                    ),
+                    
+                    const SizedBox(height: 20),
+                    
+                    // Score and category
+                    Row(
+                      children: [
+                        Container(
+                          padding: const EdgeInsets.symmetric(
+                            horizontal: 12,
+                            vertical: 6,
+                          ),
+                          decoration: BoxDecoration(
+                            color: _getGemColor(gem).withOpacity(0.1),
+                            borderRadius: BorderRadius.circular(20),
+                          ),
+                          child: Text(
+                            'Score: ${gem.hiddenGemScore.toStringAsFixed(1)}',
+                            style: TextStyle(
+                              color: _getGemColor(gem),
+                              fontWeight: FontWeight.w600,
+                            ),
+                          ),
+                        ),
+                        const SizedBox(width: 12),
+                        Container(
+                          padding: const EdgeInsets.symmetric(
+                            horizontal: 12,
+                            vertical: 6,
+                          ),
+                          decoration: BoxDecoration(
+                            color: Colors.grey[200],
+                            borderRadius: BorderRadius.circular(20),
+                          ),
+                          child: Text(
+                            gem.category.displayName,
+                            style: const TextStyle(
+                              fontWeight: FontWeight.w500,
+                            ),
+                          ),
+                        ),
+                      ],
+                    ),
+                    
+                    const SizedBox(height: 20),
+                    
+                    // Description
+                    Text(
+                      gem.description,
+                      style: theme.textTheme.bodyLarge?.copyWith(
+                        height: 1.5,
+                      ),
+                    ),
+                    
+                    const SizedBox(height: 24),
+                    
+                    // Action buttons
+                    Row(
+                      children: [
+                        Expanded(
+                          child: ElevatedButton.icon(
+                            onPressed: () {
+                              Navigator.pop(context);
+                              context.go('/gem/${gem.id}');
+                            },
+                            icon: const Icon(Icons.info_rounded),
+                            label: const Text('View Details'),
+                            style: ElevatedButton.styleFrom(
+                              backgroundColor: theme.primaryColor,
+                              foregroundColor: Colors.white,
+                              padding: const EdgeInsets.symmetric(vertical: 12),
+                              shape: RoundedRectangleBorder(
+                                borderRadius: BorderRadius.circular(12),
+                              ),
+                            ),
+                          ),
+                        ),
+                        const SizedBox(width: 12),
+                        OutlinedButton.icon(
+                          onPressed: () {
+                            _mapController.move(
+                              LatLng(gem.latitude, gem.longitude),
+                              17.0,
+                            );
+                            Navigator.pop(context);
+                          },
+                          icon: const Icon(Icons.center_focus_strong_rounded),
+                          label: const Text('Center'),
+                          style: OutlinedButton.styleFrom(
+                            padding: const EdgeInsets.symmetric(vertical: 12, horizontal: 20),
+                            shape: RoundedRectangleBorder(
+                              borderRadius: BorderRadius.circular(12),
+                            ),
+                            side: BorderSide(color: theme.primaryColor),
+                            foregroundColor: theme.primaryColor,
+                          ),
+                        ),
+                      ],
+                    ),
+                  ],
+                ),
+              ),
+            ),
+          ],
+        ),
+      ),
     );
   }
 }

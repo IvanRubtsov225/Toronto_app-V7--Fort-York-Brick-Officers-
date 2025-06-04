@@ -61,11 +61,17 @@ class GemsProvider extends ChangeNotifier {
 
   // Initialize data
   Future<void> initialize() async {
+    print('💎 GemsProvider: Initialize called');
+    print('💎 GemsProvider: Current state - ${_loadingState}, gems count: ${_allGems.length}');
+    
     if (_loadingState == GemsLoadingState.loaded && _allGems.isNotEmpty) {
+      print('💎 GemsProvider: Already loaded, skipping initialization');
       return; // Already loaded
     }
     
+    print('💎 GemsProvider: Starting initialization...');
     await loadAllGems();
+    print('💎 GemsProvider: Initialization complete. Final gems count: ${_allGems.length}');
   }
 
   // Load all gems data (deprecated - use loadAllGems)
@@ -75,29 +81,36 @@ class GemsProvider extends ChangeNotifier {
 
   // Load all gems (alias for compatibility)
   Future<void> loadAllGems() async {
+    print('💎 GemsProvider: loadAllGems called');
     _setLoadingState(GemsLoadingState.loading);
     
     try {
+      print('💎 GemsProvider: Making API calls...');
       final results = await Future.wait([
         _apiService.getAllGems(),
         _apiService.getTopGems(),
-        _apiService.getFeaturedGems(),
         _apiService.getAllMoods(),
         _apiService.getGemsStats(),
       ]);
       
+      print('💎 GemsProvider: API calls completed successfully');
+      
       // Handle ApiResponse types correctly
       _allGems = (results[0] as ApiResponse<List<HiddenGem>>).data;
       _topGems = (results[1] as ApiResponse<List<HiddenGem>>).data;
-      _featuredGems = results[2] as List<HiddenGem>; // Direct list return
-      _availableMoods = List<String>.from(results[3] as List);
-      _stats = results[4] as Map<String, dynamic>;
+      _availableMoods = List<String>.from(results[2] as List);
+      _stats = results[3] as Map<String, dynamic>;
+      
+      // Create featured gems from top gems (high quality + popular)
+      _featuredGems = _topGems.where((gem) => gem.isHighQuality).take(5).toList();
+      
+      print('💎 GemsProvider: Data processed - ${_allGems.length} total gems, ${_topGems.length} top gems, ${_featuredGems.length} featured gems');
       
       _filteredGems = List.from(_allGems);
       _error = null;
       _setLoadingState(GemsLoadingState.loaded);
     } catch (e) {
-      print('Error loading gems: $e');
+      print('💎 GemsProvider: Error loading gems: $e');
       _error = 'Failed to load gems: $e';
       _setLoadingState(GemsLoadingState.error);
     }

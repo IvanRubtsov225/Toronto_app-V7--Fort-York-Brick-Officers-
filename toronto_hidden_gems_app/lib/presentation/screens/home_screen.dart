@@ -28,12 +28,28 @@ class _HomeScreenState extends State<HomeScreen> {
     final gemsProvider = context.read<GemsProvider>();
     final locationProvider = context.read<LocationProvider>();
     
+    print('🏠 HomeScreen: Starting to load gems...');
+    print('🏠 Current gems count: ${gemsProvider.allGems.length}');
+    
+    // First ensure we have all gems loaded
+    if (gemsProvider.allGems.isEmpty) {
+      print('🏠 No gems loaded, initializing from API...');
+      await gemsProvider.initialize();
+      print('🏠 After initialization, gems count: ${gemsProvider.allGems.length}');
+    }
+    
+    // Then try to load nearby gems if location is available
     if (locationProvider.currentPosition != null) {
+      print('🏠 Location available, loading nearby gems...');
       await gemsProvider.loadNearbyGems(
         latitude: locationProvider.currentPosition!.latitude,
         longitude: locationProvider.currentPosition!.longitude,
         radiusKm: 5.0,
       );
+      print('🏠 Nearby gems count: ${gemsProvider.nearbyGems.length}');
+    } else {
+      // If no location, just show the first few gems
+      print('🏠 No location available, showing first gems from API');
     }
   }
 
@@ -193,7 +209,7 @@ class _HomeScreenState extends State<HomeScreen> {
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
           children: [
             Text(
-              'Nearby Gems',
+              'Toronto Hidden Gems',
               style: theme.textTheme.headlineSmall?.copyWith(
                 fontWeight: FontWeight.bold,
                 color: theme.primaryColor,
@@ -214,7 +230,9 @@ class _HomeScreenState extends State<HomeScreen> {
         const SizedBox(height: 16),
         Consumer<GemsProvider>(
           builder: (context, gemsProvider, child) {
-            if (gemsProvider.isLoading && gemsProvider.nearbyGems.isEmpty) {
+            print('🏠 UI Update - Gems count: ${gemsProvider.allGems.length}, Loading: ${gemsProvider.isLoading}, Error: ${gemsProvider.error}');
+            
+            if (gemsProvider.isLoading && gemsProvider.allGems.isEmpty) {
               return const Center(
                 child: Padding(
                   padding: EdgeInsets.all(32),
@@ -249,13 +267,23 @@ class _HomeScreenState extends State<HomeScreen> {
                         ),
                         textAlign: TextAlign.center,
                       ),
+                      const SizedBox(height: 16),
+                      ElevatedButton(
+                        onPressed: _loadNearbyGems,
+                        child: const Text('Retry'),
+                      ),
                     ],
                   ),
                 ),
               );
             }
 
-            if (gemsProvider.nearbyGems.isEmpty) {
+            // Show nearby gems if available, otherwise show first few all gems
+            final gemsToShow = gemsProvider.nearbyGems.isNotEmpty 
+                ? gemsProvider.nearbyGems 
+                : gemsProvider.allGems;
+
+            if (gemsToShow.isEmpty) {
               return Center(
                 child: Padding(
                   padding: const EdgeInsets.all(32),
@@ -268,17 +296,22 @@ class _HomeScreenState extends State<HomeScreen> {
                       ),
                       const SizedBox(height: 16),
                       Text(
-                        'No gems found nearby',
+                        'No gems found',
                         style: theme.textTheme.titleMedium?.copyWith(
                           color: Colors.grey[600],
                         ),
                       ),
                       const SizedBox(height: 8),
                       Text(
-                        'Try exploring other areas of Toronto',
+                        'Check your internet connection and try again',
                         style: theme.textTheme.bodySmall?.copyWith(
                           color: Colors.grey[500],
                         ),
+                      ),
+                      const SizedBox(height: 16),
+                      ElevatedButton(
+                        onPressed: _loadNearbyGems,
+                        child: const Text('Refresh'),
                       ),
                     ],
                   ),
@@ -287,13 +320,57 @@ class _HomeScreenState extends State<HomeScreen> {
             }
 
             return Column(
-              children: gemsProvider.nearbyGems
-                  .take(3)
-                  .map((gem) => Padding(
-                        padding: const EdgeInsets.only(bottom: 12),
-                        child: GemCard(gem: gem),
-                      ))
-                  .toList(),
+              children: [
+                // Stats card showing total gems
+                Container(
+                  padding: const EdgeInsets.all(16),
+                  margin: const EdgeInsets.only(bottom: 16),
+                  decoration: BoxDecoration(
+                    color: theme.primaryColor.withOpacity(0.1),
+                    borderRadius: BorderRadius.circular(12),
+                    border: Border.all(color: theme.primaryColor.withOpacity(0.2)),
+                  ),
+                  child: Row(
+                    children: [
+                      Icon(
+                        Icons.diamond_rounded,
+                        color: theme.primaryColor,
+                        size: 32,
+                      ),
+                      const SizedBox(width: 12),
+                      Expanded(
+                        child: Column(
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          children: [
+                            Text(
+                              '${gemsProvider.allGems.length} Hidden Gems Discovered',
+                              style: theme.textTheme.titleMedium?.copyWith(
+                                fontWeight: FontWeight.bold,
+                                color: theme.primaryColor,
+                              ),
+                            ),
+                            Text(
+                              '${gemsProvider.featuredGems.length} featured • ${gemsProvider.topGems.length} top-rated',
+                              style: theme.textTheme.bodyMedium?.copyWith(
+                                color: Colors.grey[600],
+                              ),
+                            ),
+                          ],
+                        ),
+                      ),
+                    ],
+                  ),
+                ),
+                
+                // Gem cards
+                ...gemsToShow
+                    .take(5)
+                    .map((gem) => Padding(
+                          padding: const EdgeInsets.only(bottom: 12),
+                          child: GemCard(gem: gem),
+                        ))
+                    .toList(),
+              ],
             );
           },
         ),

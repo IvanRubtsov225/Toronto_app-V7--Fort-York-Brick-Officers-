@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:go_router/go_router.dart';
 
 class TorontoAppBar extends StatelessWidget implements PreferredSizeWidget {
   final String title;
@@ -28,7 +29,13 @@ class TorontoAppBar extends StatelessWidget implements PreferredSizeWidget {
       leading: showBackButton
           ? IconButton(
               icon: const Icon(Icons.arrow_back_ios_rounded),
-              onPressed: onBackPressed ?? () => Navigator.of(context).pop(),
+              onPressed: onBackPressed ?? () {
+                if (context.canPop()) {
+                  context.pop();
+                } else {
+                  context.go('/home');
+                }
+              },
             )
           : null,
       title: Row(

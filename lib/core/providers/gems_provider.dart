@@ -75,29 +75,51 @@ class GemsProvider extends ChangeNotifier {
 
   // Load all gems (alias for compatibility)
   Future<void> loadAllGems() async {
+    print('💎 GemsProvider: loadAllGems called');
     _setLoadingState(GemsLoadingState.loading);
     
     try {
-      final results = await Future.wait([
-        _apiService.getAllGems(),
-        _apiService.getTopGems(),
-        _apiService.getFeaturedGems(),
-        _apiService.getAllMoods(),
-        _apiService.getGemsStats(),
-      ]);
+      print('💎 GemsProvider: Making API calls...');
       
-      // Handle ApiResponse types correctly
-      _allGems = (results[0] as ApiResponse<List<HiddenGem>>).data;
-      _topGems = (results[1] as ApiResponse<List<HiddenGem>>).data;
-      _featuredGems = results[2] as List<HiddenGem>; // Direct list return
-      _availableMoods = List<String>.from(results[3] as List);
-      _stats = results[4] as Map<String, dynamic>;
+      // Make individual API calls with better error handling
+      print('💎 GemsProvider: Calling getAllGems...');
+      final allGemsResponse = await _apiService.getAllGems();
+      print('💎 GemsProvider: getAllGems returned ${allGemsResponse.data.length} gems');
+      
+      print('💎 GemsProvider: Calling getTopGems...');
+      final topGemsResponse = await _apiService.getTopGems();
+      print('💎 GemsProvider: getTopGems returned ${topGemsResponse.data.length} gems');
+      
+      print('💎 GemsProvider: Calling getFeaturedGems...');
+      final featuredGemsList = await _apiService.getFeaturedGems();
+      print('💎 GemsProvider: getFeaturedGems returned ${featuredGemsList.length} gems');
+      
+      print('💎 GemsProvider: Calling getAllMoods...');
+      final moodsList = await _apiService.getAllMoods();
+      print('💎 GemsProvider: getAllMoods returned ${moodsList.length} moods');
+      
+      print('💎 GemsProvider: Calling getGemsStats...');
+      final statsMap = await _apiService.getGemsStats();
+      print('💎 GemsProvider: getGemsStats returned: $statsMap');
+      
+      print('💎 GemsProvider: API calls completed successfully');
+      
+      // Assign the results
+      _allGems = allGemsResponse.data;
+      _topGems = topGemsResponse.data;
+      _featuredGems = featuredGemsList;
+      _availableMoods = List<String>.from(moodsList);
+      _stats = statsMap;
+      
+      print('💎 GemsProvider: Data processed - ${_allGems.length} total gems, ${_topGems.length} top gems');
+      print('💎 GemsProvider: Sample gem names: ${_allGems.take(3).map((g) => g.name).toList()}');
       
       _filteredGems = List.from(_allGems);
       _error = null;
       _setLoadingState(GemsLoadingState.loaded);
-    } catch (e) {
-      print('Error loading gems: $e');
+    } catch (e, stackTrace) {
+      print('💎 GemsProvider: Error loading gems: $e');
+      print('💎 GemsProvider: Stack trace: $stackTrace');
       _error = 'Failed to load gems: $e';
       _setLoadingState(GemsLoadingState.error);
     }

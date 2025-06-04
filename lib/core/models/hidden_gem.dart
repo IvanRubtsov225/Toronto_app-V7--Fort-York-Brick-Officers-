@@ -106,8 +106,11 @@ class HiddenGem {
   });
 
   factory HiddenGem.fromJson(Map<String, dynamic> json) {
+    // Debug print to see what we're receiving
+    print('🔍 Parsing gem JSON: ${json['name']} - ${json['establishment_id']}');
+    
     return HiddenGem(
-      id: json['id'] ?? json['establishment_id'] ?? '',
+      id: json['establishment_id']?.toString() ?? json['id']?.toString() ?? '',
       name: json['name'] ?? '',
       address: json['address'] ?? '',
       type: json['type'] ?? '',
@@ -117,20 +120,20 @@ class HiddenGem {
       dinesafeScore: (json['dinesafe_score'] ?? 0.0).toDouble(),
       recommendationScore: (json['recommendation_score'] ?? 0.0).toDouble(),
       uniquenessScore: (json['uniqueness_score'] ?? 0.0).toDouble(),
-      mentionCount: json['mention_count'] ?? 0,
+      mentionCount: _parseToInt(json['mention_count']),
       avgSentiment: (json['avg_sentiment'] ?? 0.0).toDouble(),
       moodTags: json['mood_tags'] ?? '',
-      positiveIndicators: json['positive_indicators'] ?? 0,
-      negativeIndicators: json['negative_indicators'] ?? 0,
-      establishmentId: json['establishment_id'] ?? '',
-      description: json['description'] ?? 'A hidden gem in Toronto',
+      positiveIndicators: _parseToInt(json['positive_indicators']),
+      negativeIndicators: _parseToInt(json['negative_indicators']),
+      establishmentId: json['establishment_id']?.toString() ?? '',
+      description: json['description'] ?? _generateDescription(json),
       neighborhood: json['neighborhood'] ?? _getNeighborhoodFromCoords(
         (json['latitude'] ?? 0.0).toDouble(),
         (json['longitude'] ?? 0.0).toDouble(),
       ),
       category: _getCategoryFromType(json['type'] ?? ''),
       rating: json['rating']?.toDouble(),
-      features: List<String>.from(json['features'] ?? []),
+      features: List<String>.from(json['features'] ?? _generateFeatures(json)),
       imageUrl: json['image_url'],
       websiteUrl: json['website_url'],
     );
@@ -296,4 +299,72 @@ class HiddenGem {
 
   @override
   int get hashCode => establishmentId.hashCode;
+
+  // Helper method to safely parse values to int
+  static int _parseToInt(dynamic value) {
+    if (value == null) return 0;
+    if (value is int) return value;
+    if (value is double) return value.round();
+    if (value is String) {
+      try {
+        return int.parse(value);
+      } catch (e) {
+        try {
+          return double.parse(value).round();
+        } catch (e) {
+          return 0;
+        }
+      }
+    }
+    return 0;
+  }
+
+  // Generate a description based on available data
+  static String _generateDescription(Map<String, dynamic> json) {
+    final name = json['name'] ?? 'This location';
+    final type = json['type'] ?? 'establishment';
+    final score = json['hidden_gem_score'] ?? 0.0;
+    final moodTags = json['mood_tags'] ?? '';
+    
+    String description = '$name is a hidden gem $type in Toronto';
+    
+    if (score > 80) {
+      description += ' with an exceptional hidden gem score of ${score.toStringAsFixed(1)}';
+    } else if (score > 70) {
+      description += ' with a great hidden gem score of ${score.toStringAsFixed(1)}';
+    }
+    
+    if (moodTags.isNotEmpty) {
+      description += '. Perfect for $moodTags vibes.';
+    }
+    
+    return description;
+  }
+
+  // Generate features based on available data
+  static List<String> _generateFeatures(Map<String, dynamic> json) {
+    List<String> features = [];
+    
+    final score = (json['hidden_gem_score'] ?? 0.0).toDouble();
+    final dinesafeScore = (json['dinesafe_score'] ?? 0.0).toDouble();
+    final uniquenessScore = (json['uniqueness_score'] ?? 0.0).toDouble();
+    final mentionCount = json['mention_count'] ?? 0;
+    final moodTags = json['mood_tags']?.toString() ?? '';
+    
+    if (score >= 90) features.add('Top Rated');
+    if (score >= 80) features.add('Highly Recommended');
+    if (dinesafeScore >= 95) features.add('Excellent Safety Rating');
+    if (uniquenessScore >= 90) features.add('Truly Unique');
+    if (mentionCount >= 5) features.add('Popular Choice');
+    if (json['is_recommendation_based'] == 'True') features.add('Community Recommended');
+    
+    // Add mood-based features
+    if (moodTags.toLowerCase().contains('foodie')) features.add('Foodie Favorite');
+    if (moodTags.toLowerCase().contains('romantic')) features.add('Romantic Setting');
+    if (moodTags.toLowerCase().contains('relaxing')) features.add('Relaxing Atmosphere');
+    if (moodTags.toLowerCase().contains('nightlife')) features.add('Great for Nightlife');
+    if (moodTags.toLowerCase().contains('cultural')) features.add('Cultural Experience');
+    
+    return features;
+  }
 } 

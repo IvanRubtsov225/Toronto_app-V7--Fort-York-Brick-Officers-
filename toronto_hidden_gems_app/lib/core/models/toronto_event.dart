@@ -83,7 +83,7 @@ class TorontoEvent {
       time: json['time'] ?? '',
       priceRange: json['price_range'] ?? '',
       moodTags: json['mood_tags'] ?? '',
-      redditBuzzScore: (json['reddit_buzz_score'] ?? 0.0).toDouble(),
+      redditBuzzScore: (json['reddit_buzz_score'] ?? json['reddit_buzz'] ?? 0.0).toDouble(),
       hiddenGemScore: (json['hidden_gem_score'] ?? 0.0).toDouble(),
       ticketmasterUrl: json['ticketmaster_url'],
       title: json['title'] ?? json['name'] ?? '',
@@ -91,8 +91,8 @@ class TorontoEvent {
       startTime: startDateTime,
       endTime: json['end_time'] != null ? DateTime.parse(json['end_time']) : null,
       neighborhood: json['neighborhood'] ?? 'Toronto',
-      category: _getCategoryFromName(json['name'] ?? ''),
-      price: json['price']?.toDouble(),
+      category: _getCategoryFromData(json),
+      price: (json['price'] ?? json['price_min'])?.toDouble(),
       features: List<String>.from(json['features'] ?? []),
       imageUrl: json['image_url'],
     );
@@ -170,8 +170,53 @@ class TorontoEvent {
     }
   }
 
-  static EventCategory _getCategoryFromName(String name) {
-    final lowerName = name.toLowerCase();
+  static EventCategory _getCategoryFromData(Map<String, dynamic> json) {
+    final lowerName = (json['name'] ?? '').toLowerCase();
+    final genre = (json['genre'] ?? '').toLowerCase();
+    final segment = (json['segment'] ?? '').toLowerCase();
+    final category = (json['category'] ?? '').toLowerCase();
+    
+    // Check genre first (most specific)
+    if (genre.contains('music') || segment.contains('music')) {
+      return EventCategory.music;
+    }
+    if (genre.contains('food') || segment.contains('food')) {
+      return EventCategory.food;
+    }
+    if (genre.contains('arts') || segment.contains('arts') || genre.contains('theatre')) {
+      return EventCategory.art;
+    }
+    if (genre.contains('sports') || segment.contains('sports')) {
+      return EventCategory.sports;
+    }
+    if (genre.contains('film') || segment.contains('film')) {
+      return EventCategory.cultural;
+    }
+    
+    // Check category field
+    if (category.contains('music') || category.contains('concert')) {
+      return EventCategory.music;
+    }
+    if (category.contains('food') || category.contains('dining')) {
+      return EventCategory.food;
+    }
+    if (category.contains('art') || category.contains('gallery')) {
+      return EventCategory.art;
+    }
+    if (category.contains('sports') || category.contains('game')) {
+      return EventCategory.sports;
+    }
+    if (category.contains('festival') || category.contains('celebration')) {
+      return EventCategory.festival;
+    }
+    if (category.contains('night') || category.contains('club')) {
+      return EventCategory.nightlife;
+    }
+    if (category.contains('community') || category.contains('neighborhood')) {
+      return EventCategory.community;
+    }
+    
+    // Fall back to name-based detection
     if (lowerName.contains('music') || lowerName.contains('concert')) {
       return EventCategory.music;
     }
@@ -193,6 +238,7 @@ class TorontoEvent {
     if (lowerName.contains('community') || lowerName.contains('neighborhood')) {
       return EventCategory.community;
     }
+    
     return EventCategory.cultural; // Default
   }
 

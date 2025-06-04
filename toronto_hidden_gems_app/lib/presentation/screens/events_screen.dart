@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
+import 'package:go_router/go_router.dart';
 import '../../core/models/toronto_event.dart';
 import '../../core/providers/events_provider.dart';
 import '../widgets/event_card.dart';
@@ -21,7 +22,7 @@ class _EventsScreenState extends State<EventsScreen> with TickerProviderStateMix
     super.initState();
     _tabController = TabController(length: 4, vsync: this);
     WidgetsBinding.instance.addPostFrameCallback((_) {
-      context.read<EventsProvider>().loadAllEvents();
+      context.read<EventsProvider>().initialize();
     });
   }
 
@@ -93,7 +94,14 @@ class _EventsScreenState extends State<EventsScreen> with TickerProviderStateMix
               builder: (context, eventsProvider, child) {
                 if (eventsProvider.isLoading) {
                   return const Center(
-                    child: CircularProgressIndicator(),
+                    child: Column(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      children: [
+                        CircularProgressIndicator(),
+                        SizedBox(height: 16),
+                        Text('Loading Toronto events...'),
+                      ],
+                    ),
                   );
                 }
 
@@ -103,25 +111,39 @@ class _EventsScreenState extends State<EventsScreen> with TickerProviderStateMix
                       mainAxisAlignment: MainAxisAlignment.center,
                       children: [
                         Icon(
-                          Icons.error_outline,
+                          Icons.error_outline_rounded,
                           size: 64,
-                          color: theme.colorScheme.error,
+                          color: Colors.grey[400],
                         ),
                         const SizedBox(height: 16),
                         Text(
-                          'Error loading events',
-                          style: theme.textTheme.headlineSmall,
+                          'Oops! Something went wrong',
+                          style: theme.textTheme.titleLarge?.copyWith(
+                            color: Colors.grey[600],
+                          ),
                         ),
                         const SizedBox(height: 8),
                         Text(
-                          eventsProvider.error ?? 'Unknown error',
-                          style: theme.textTheme.bodyMedium,
-                          textAlign: TextAlign.center,
+                          'Unable to load events right now',
+                          style: theme.textTheme.bodyMedium?.copyWith(
+                            color: Colors.grey[500],
+                          ),
                         ),
-                        const SizedBox(height: 16),
+                        const SizedBox(height: 24),
                         ElevatedButton(
                           onPressed: () => eventsProvider.refresh(),
-                          child: const Text('Retry'),
+                          style: ElevatedButton.styleFrom(
+                            backgroundColor: theme.primaryColor,
+                            foregroundColor: Colors.white,
+                            padding: const EdgeInsets.symmetric(
+                              horizontal: 24,
+                              vertical: 12,
+                            ),
+                            shape: RoundedRectangleBorder(
+                              borderRadius: BorderRadius.circular(12),
+                            ),
+                          ),
+                          child: const Text('Try Again'),
                         ),
                       ],
                     ),
@@ -141,6 +163,56 @@ class _EventsScreenState extends State<EventsScreen> with TickerProviderStateMix
             ),
           ),
         ],
+      ),
+      
+      // Back to Home button
+      bottomNavigationBar: SafeArea(
+        child: Container(
+          padding: const EdgeInsets.all(16),
+          decoration: BoxDecoration(
+            color: Colors.white,
+            boxShadow: [
+              BoxShadow(
+                color: Colors.black.withOpacity(0.1),
+                blurRadius: 10,
+                offset: const Offset(0, -2),
+              ),
+            ],
+          ),
+          child: Row(
+            children: [
+              Expanded(
+                child: OutlinedButton.icon(
+                  onPressed: () => context.go('/home'),
+                  icon: const Icon(Icons.home_rounded),
+                  label: const Text('Back to Home'),
+                  style: OutlinedButton.styleFrom(
+                    padding: const EdgeInsets.symmetric(vertical: 12),
+                    shape: RoundedRectangleBorder(
+                      borderRadius: BorderRadius.circular(12),
+                    ),
+                    side: BorderSide(color: theme.primaryColor),
+                    foregroundColor: theme.primaryColor,
+                  ),
+                ),
+              ),
+              const SizedBox(width: 12),
+              ElevatedButton.icon(
+                onPressed: () => context.go('/gems'),
+                icon: const Icon(Icons.location_city_rounded),
+                label: const Text('View Gems'),
+                style: ElevatedButton.styleFrom(
+                  backgroundColor: theme.primaryColor,
+                  foregroundColor: Colors.white,
+                  padding: const EdgeInsets.symmetric(vertical: 12, horizontal: 20),
+                  shape: RoundedRectangleBorder(
+                    borderRadius: BorderRadius.circular(12),
+                  ),
+                ),
+              ),
+            ],
+          ),
+        ),
       ),
     );
   }
