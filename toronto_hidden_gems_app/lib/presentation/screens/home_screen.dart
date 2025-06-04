@@ -21,6 +21,9 @@ class _HomeScreenState extends State<HomeScreen> {
   void initState() {
     super.initState();
     WidgetsBinding.instance.addPostFrameCallback((_) {
+      // Set navigation context for home screen
+      context.read<GemsProvider>().setNavigationContext(NavigationContext.home);
+      
       _loadNearbyGems();
     });
   }
@@ -90,13 +93,10 @@ class _HomeScreenState extends State<HomeScreen> {
               
               // Discover More Button
               _buildDiscoverMoreButton(context),
-              
-              const SizedBox(height: 100), // Bottom padding for nav bar
             ],
           ),
         ),
       ),
-      bottomNavigationBar: _buildBottomNavigationBar(context),
     );
   }
 
@@ -122,7 +122,10 @@ class _HomeScreenState extends State<HomeScreen> {
                 icon: Icons.map_rounded,
                 title: 'Explore Map',
                 subtitle: 'View all gems',
-                onTap: () => context.go('/map'),
+                onTap: () {
+                  context.read<GemsProvider>().setNavigationContext(NavigationContext.map);
+                  context.go('/map');
+                },
               ),
             ),
             const SizedBox(width: 12),
@@ -220,7 +223,10 @@ class _HomeScreenState extends State<HomeScreen> {
               ),
             ),
             TextButton(
-              onPressed: () => context.go('/gems'),
+              onPressed: () {
+                context.read<GemsProvider>().setNavigationContext(NavigationContext.gemsList);
+                context.go('/gems');
+              },
               child: Text(
                 'View All',
                 style: TextStyle(
@@ -388,7 +394,10 @@ class _HomeScreenState extends State<HomeScreen> {
     return SizedBox(
       width: double.infinity,
       child: ElevatedButton(
-        onPressed: () => context.go('/gems'),
+        onPressed: () {
+          context.read<GemsProvider>().setNavigationContext(NavigationContext.gemsList);
+          context.go('/gems');
+        },
         style: ElevatedButton.styleFrom(
           backgroundColor: theme.primaryColor,
           foregroundColor: Colors.white,
@@ -408,99 +417,6 @@ class _HomeScreenState extends State<HomeScreen> {
               style: theme.textTheme.titleMedium?.copyWith(
                 color: Colors.white,
                 fontWeight: FontWeight.bold,
-              ),
-            ),
-          ],
-        ),
-      ),
-    );
-  }
-
-  Widget _buildBottomNavigationBar(BuildContext context) {
-    final theme = Theme.of(context);
-    
-    return Container(
-      decoration: BoxDecoration(
-        color: Colors.white,
-        boxShadow: [
-          BoxShadow(
-            color: Colors.black.withOpacity(0.1),
-            blurRadius: 10,
-            offset: const Offset(0, -2),
-          ),
-        ],
-      ),
-      child: SafeArea(
-        child: Padding(
-          padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 8),
-          child: Row(
-            mainAxisAlignment: MainAxisAlignment.spaceAround,
-            children: [
-              _buildNavItem(
-                context,
-                icon: Icons.home_rounded,
-                label: 'Home',
-                isSelected: true,
-                onTap: () {},
-              ),
-              _buildNavItem(
-                context,
-                icon: Icons.list_rounded,
-                label: 'Gems',
-                onTap: () => context.go('/gems'),
-              ),
-              _buildNavItem(
-                context,
-                icon: Icons.map_rounded,
-                label: 'Map',
-                onTap: () => context.go('/map'),
-              ),
-              _buildNavItem(
-                context,
-                icon: Icons.event_rounded,
-                label: 'Events',
-                onTap: () => context.go('/events'),
-              ),
-              _buildNavItem(
-                context,
-                icon: Icons.settings_rounded,
-                label: 'Settings',
-                onTap: () => context.go('/settings'),
-              ),
-            ],
-          ),
-        ),
-      ),
-    );
-  }
-
-  Widget _buildNavItem(
-    BuildContext context, {
-    required IconData icon,
-    required String label,
-    bool isSelected = false,
-    required VoidCallback onTap,
-  }) {
-    final theme = Theme.of(context);
-    
-    return GestureDetector(
-      onTap: onTap,
-      child: Container(
-        padding: const EdgeInsets.symmetric(vertical: 8, horizontal: 12),
-        child: Column(
-          mainAxisSize: MainAxisSize.min,
-          children: [
-            Icon(
-              icon,
-              color: isSelected ? theme.primaryColor : Colors.grey[400],
-              size: 24,
-            ),
-            const SizedBox(height: 4),
-            Text(
-              label,
-              style: theme.textTheme.bodySmall?.copyWith(
-                color: isSelected ? theme.primaryColor : Colors.grey[400],
-                fontWeight: isSelected ? FontWeight.w600 : FontWeight.normal,
               ),
             ),
           ],

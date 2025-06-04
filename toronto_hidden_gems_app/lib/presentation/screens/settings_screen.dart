@@ -16,6 +16,7 @@ class SettingsScreen extends StatelessWidget {
       backgroundColor: theme.scaffoldBackgroundColor,
       appBar: const TorontoAppBar(
         title: 'Settings',
+        showSettings: false,
       ),
       body: SingleChildScrollView(
         padding: const EdgeInsets.all(16),
@@ -57,56 +58,6 @@ class SettingsScreen extends StatelessWidget {
             
             const SizedBox(height: 100), // Bottom padding
           ],
-        ),
-      ),
-      
-      // Back to Home button
-      bottomNavigationBar: SafeArea(
-        child: Container(
-          padding: const EdgeInsets.all(16),
-          decoration: BoxDecoration(
-            color: Colors.white,
-            boxShadow: [
-              BoxShadow(
-                color: Colors.black.withOpacity(0.1),
-                blurRadius: 10,
-                offset: const Offset(0, -2),
-              ),
-            ],
-          ),
-          child: Row(
-            children: [
-              Expanded(
-                child: OutlinedButton.icon(
-                  onPressed: () => context.go('/home'),
-                  icon: const Icon(Icons.home_rounded),
-                  label: const Text('Back to Home'),
-                  style: OutlinedButton.styleFrom(
-                    padding: const EdgeInsets.symmetric(vertical: 12),
-                    shape: RoundedRectangleBorder(
-                      borderRadius: BorderRadius.circular(12),
-                    ),
-                    side: BorderSide(color: theme.primaryColor),
-                    foregroundColor: theme.primaryColor,
-                  ),
-                ),
-              ),
-              const SizedBox(width: 12),
-              ElevatedButton.icon(
-                onPressed: () => context.go('/gems'),
-                icon: const Icon(Icons.location_city_rounded),
-                label: const Text('View Gems'),
-                style: ElevatedButton.styleFrom(
-                  backgroundColor: theme.primaryColor,
-                  foregroundColor: Colors.white,
-                  padding: const EdgeInsets.symmetric(vertical: 12, horizontal: 20),
-                  shape: RoundedRectangleBorder(
-                    borderRadius: BorderRadius.circular(12),
-                  ),
-                ),
-              ),
-            ],
-          ),
         ),
       ),
     );

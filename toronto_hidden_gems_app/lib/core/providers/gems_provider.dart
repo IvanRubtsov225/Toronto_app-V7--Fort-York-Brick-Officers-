@@ -9,6 +9,17 @@ enum GemsLoadingState {
   error,
 }
 
+// Add navigation context enum
+enum NavigationContext {
+  home,
+  gemsList,
+  gemsListWithFilters,
+  map,
+  mapWithFilters,
+  emotionalExploration,
+  search,
+}
+
 class GemsProvider extends ChangeNotifier {
   final ApiService _apiService;
   
@@ -28,6 +39,10 @@ class GemsProvider extends ChangeNotifier {
   double? _currentMinScore;
   String _currentSearchQuery = '';
   GemCategory? _currentCategoryFilter;
+  
+  // Navigation context tracking
+  NavigationContext _lastNavigationContext = NavigationContext.home;
+  Map<String, dynamic> _navigationData = {};
   
   // Error handling
   String? _error;
@@ -50,6 +65,10 @@ class GemsProvider extends ChangeNotifier {
   GemCategory? get currentCategoryFilter => _currentCategoryFilter;
   String? get error => _error;
   
+  // Navigation context getters
+  NavigationContext get lastNavigationContext => _lastNavigationContext;
+  Map<String, dynamic> get navigationData => _navigationData;
+  
   bool get isLoading => _loadingState == GemsLoadingState.loading;
   bool get hasError => _loadingState == GemsLoadingState.error;
   bool get hasData => _loadingState == GemsLoadingState.loaded;
@@ -58,6 +77,32 @@ class GemsProvider extends ChangeNotifier {
                         _currentMinScore != null ||
                         _currentCategoryFilter != null ||
                         _currentSearchQuery.isNotEmpty;
+
+  // Navigation context methods
+  void setNavigationContext(NavigationContext context, {Map<String, dynamic>? data}) {
+    _lastNavigationContext = context;
+    _navigationData = data ?? {};
+    notifyListeners();
+  }
+
+  String getBackNavigationRoute() {
+    switch (_lastNavigationContext) {
+      case NavigationContext.home:
+        return '/home';
+      case NavigationContext.gemsList:
+      case NavigationContext.gemsListWithFilters:
+        return '/gems';
+      case NavigationContext.map:
+      case NavigationContext.mapWithFilters:
+        return '/map';
+      case NavigationContext.emotionalExploration:
+        return '/gems'; // Go to gems list to show filtered results
+      case NavigationContext.search:
+        return '/gems';
+      default:
+        return '/home';
+    }
+  }
 
   // Initialize data
   Future<void> initialize() async {
@@ -177,12 +222,101 @@ class GemsProvider extends ChangeNotifier {
 
   // Filter by category
   void filterByCategory(GemCategory? category) {
-    if (category == null) {
-      _filteredGems = List.from(_allGems);
-    } else {
-      _filteredGems = _allGems.where((gem) => gem.category == category).toList();
+    _currentCategoryFilter = category;
+    _applyCurrentFilters();
+  }
+
+  // Advanced filtering with multiple criteria
+  void applyAdvancedFilters({
+    GemCategory? category,
+    String? neighborhood,
+    double? minScore,
+    double? minRating,
+    GemSortOption? sortOption,
+  }) {
+    _currentCategoryFilter = category;
+    _currentMinScore = minScore;
+    
+    // Start with all gems
+    List<HiddenGem> filtered = List.from(_allGems);
+    
+    // Apply category filter
+    if (category != null) {
+      filtered = filtered.where((gem) => gem.category == category).toList();
     }
+    
+    // Apply neighborhood filter
+    if (neighborhood != null && neighborhood.isNotEmpty) {
+      filtered = filtered.where((gem) => gem.neighborhood == neighborhood).toList();
+    }
+    
+    // Apply minimum score filter
+    if (minScore != null && minScore > 0) {
+      filtered = filtered.where((gem) => gem.hiddenGemScore >= minScore).toList();
+    }
+    
+    // Apply minimum rating filter
+    if (minRating != null && minRating > 0) {
+      filtered = filtered.where((gem) => 
+        gem.rating != null && gem.rating! >= minRating
+      ).toList();
+    }
+    
+    // Apply search query if active
+    if (_currentSearchQuery.isNotEmpty) {
+      filtered = filtered.where((gem) =>
+        gem.name.toLowerCase().contains(_currentSearchQuery.toLowerCase()) ||
+        gem.address.toLowerCase().contains(_currentSearchQuery.toLowerCase()) ||
+        gem.description.toLowerCase().contains(_currentSearchQuery.toLowerCase()) ||
+        gem.neighborhood.toLowerCase().contains(_currentSearchQuery.toLowerCase())
+      ).toList();
+    }
+    
+    // Apply mood filter if active
+    if (_currentMoodFilter != null) {
+      filtered = filtered.where((gem) => 
+        gem.moodTagsList.any((tag) => 
+          tag.toLowerCase().contains(_currentMoodFilter!.toLowerCase())
+        )
+      ).toList();
+    }
+    
+    // Apply sorting
+    if (sortOption != null) {
+      _sortFilteredGems(filtered, sortOption);
+    }
+    
+    _filteredGems = filtered;
     notifyListeners();
+  }
+
+  void _sortFilteredGems(List<HiddenGem> gems, GemSortOption sortOption) {
+    switch (sortOption) {
+      case GemSortOption.rating:
+        gems.sort((a, b) {
+          final ratingA = a.rating ?? 0;
+          final ratingB = b.rating ?? 0;
+          return ratingB.compareTo(ratingA); // Descending
+        });
+        break;
+      case GemSortOption.popularity:
+        gems.sort((a, b) => b.mentionCount.compareTo(a.mentionCount));
+        break;
+      case GemSortOption.newest:
+        gems.sort((a, b) => b.hiddenGemScore.compareTo(a.hiddenGemScore));
+        break;
+      case GemSortOption.distance:
+        // Distance sorting requires user location - will be handled separately
+        gems.sort((a, b) => b.hiddenGemScore.compareTo(a.hiddenGemScore));
+        break;
+    }
+  }
+
+  void _applyCurrentFilters() {
+    applyAdvancedFilters(
+      category: _currentCategoryFilter,
+      minScore: _currentMinScore,
+    );
   }
 
   // Refresh data
@@ -271,43 +405,6 @@ class GemsProvider extends ChangeNotifier {
     _currentMinScore = minScore;
     _currentSearchQuery = '';
     _applyCurrentFilters();
-  }
-
-  // Apply current filters to all gems
-  void _applyCurrentFilters() {
-    var filteredList = List<HiddenGem>.from(_allGems);
-    
-    // Apply mood filter
-    if (_currentMoodFilter != null) {
-      filteredList = filteredList.where((gem) {
-        return gem.moodTagsList.any((tag) => 
-          tag.toLowerCase().contains(_currentMoodFilter!.toLowerCase()));
-      }).toList();
-    }
-    
-    // Apply type filter
-    if (_currentTypeFilter != null) {
-      filteredList = filteredList.where((gem) {
-        return gem.type.toLowerCase().contains(_currentTypeFilter!.toLowerCase());
-      }).toList();
-    }
-
-    // Apply category filter
-    if (_currentCategoryFilter != null) {
-      filteredList = filteredList.where((gem) {
-        return gem.category == _currentCategoryFilter;
-      }).toList();
-    }
-    
-    // Apply minimum score filter
-    if (_currentMinScore != null) {
-      filteredList = filteredList.where((gem) {
-        return gem.hiddenGemScore >= _currentMinScore!;
-      }).toList();
-    }
-    
-    _filteredGems = filteredList;
-    notifyListeners();
   }
 
   // Clear all filters

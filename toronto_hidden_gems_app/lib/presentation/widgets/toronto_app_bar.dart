@@ -7,6 +7,7 @@ class TorontoAppBar extends StatelessWidget implements PreferredSizeWidget {
   final bool showBackButton;
   final List<Widget>? actions;
   final VoidCallback? onBackPressed;
+  final bool showSettings;
 
   const TorontoAppBar({
     super.key,
@@ -14,6 +15,7 @@ class TorontoAppBar extends StatelessWidget implements PreferredSizeWidget {
     this.showBackButton = true,
     this.actions,
     this.onBackPressed,
+    this.showSettings = true,
   });
 
   @override
@@ -95,7 +97,13 @@ class TorontoAppBar extends StatelessWidget implements PreferredSizeWidget {
           ),
         ],
       ),
-      actions: actions,
+      actions: actions ?? (showSettings ? [
+        IconButton(
+          onPressed: () => context.go('/settings'),
+          icon: const Icon(Icons.settings_rounded),
+          tooltip: 'Settings',
+        ),
+      ] : null),
       bottom: PreferredSize(
         preferredSize: const Size.fromHeight(1),
         child: Container(

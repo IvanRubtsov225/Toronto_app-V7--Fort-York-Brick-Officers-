@@ -258,6 +258,13 @@ class _EmotionalExplorationSheetState extends State<EmotionalExplorationSheet> {
       final gemsProvider = context.read<GemsProvider>();
       await gemsProvider.filterByMood(mood.name);
       
+      // Set navigation context for emotional exploration
+      gemsProvider.setNavigationContext(NavigationContext.emotionalExploration, data: {
+        'mood': mood.name,
+        'color': mood.color.value,
+        'emoji': mood.emoji,
+      });
+      
       // Close loading dialog
       if (context.mounted) {
         Navigator.of(context).pop();

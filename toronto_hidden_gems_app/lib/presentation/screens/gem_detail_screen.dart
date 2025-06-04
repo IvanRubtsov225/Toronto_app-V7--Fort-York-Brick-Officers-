@@ -541,100 +541,6 @@ class _GemDetailScreenState extends State<GemDetailScreen> {
           ),
         ],
       ),
-      floatingActionButton: Consumer<GemsProvider>(
-        builder: (context, gemsProvider, child) {
-          // Show different button based on context
-          if (gemsProvider.currentMoodFilter != null) {
-            return FloatingActionButton.extended(
-              onPressed: () => context.go('/gems'),
-              backgroundColor: theme.primaryColor,
-              foregroundColor: Colors.white,
-              icon: const Icon(Icons.filter_list_rounded),
-              label: Text('${gemsProvider.currentMoodFilter} Gems'),
-              tooltip: 'Back to filtered gems list',
-            );
-          } else {
-            return FloatingActionButton.extended(
-              onPressed: () => context.go('/gems'),
-              backgroundColor: theme.primaryColor,
-              foregroundColor: Colors.white,
-              icon: const Icon(Icons.explore_rounded),
-              label: const Text('Explore More'),
-              tooltip: 'Discover more hidden gems',
-            );
-          }
-        },
-      ),
-      bottomNavigationBar: Container(
-        padding: const EdgeInsets.all(16),
-        decoration: BoxDecoration(
-          color: Colors.white,
-          boxShadow: [
-            BoxShadow(
-              color: Colors.black.withOpacity(0.1),
-              blurRadius: 10,
-              offset: const Offset(0, -2),
-            ),
-          ],
-        ),
-        child: SafeArea(
-          child: Consumer<GemsProvider>(
-            builder: (context, gemsProvider, child) {
-              return Row(
-                children: [
-                  Expanded(
-                    child: OutlinedButton.icon(
-                      onPressed: () => _navigateBack(context),
-                      icon: const Icon(Icons.arrow_back_rounded),
-                      label: Text(gemsProvider.currentMoodFilter != null 
-                          ? '${gemsProvider.currentMoodFilter} List' 
-                          : 'Back'),
-                      style: OutlinedButton.styleFrom(
-                        padding: const EdgeInsets.symmetric(vertical: 12),
-                        shape: RoundedRectangleBorder(
-                          borderRadius: BorderRadius.circular(12),
-                        ),
-                        side: BorderSide(color: theme.primaryColor),
-                        foregroundColor: theme.primaryColor,
-                      ),
-                    ),
-                  ),
-                  const SizedBox(width: 12),
-                  Expanded(
-                    child: ElevatedButton.icon(
-                      onPressed: _openDirections,
-                      icon: const Icon(Icons.directions_rounded),
-                      label: const Text('Directions'),
-                      style: ElevatedButton.styleFrom(
-                        backgroundColor: theme.primaryColor,
-                        foregroundColor: Colors.white,
-                        padding: const EdgeInsets.symmetric(vertical: 12),
-                        shape: RoundedRectangleBorder(
-                          borderRadius: BorderRadius.circular(12),
-                        ),
-                      ),
-                    ),
-                  ),
-                  const SizedBox(width: 8),
-                  // Home button
-                  Container(
-                    decoration: BoxDecoration(
-                      border: Border.all(color: theme.primaryColor),
-                      borderRadius: BorderRadius.circular(12),
-                    ),
-                    child: IconButton(
-                      onPressed: () => context.go('/home'),
-                      icon: const Icon(Icons.home_rounded),
-                      color: theme.primaryColor,
-                      tooltip: 'Go to Home',
-                    ),
-                  ),
-                ],
-              );
-            },
-          ),
-        ),
-      ),
     );
   }
 
@@ -688,24 +594,20 @@ class _GemDetailScreenState extends State<GemDetailScreen> {
   }
 
   void _navigateBack(BuildContext context) {
-    // Try to go back to the previous screen, but if there's no history
-    // or it would cause a black screen, go to a logical default screen
+    final gemsProvider = context.read<GemsProvider>();
+    final backRoute = gemsProvider.getBackNavigationRoute();
+    
+    // Use the context-aware navigation route
     if (context.canPop()) {
-      // Check if we came from the gems list with filters
-      final gemsProvider = context.read<GemsProvider>();
-      if (gemsProvider.currentMoodFilter != null || gemsProvider.filteredGems.isNotEmpty) {
-        context.go('/gems');
-      } else {
-        // Safe pop with fallback
-        try {
-          context.pop();
-        } catch (e) {
-          context.go('/home');
-        }
+      try {
+        context.pop();
+      } catch (e) {
+        // Fallback to the determined route
+        context.go(backRoute);
       }
     } else {
-      // No navigation stack, go to home
-      context.go('/home');
+      // No navigation stack, go to the determined route
+      context.go(backRoute);
     }
   }
 } 

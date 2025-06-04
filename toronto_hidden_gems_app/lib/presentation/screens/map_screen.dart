@@ -7,6 +7,7 @@ import '../../core/models/hidden_gem.dart';
 import '../../core/providers/gems_provider.dart';
 import '../../core/providers/location_provider.dart';
 import '../widgets/toronto_app_bar.dart';
+import '../widgets/map_filter_bar.dart';
 
 class MapScreen extends StatefulWidget {
   const MapScreen({super.key});
@@ -20,13 +21,83 @@ class _MapScreenState extends State<MapScreen> {
   
   // Toronto coordinates
   static const LatLng torontoCenter = LatLng(43.6532, -79.3832);
+  
+  // Filter state
+  Set<GemCategory> _selectedCategories = {};
+  bool _showHighQualityOnly = false;
+  bool _showPopularOnly = false;
+  double _minScore = 0.0;
+  double _maxScore = 100.0;
+  bool _showFilterBar = true;
 
   @override
   void initState() {
     super.initState();
     WidgetsBinding.instance.addPostFrameCallback((_) {
+      // Set navigation context for better back navigation
+      context.read<GemsProvider>().setNavigationContext(NavigationContext.map);
+      
       context.read<GemsProvider>().initialize();
       context.read<LocationProvider>().initializeLocation();
+    });
+  }
+
+  List<HiddenGem> _getFilteredGems(List<HiddenGem> allGems) {
+    List<HiddenGem> filtered = List.from(allGems);
+    
+    // Apply category filter
+    if (_selectedCategories.isNotEmpty) {
+      filtered = filtered.where((gem) => _selectedCategories.contains(gem.category)).toList();
+    }
+    
+    // Apply quality filter
+    if (_showHighQualityOnly) {
+      filtered = filtered.where((gem) => gem.isHighQuality).toList();
+    }
+    
+    // Apply popularity filter
+    if (_showPopularOnly) {
+      filtered = filtered.where((gem) => gem.isPopular).toList();
+    }
+    
+    // Apply score range filter
+    filtered = filtered.where((gem) => 
+      gem.hiddenGemScore >= _minScore && gem.hiddenGemScore <= _maxScore
+    ).toList();
+    
+    return filtered;
+  }
+
+  void _onCategoryFilterChanged(Set<GemCategory> categories) {
+    setState(() {
+      _selectedCategories = categories;
+    });
+    
+    // Update navigation context if filters are active
+    final gemsProvider = context.read<GemsProvider>();
+    gemsProvider.setNavigationContext(
+      categories.isNotEmpty || _showHighQualityOnly || _showPopularOnly || _minScore > 0 || _maxScore < 100
+          ? NavigationContext.mapWithFilters
+          : NavigationContext.map,
+    );
+  }
+
+  void _onScoreRangeChanged(double minScore, double maxScore) {
+    setState(() {
+      _minScore = minScore;
+      _maxScore = maxScore;
+    });
+  }
+
+  void _onHighQualityToggled(bool enabled) {
+    setState(() {
+      _showHighQualityOnly = enabled;
+    });
+  }
+
+  void _onPopularToggled(bool enabled) {
+    setState(() {
+      _showPopularOnly = enabled;
     });
   }
 
@@ -40,6 +111,8 @@ class _MapScreenState extends State<MapScreen> {
       ),
       body: Consumer2<GemsProvider, LocationProvider>(
         builder: (context, gemsProvider, locationProvider, child) {
+          final filteredGems = _getFilteredGems(gemsProvider.allGems);
+          
           return Stack(
             children: [
               FlutterMap(
@@ -57,9 +130,9 @@ class _MapScreenState extends State<MapScreen> {
                     userAgentPackageName: 'com.example.toronto_hidden_gems_app',
                   ),
                   
-                  // Gem markers
+                  // Gem markers (using filtered gems)
                   MarkerLayer(
-                    markers: gemsProvider.allGems.map((gem) {
+                    markers: filteredGems.map((gem) {
                       return Marker(
                         point: LatLng(gem.latitude, gem.longitude),
                         width: 50,
@@ -144,12 +217,37 @@ class _MapScreenState extends State<MapScreen> {
                   ),
                 ),
               
+              // Map Filter Bar
+              if (_showFilterBar)
+                Positioned(
+                  top: 0,
+                  left: 0,
+                  right: 0,
+                  child: MapFilterBar(
+                    onCategoryFilterChanged: _onCategoryFilterChanged,
+                    onScoreRangeChanged: _onScoreRangeChanged,
+                    onHighQualityToggled: _onHighQualityToggled,
+                    onPopularToggled: _onPopularToggled,
+                  ),
+                ),
+              
               // Map controls
               Positioned(
-                top: 16,
+                top: _showFilterBar ? 180 : 16,
                 right: 16,
                 child: Column(
                   children: [
+                    _buildMapButton(
+                      icon: Icons.tune_rounded,
+                      onPressed: () {
+                        setState(() {
+                          _showFilterBar = !_showFilterBar;
+                        });
+                      },
+                      tooltip: _showFilterBar ? 'Hide Filters' : 'Show Filters',
+                      isSelected: _showFilterBar,
+                    ),
+                    const SizedBox(height: 8),
                     _buildMapButton(
                       icon: Icons.my_location_rounded,
                       onPressed: () => _centerOnUserLocation(locationProvider),
@@ -186,24 +284,53 @@ class _MapScreenState extends State<MapScreen> {
                     crossAxisAlignment: CrossAxisAlignment.start,
                     mainAxisSize: MainAxisSize.min,
                     children: [
-                      Text(
-                        'Legend',
-                        style: theme.textTheme.titleSmall?.copyWith(
-                          fontWeight: FontWeight.bold,
-                        ),
+                      Row(
+                        mainAxisSize: MainAxisSize.min,
+                        children: [
+                          Icon(
+                            Icons.info_outline_rounded,
+                            size: 16,
+                            color: theme.primaryColor,
+                          ),
+                          const SizedBox(width: 6),
+                          Text(
+                            'Legend',
+                            style: theme.textTheme.titleSmall?.copyWith(
+                              fontWeight: FontWeight.bold,
+                            ),
+                          ),
+                        ],
                       ),
                       const SizedBox(height: 8),
                       _buildLegendItem(
                         color: const Color(0xFFE31837),
                         label: 'High Quality Gems',
+                        count: filteredGems.where((g) => g.isHighQuality).length,
                       ),
                       _buildLegendItem(
                         color: Colors.orange,
                         label: 'Popular Gems',
+                        count: filteredGems.where((g) => g.isPopular && !g.isHighQuality).length,
                       ),
                       _buildLegendItem(
                         color: Colors.blue,
                         label: 'Other Gems',
+                        count: filteredGems.where((g) => !g.isHighQuality && !g.isPopular).length,
+                      ),
+                      const SizedBox(height: 4),
+                      Container(
+                        padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 4),
+                        decoration: BoxDecoration(
+                          color: theme.primaryColor.withOpacity(0.1),
+                          borderRadius: BorderRadius.circular(8),
+                        ),
+                        child: Text(
+                          'Total: ${filteredGems.length} gems',
+                          style: theme.textTheme.bodySmall?.copyWith(
+                            fontWeight: FontWeight.w600,
+                            color: theme.primaryColor,
+                          ),
+                        ),
                       ),
                     ],
                   ),
@@ -213,55 +340,6 @@ class _MapScreenState extends State<MapScreen> {
           );
         },
       ),
-      
-      bottomNavigationBar: SafeArea(
-        child: Container(
-          padding: const EdgeInsets.all(16),
-          decoration: BoxDecoration(
-            color: Colors.white,
-            boxShadow: [
-              BoxShadow(
-                color: Colors.black.withOpacity(0.1),
-                blurRadius: 10,
-                offset: const Offset(0, -2),
-              ),
-            ],
-          ),
-          child: Row(
-            children: [
-              Expanded(
-                child: OutlinedButton.icon(
-                  onPressed: () => context.go('/home'),
-                  icon: const Icon(Icons.home_rounded),
-                  label: const Text('Back to Home'),
-                  style: OutlinedButton.styleFrom(
-                    padding: const EdgeInsets.symmetric(vertical: 12),
-                    shape: RoundedRectangleBorder(
-                      borderRadius: BorderRadius.circular(12),
-                    ),
-                    side: BorderSide(color: theme.primaryColor),
-                    foregroundColor: theme.primaryColor,
-                  ),
-                ),
-              ),
-              const SizedBox(width: 12),
-              ElevatedButton.icon(
-                onPressed: () => context.go('/gems'),
-                icon: const Icon(Icons.list_rounded),
-                label: const Text('List View'),
-                style: ElevatedButton.styleFrom(
-                  backgroundColor: theme.primaryColor,
-                  foregroundColor: Colors.white,
-                  padding: const EdgeInsets.symmetric(vertical: 12, horizontal: 20),
-                  shape: RoundedRectangleBorder(
-                    borderRadius: BorderRadius.circular(12),
-                  ),
-                ),
-              ),
-            ],
-          ),
-        ),
-      ),
     );
   }
 
@@ -269,10 +347,13 @@ class _MapScreenState extends State<MapScreen> {
     required IconData icon,
     required VoidCallback onPressed,
     required String tooltip,
+    bool isSelected = false,
   }) {
+    final theme = Theme.of(context);
+    
     return Container(
       decoration: BoxDecoration(
-        color: Colors.white,
+        color: isSelected ? theme.primaryColor : Colors.white,
         shape: BoxShape.circle,
         boxShadow: [
           BoxShadow(
@@ -284,7 +365,10 @@ class _MapScreenState extends State<MapScreen> {
       ),
       child: IconButton(
         onPressed: onPressed,
-        icon: Icon(icon),
+        icon: Icon(
+          icon,
+          color: isSelected ? Colors.white : theme.primaryColor,
+        ),
         tooltip: tooltip,
         iconSize: 24,
       ),
@@ -294,6 +378,7 @@ class _MapScreenState extends State<MapScreen> {
   Widget _buildLegendItem({
     required Color color,
     required String label,
+    required int count,
   }) {
     return Padding(
       padding: const EdgeInsets.symmetric(vertical: 2),
@@ -312,6 +397,15 @@ class _MapScreenState extends State<MapScreen> {
           Text(
             label,
             style: const TextStyle(fontSize: 12),
+          ),
+          const SizedBox(width: 4),
+          Text(
+            '($count)',
+            style: TextStyle(
+              fontSize: 10,
+              color: Colors.grey[600],
+              fontWeight: FontWeight.w500,
+            ),
           ),
         ],
       ),
@@ -511,6 +605,13 @@ class _MapScreenState extends State<MapScreen> {
                           child: ElevatedButton.icon(
                             onPressed: () {
                               Navigator.pop(context);
+                              // Set navigation context before navigating to gem detail
+                              final gemsProvider = context.read<GemsProvider>();
+                              gemsProvider.setNavigationContext(
+                                _selectedCategories.isNotEmpty || _showHighQualityOnly || _showPopularOnly || _minScore > 0 || _maxScore < 100
+                                    ? NavigationContext.mapWithFilters
+                                    : NavigationContext.map,
+                              );
                               context.go('/gem/${gem.id}');
                             },
                             icon: const Icon(Icons.info_rounded),
