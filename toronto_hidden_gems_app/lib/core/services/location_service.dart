@@ -1,0 +1,302 @@
+import 'dart:async';
+import 'package:geolocator/geolocator.dart';
+import 'package:permission_handler/permission_handler.dart';
+import '../models/hidden_gem.dart';
+
+class LocationService {
+  Position? _currentPosition;
+  StreamSubscription<Position>? _positionStreamSubscription;
+  
+  // Toronto boundaries for geofencing
+  static const double torontoNorthBound = 43.8554;
+  static const double torontoSouthBound = 43.5810;
+  static const double torontoEastBound = -79.1168;
+  static const double torontoWestBound = -79.6391;
+  
+  // Notable Toronto locations for reference
+  static final Position cnTowerPosition = Position(
+    latitude: 43.6426,
+    longitude: -79.3871,
+    timestamp: DateTime.now(),
+    accuracy: 0,
+    altitude: 0,
+    altitudeAccuracy: 0,
+    heading: 0,
+    headingAccuracy: 0,
+    speed: 0,
+    speedAccuracy: 0,
+  );
+  
+  static final Position distilleryDistrictPosition = Position(
+    latitude: 43.6503,
+    longitude: -79.3591,
+    timestamp: DateTime.now(),
+    accuracy: 0,
+    altitude: 0,
+    altitudeAccuracy: 0,
+    heading: 0,
+    headingAccuracy: 0,
+    speed: 0,
+    speedAccuracy: 0,
+  );
+
+  Position? get currentPosition => _currentPosition;
+  
+  // Check if location permissions are granted
+  Future<bool> checkLocationPermission() async {
+    final status = await Permission.location.status;
+    return status.isGranted;
+  }
+
+  // Request location permissions
+  Future<bool> requestLocationPermission() async {
+    try {
+      LocationPermission permission = await Geolocator.checkPermission();
+      
+      if (permission == LocationPermission.denied) {
+        permission = await Geolocator.requestPermission();
+      }
+      
+      if (permission == LocationPermission.deniedForever) {
+        throw Exception('Location permission denied permanently');
+      }
+      
+      if (permission == LocationPermission.denied) {
+        throw Exception('Location permission denied');
+      }
+      
+      return permission == LocationPermission.whileInUse || 
+             permission == LocationPermission.always;
+    } catch (e) {
+      print('Error requesting location permission: $e');
+      return false;
+    }
+  }
+
+  // Check if location service is enabled
+  Future<bool> isLocationServiceEnabled() async {
+    return await Geolocator.isLocationServiceEnabled();
+  }
+
+  // Get current position with error handling
+  Future<Position?> getCurrentPosition() async {
+    try {
+      // Check if location service is enabled
+      if (!await isLocationServiceEnabled()) {
+        throw const LocationServiceDisabledException();
+      }
+
+      // Check permissions
+      if (!await checkLocationPermission()) {
+        final granted = await requestLocationPermission();
+        if (!granted) {
+          throw Exception('Location permission denied');
+        }
+      }
+
+      // Get current position
+      final position = await Geolocator.getCurrentPosition(
+        locationSettings: const LocationSettings(
+          accuracy: LocationAccuracy.high,
+          distanceFilter: 10, // Update when user moves 10 meters
+        ),
+      );
+
+      _currentPosition = position;
+      return position;
+    } catch (e) {
+      debugPrint('Error getting current position: $e');
+      return null;
+    }
+  }
+
+  // Start listening to position changes
+  Stream<Position> getPositionStream() {
+    return Geolocator.getPositionStream(
+      locationSettings: const LocationSettings(
+        accuracy: LocationAccuracy.high,
+        distanceFilter: 10,
+      ),
+    );
+  }
+
+  // Start tracking user location
+  void startLocationTracking() {
+    _positionStreamSubscription = getPositionStream().listen(
+      (Position position) {
+        _currentPosition = position;
+      },
+      onError: (error) {
+        debugPrint('Location tracking error: $error');
+      },
+    );
+  }
+
+  // Stop tracking user location
+  void stopLocationTracking() {
+    _positionStreamSubscription?.cancel();
+    _positionStreamSubscription = null;
+  }
+
+  // Calculate distance between two positions in kilometers
+  double calculateDistance(double lat1, double lon1, double lat2, double lon2) {
+    return Geolocator.distanceBetween(lat1, lon1, lat2, lon2) / 1000;
+  }
+
+  // Find closest hidden gems within a radius
+  List<HiddenGem> findClosestGems(
+    List<HiddenGem> gems, 
+    Position userPosition, 
+    {double radiusKm = 5.0, int maxResults = 10}
+  ) {
+    final gemsWithDistance = gems.map((gem) {
+      final distance = calculateDistance(
+        userPosition.latitude,
+        userPosition.longitude,
+        gem.latitude,
+        gem.longitude,
+      );
+      return MapEntry(gem, distance);
+    }).where((entry) => entry.value <= radiusKm).toList();
+
+    // Sort by distance
+    gemsWithDistance.sort((a, b) => a.value.compareTo(b.value));
+
+    // Return top results
+    return gemsWithDistance
+        .take(maxResults)
+        .map((entry) => entry.key)
+        .toList();
+  }
+
+  // Check if position is within Toronto boundaries
+  bool isWithinToronto(Position position) {
+    return position.latitude >= torontoSouthBound &&
+           position.latitude <= torontoNorthBound &&
+           position.longitude >= torontoWestBound &&
+           position.longitude <= torontoEastBound;
+  }
+
+  // Get Toronto neighborhood based on coordinates
+  String getTorontoNeighborhood(double latitude, double longitude) {
+    // CN Tower area (Entertainment District)
+    if (latitude >= 43.640 && latitude <= 43.650 && 
+        longitude >= -79.395 && longitude <= -79.385) {
+      return 'Entertainment District 🏗️';
+    }
+    
+    // Distillery District
+    if (latitude >= 43.648 && latitude <= 43.653 && 
+        longitude >= -79.365 && longitude <= -79.355) {
+      return 'Distillery District 🏭';
+    }
+    
+    // King West
+    if (latitude >= 43.640 && latitude <= 43.650 && 
+        longitude >= -79.400 && longitude <= -79.380) {
+      return 'King West 👑';
+    }
+    
+    // Queen West
+    if (latitude >= 43.643 && latitude <= 43.650 && 
+        longitude >= -79.420 && longitude <= -79.390) {
+      return 'Queen West 🎨';
+    }
+    
+    // Kensington Market
+    if (latitude >= 43.653 && latitude <= 43.658 && 
+        longitude >= -79.405 && longitude <= -79.395) {
+      return 'Kensington Market 🌮';
+    }
+    
+    // Chinatown
+    if (latitude >= 43.650 && latitude <= 43.655 && 
+        longitude >= -79.400 && longitude <= -79.390) {
+      return 'Chinatown 🥟';
+    }
+    
+    // Little Italy
+    if (latitude >= 43.653 && latitude <= 43.658 && 
+        longitude >= -79.420 && longitude <= -79.410) {
+      return 'Little Italy 🍝';
+    }
+    
+    // The Beaches
+    if (latitude >= 43.665 && latitude <= 43.680 && 
+        longitude >= -79.300 && longitude <= -79.285) {
+      return 'The Beaches 🏖️';
+    }
+    
+    // Yorkville
+    if (latitude >= 43.670 && latitude <= 43.675 && 
+        longitude >= -79.395 && longitude <= -79.385) {
+      return 'Yorkville 💎';
+    }
+    
+    // Financial District
+    if (latitude >= 43.645 && latitude <= 43.655 && 
+        longitude >= -79.385 && longitude <= -79.375) {
+      return 'Financial District 💼';
+    }
+    
+    return 'Toronto 🍁';
+  }
+
+  // Create geofence alerts for notable Toronto locations
+  Future<void> setupTorontoGeofences() async {
+    // Implementation would depend on the geofencing plugin
+    // This is a placeholder for geofencing setup
+    debugPrint('Setting up Toronto geofences...');
+  }
+
+  // Check if user is near a specific gem (within 100 meters)
+  bool isNearGem(HiddenGem gem, Position userPosition) {
+    final distance = calculateDistance(
+      userPosition.latitude,
+      userPosition.longitude,
+      gem.latitude,
+      gem.longitude,
+    );
+    return distance <= 0.1; // 100 meters
+  }
+
+  // Get compass direction to a gem
+  String getDirectionToGem(HiddenGem gem, Position userPosition) {
+    final bearing = Geolocator.bearingBetween(
+      userPosition.latitude,
+      userPosition.longitude,
+      gem.latitude,
+      gem.longitude,
+    );
+
+    if (bearing >= -22.5 && bearing < 22.5) return 'North ⬆️';
+    if (bearing >= 22.5 && bearing < 67.5) return 'Northeast ↗️';
+    if (bearing >= 67.5 && bearing < 112.5) return 'East ➡️';
+    if (bearing >= 112.5 && bearing < 157.5) return 'Southeast ↘️';
+    if (bearing >= 157.5 || bearing < -157.5) return 'South ⬇️';
+    if (bearing >= -157.5 && bearing < -112.5) return 'Southwest ↙️';
+    if (bearing >= -112.5 && bearing < -67.5) return 'West ⬅️';
+    return 'Northwest ↖️';
+  }
+
+  // Format distance for display
+  String formatDistance(double distanceKm) {
+    if (distanceKm < 1) {
+      return '${(distanceKm * 1000).round()}m';
+    } else if (distanceKm < 10) {
+      return '${distanceKm.toStringAsFixed(1)}km';
+    } else {
+      return '${distanceKm.round()}km';
+    }
+  }
+
+  // Helper function for debug prints
+  void debugPrint(String message) {
+    print(message);
+  }
+
+  // Cleanup
+  void dispose() {
+    stopLocationTracking();
+  }
+} 
