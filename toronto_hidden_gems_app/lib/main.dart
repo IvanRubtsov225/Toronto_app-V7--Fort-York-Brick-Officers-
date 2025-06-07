@@ -29,11 +29,11 @@ void main() {
       ),
   );
 
-  runApp(TorontoHiddenGemsApp());
+  runApp(TorontoApp());
 }
 
-class TorontoHiddenGemsApp extends StatelessWidget {
-  TorontoHiddenGemsApp({super.key});
+class TorontoApp extends StatelessWidget {
+  TorontoApp({super.key});
 
   final GoRouter _router = GoRouter(
     initialLocation: '/',
@@ -99,7 +99,7 @@ class TorontoHiddenGemsApp extends StatelessWidget {
         ),
       ],
       child: MaterialApp.router(
-        title: 'Toronto Hidden Gems 🍁',
+        title: 'The Toronto App 🍁',
         debugShowCheckedModeBanner: false,
         theme: TorontoAppTheme.lightTheme,
         routerConfig: _router,

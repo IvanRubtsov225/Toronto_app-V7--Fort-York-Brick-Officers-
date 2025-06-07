@@ -64,7 +64,7 @@ class _HomeScreenState extends State<HomeScreen> {
     return Scaffold(
       backgroundColor: theme.scaffoldBackgroundColor,
       appBar: const TorontoAppBar(
-        title: 'Toronto Hidden Gems 🍁',
+        title: 'The Toronto App 🍁',
         showBackButton: false,
       ),
       body: RefreshIndicator(
@@ -216,7 +216,7 @@ class _HomeScreenState extends State<HomeScreen> {
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
           children: [
             Text(
-              'Toronto Hidden Gems',
+              'The Toronto App',
               style: theme.textTheme.headlineSmall?.copyWith(
                 fontWeight: FontWeight.bold,
                 color: theme.primaryColor,

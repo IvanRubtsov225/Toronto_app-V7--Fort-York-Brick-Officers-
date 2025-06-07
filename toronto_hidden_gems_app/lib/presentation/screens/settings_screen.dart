@@ -26,7 +26,7 @@ class SettingsScreen extends StatelessWidget {
             // App Info Card
             _buildInfoCard(
               context,
-              title: 'Toronto Hidden Gems 🍁',
+              title: 'The Toronto App 🍁',
               subtitle: 'Discover the best of Toronto',
               icon: Icons.location_city_rounded,
               color: theme.primaryColor,
@@ -414,7 +414,7 @@ class SettingsScreen extends StatelessWidget {
     
     final uri = Uri(
       scheme: 'mailto',
-      path: 'support@torontohiddengems.app',
+                      path: 'support@torontoapp.com',
       query: 'subject=$subject&body=$body',
     );
     
@@ -426,7 +426,7 @@ class SettingsScreen extends StatelessWidget {
   void _showLicensePage(BuildContext context) {
     showLicensePage(
       context: context,
-      applicationName: 'Toronto Hidden Gems',
+                      applicationName: 'The Toronto App',
       applicationVersion: '1.0.0',
       applicationIcon: Container(
         width: 64,

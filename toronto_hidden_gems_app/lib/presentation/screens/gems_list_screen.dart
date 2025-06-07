@@ -166,7 +166,7 @@ class _GemsListScreenState extends State<GemsListScreen> {
                         ),
                         const SizedBox(height: 16),
                         Text(
-                          'Loading Toronto\'s hidden gems...',
+                          'Loading Toronto\'s gems...',
                           style: theme.textTheme.titleMedium?.copyWith(
                             fontWeight: FontWeight.w600,
                           ),

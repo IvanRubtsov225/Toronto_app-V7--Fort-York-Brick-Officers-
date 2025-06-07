@@ -34,7 +34,7 @@ class ApiService {
   static const Map<String, String> headers = {
     'Content-Type': 'application/json',
     'Accept': 'application/json',
-    'User-Agent': 'TorontoHiddenGemsApp/1.0',
+    'User-Agent': 'TorontoApp/1.0',
   };
 
   // Helper method to handle HTTP requests with multiple URL attempts

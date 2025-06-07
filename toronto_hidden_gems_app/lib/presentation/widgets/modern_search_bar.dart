@@ -211,7 +211,7 @@ class _ModernSearchBarState extends State<ModernSearchBar>
                       fontWeight: FontWeight.w500,
                     ),
                     decoration: InputDecoration(
-                      hintText: 'Search Toronto\'s hidden gems...',
+                      hintText: 'Search Toronto\'s gems...',
                       hintStyle: TextStyle(
                         color: Colors.grey[500],
                         fontSize: 16,
